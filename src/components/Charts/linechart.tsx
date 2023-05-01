@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Highcharts from 'highcharts';
+import Highcharts, { setOptions } from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import { ResponseData } from '@/app/api/riskdata/route';
 import { FormControl, Select, MenuItem, SelectChangeEvent, InputLabel } from '@mui/material';
@@ -7,11 +7,10 @@ import ChevronDownIcon from '@mui/icons-material/ArrowDropDown';
 import { styled } from '@mui/material/styles';
 import { highchartsTheme } from './theme';
 import MY_APP_BASE_URL from '../../../config';
+import DarkGreen from 'highcharts/themes/dark-green';
 
 
 const LineChart = () => {
-    Highcharts.setOptions(highchartsTheme);
-
     const [selectedAssetFilter, setSelectedAssetFilter] = useState('');
     const [selectedAssetLabel, setSelectedAssetLabel] = useState('none');
     const [selectedBusinessCategoryLabel, setSelectedBusinessCategoryLabel] = useState('Energy');
@@ -132,7 +131,7 @@ const LineChart = () => {
         color: 'white',
         fill: 'white'
       });
-      
+    
     return (
     <div>
           <div style={{ display: 'flex', flexDirection: 'row' }}>

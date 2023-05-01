@@ -5,17 +5,15 @@ import topology from '@/components/Charts/maps/topology.json';
 import highchartsMap from 'highcharts/modules/map';
 import { ResponseData } from '@/app/api/riskdata/route';
 import { Typography, styled } from '@mui/material';
-import { highchartsTheme } from '../theme';
 import { FormControl, Select, MenuItem, SelectChangeEvent, InputLabel } from '@mui/material';
 import ChevronDownIcon from '@mui/icons-material/ArrowDropDown';
 import MY_APP_BASE_URL from '../../../../config';
+import sunset from 'highcharts/themes/dark-green';
 
-declare function showLoading(): void;
-declare function hideLoading(): void;
-Highcharts.setOptions(highchartsTheme);
+
 highchartsMap(Highcharts);
-
 const MapChart = () => {
+
   //data fetching
   const [selectedDecadeFilter, setSelectedDecadeFilter] = useState('');
   const [selectedDecadeLabel, setSelectedDecadeLabel] = useState('all');
@@ -218,6 +216,7 @@ const MapChart = () => {
     color: 'white',
     fill: 'white'
   });
+
 return (
   <div style={{ background: '#242F39', width: '100%'}}>  
     <div style={{ background: 'black', display: 'flex', flexDirection: 'column', justifyContent: 'center', borderColor: 'secondary' }}>

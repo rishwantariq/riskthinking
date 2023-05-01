@@ -9,7 +9,6 @@ import ShortBanner from '@/components/shortBanner';
 import LegendToggleIcon from '@mui/icons-material/LegendToggle';
 import PanToolAltIcon from '@mui/icons-material/PanToolAlt';
 import RoomIcon from '@mui/icons-material/Room';
-import FunctionsOutlinedIcon from '@mui/icons-material/FunctionsOutlined';
 
 export default function Page() {
     const mapsRef = useRef<HTMLDivElement>(null);

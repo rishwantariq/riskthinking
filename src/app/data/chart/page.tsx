@@ -1,10 +1,7 @@
 'use client';
 import Box from '@mui/material/Box';
-import FilterListIcon from '@mui/icons-material/FilterList';
-import { useRef } from 'react';
-import { Typography } from '@mui/material';
 import LineChart from '@/components/Charts/linechart';
-import MapChart from '@/components/Charts/maps/map';
+
 export default function Page() {
     return (
         <>

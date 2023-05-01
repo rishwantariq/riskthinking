@@ -1,3 +1,4 @@
+
 export const highchartsTheme = 
 {
   "colors": ["#A9CF54", "#C23C2A", "#FFFFFF", "#979797", "#FBB829"],
