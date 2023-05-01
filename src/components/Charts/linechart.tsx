@@ -7,7 +7,6 @@ import ChevronDownIcon from '@mui/icons-material/ArrowDropDown';
 import { styled } from '@mui/material/styles';
 import { highchartsTheme } from './theme';
 import MY_APP_BASE_URL from '../../../config';
-import DarkGreen from 'highcharts/themes/dark-green';
 
 
 const LineChart = () => {

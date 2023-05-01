@@ -4542,6 +4542,11 @@
   dependencies:
     "any-promise" "^1.0.0"
 
+"three@^0.152.2":
+  "integrity" "sha512-Ff9zIpSfkkqcBcpdiFo2f35vA9ZucO+N8TNacJOqaEE6DrB0eufItVMib8bK8Pcju/ZNT6a7blE1GhTpkdsILw=="
+  "resolved" "https://registry.npmjs.org/three/-/three-0.152.2.tgz"
+  "version" "0.152.2"
+
 "tiny-glob@^0.2.9":
   "integrity" "sha512-g/55ssRPUjShh+xkfx9UPDXqhckHEsHr4Vd9zX55oSdGZc/MD0m3sferOkwWtp98bv+kcVfEHtRJgBVJzelrzg=="
   "resolved" "https://registry.npmjs.org/tiny-glob/-/tiny-glob-0.2.9.tgz"

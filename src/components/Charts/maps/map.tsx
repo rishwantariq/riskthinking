@@ -1,3 +1,4 @@
+'use client'
 import React, { useState, useEffect, useMemo } from 'react';
 import HighchartsReact from 'highcharts-react-official';
 import Highcharts from 'highcharts';
@@ -5,13 +6,14 @@ import topology from '@/components/Charts/maps/topology.json';
 import highchartsMap from 'highcharts/modules/map';
 import { ResponseData } from '@/app/api/riskdata/route';
 import { Typography, styled } from '@mui/material';
-import { FormControl, Select, MenuItem, SelectChangeEvent, InputLabel } from '@mui/material';
+import { FormControl, Select, MenuItem } from '@mui/material';
 import ChevronDownIcon from '@mui/icons-material/ArrowDropDown';
 import MY_APP_BASE_URL from '../../../../config';
-import sunset from 'highcharts/themes/dark-green';
 
 
-highchartsMap(Highcharts);
+if (typeof Highcharts === 'object') {
+  highchartsMap(Highcharts); // initialize the highchartsMap module
+}
 const MapChart = () => {
 
   //data fetching
@@ -217,7 +219,7 @@ const MapChart = () => {
     fill: 'white'
   });
 
-return (
+  return (
   <div style={{ background: '#242F39', width: '100%'}}>  
     <div style={{ background: 'black', display: 'flex', flexDirection: 'column', justifyContent: 'center', borderColor: 'secondary' }}>
       <div style={{ marginBottom: '2%', width: '100%' }}>
