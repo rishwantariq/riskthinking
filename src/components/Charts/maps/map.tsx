@@ -10,6 +10,8 @@ import { FormControl, Select, MenuItem, SelectChangeEvent, InputLabel } from '@m
 import ChevronDownIcon from '@mui/icons-material/ArrowDropDown';
 import MY_APP_BASE_URL from '../../../../config';
 
+declare function showLoading(): void;
+declare function hideLoading(): void;
 Highcharts.setOptions(highchartsTheme);
 highchartsMap(Highcharts);
 
@@ -41,8 +43,7 @@ const MapChart = () => {
     }
   };
   
-    const groupedData = {};
-    console.log(data.Data.length);
+    const groupedData: {[key: string]: {riskSum: number, count: number, lat: number, long: number, businessCategory: string, year: number}} = {};
     data.Data.forEach(item => {
         if (!groupedData[item.assetName]) {
         groupedData[item.assetName] = {
@@ -97,15 +98,13 @@ const MapChart = () => {
       map: topology,
       height: 600, // set the height to 600 pixels
       events: {
-      load: function () {
-          if (loading)
-          {
-              this.showLoading();
-          }
-          else {
+        load(this: Highcharts.Chart): void {
+          if (loading) {
+            this.showLoading();
+          } else {
             this.hideLoading();
           }
-        },
+        }
       },
     },
     title: {
@@ -126,12 +125,14 @@ const MapChart = () => {
       enabled: true,
     },
     tooltip: {
-      formatter: function () {
+      formatter: function (this: Highcharts.TooltipFormatterContextObject) {
+        const point = this.point as Highcharts.Point & { riskRating: number, lon: number, lat: number, name: String};
+
         return `<div>
-                  <Typography variant="h6" style="margin-bottom: 5px;"><b>${this.point.name}</b></Typography></br>
-                  <Typography style="margin-bottom: 5px;">Lat: ${this.point.lat.toFixed(2)}</Typography>
-                  <Typography style="margin-bottom: 5px;">Lon: ${this.point.lon.toFixed(2)}</Typography></br>
-                  <Typography><b>${this.point.riskRating}%</b></Typography>
+                  <Typography variant="h6" style="margin-bottom: 5px;"><b>${point.name}</b></Typography></br>
+                  <Typography style="margin-bottom: 5px;">Lat: ${point.lat.toFixed(2)}</Typography>
+                  <Typography style="margin-bottom: 5px;">Lon: ${point.lon.toFixed(2)}</Typography></br>
+                  <Typography><b>${point.riskRating}%</b></Typography>
                 </div>`;
       },
     },
@@ -204,7 +205,7 @@ const MapChart = () => {
     ],
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
     setSelectedDecadeFilter(encodeURIComponent(`Year:${e.target.value}`));
     setSelectedDecadeLabel(e.target.value);
     if (e.target.value === 'all') {

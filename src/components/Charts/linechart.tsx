@@ -48,7 +48,7 @@ const LineChart = () => {
     //const assetNames = [...new Set(data.Data.map(item => item.assetName))];
         
     // perform data aggregation for selected country
-    const groupedData = {};
+    const groupedData: {[key: string]: {riskSum: number, count: number}} = {};
     data.Data.forEach(item => {
         if (!groupedData[item.year]) {
         groupedData[item.year] = {
@@ -78,26 +78,26 @@ const LineChart = () => {
         },
         allowDecimals: false,
         labels: {
-            formatter: function () {
+            formatter: function (this: { value: number }) {
                 return this.value;
             }
         }
         },
         yAxis: {
         title: {
-            text: 'Age',
+            text: 'Risk %',
         },
         allowDecimals: false,
         min: 0,
         labels: {
-            formatter: function () {
-            return this.value;
+            formatter: function (this: { value: number }) {
+                return this.value;
             }
         }
         },
         series: [
         {
-            name: 'Age',
+            name: 'Risk',
             data: aggregatedData
         }
         ],

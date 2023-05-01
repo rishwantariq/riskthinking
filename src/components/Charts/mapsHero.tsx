@@ -1,7 +1,10 @@
-import React from "react";
+import React, { RefObject } from 'react';
 import { Box, Button, Container, Typography } from "@mui/material";
 
-const MapsHero = ({ targetRef }) => {
+interface MapsHeroProps {
+  targetRef: RefObject<HTMLDivElement>;
+}
+const MapsHero = (targetRef: MapsHeroProps) => {
   const handleClick = () => {
     window.scrollTo({
       top: window.innerHeight,
@@ -9,9 +12,9 @@ const MapsHero = ({ targetRef }) => {
     });
   };
   const handleTableClick = () => {
-    if (targetRef.current) {
+    if (targetRef.targetRef.current) {
       window.scrollTo({
-          top: targetRef.current.offsetTop,
+          top: targetRef.targetRef.current.offsetTop,
           behavior: 'smooth',
     });
   }
