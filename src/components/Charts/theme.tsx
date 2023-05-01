@@ -9,8 +9,6 @@ export const highchartsTheme =
   },
   "legend": {
     "enabled": true,
-    "align": "right",
-    "verticalAlign": "bottom",
     "itemStyle": {
       "color": "#C0C0C0"
     },
@@ -22,7 +20,6 @@ export const highchartsTheme =
     }
   },
   "title": {
-    "text": {},
     "style": {
       "color": "#FFFFFF"
     }
@@ -30,8 +27,8 @@ export const highchartsTheme =
   "tooltip": {
     "backgroundColor": "#1C242D",
     "borderColor": "#1C242D",
-    "borderWidth": 1,
-    "borderRadius": 0,
+    "borderWidth": '1',
+    "borderRadius": 1,
     "style": {
       "color": "#FFFFFF"
     }
@@ -55,7 +52,6 @@ export const highchartsTheme =
       "style": {
         "color": "#FFFFFF"
       },
-      "text": {}
     }
   },
   "yAxis": {
@@ -71,7 +67,6 @@ export const highchartsTheme =
         "style": {
           "color": "#FFFFFF"
         },
-        "text": {}
       }
     }
   }

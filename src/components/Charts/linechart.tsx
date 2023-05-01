@@ -8,9 +8,10 @@ import { styled } from '@mui/material/styles';
 import { highchartsTheme } from './theme';
 import MY_APP_BASE_URL from '../../../config';
 
-Highcharts.setOptions(highchartsTheme);
 
 const LineChart = () => {
+    Highcharts.setOptions(highchartsTheme);
+
     const [selectedAssetFilter, setSelectedAssetFilter] = useState('');
     const [selectedAssetLabel, setSelectedAssetLabel] = useState('none');
     const [selectedBusinessCategoryLabel, setSelectedBusinessCategoryLabel] = useState('Energy');
