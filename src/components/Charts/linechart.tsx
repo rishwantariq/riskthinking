@@ -31,7 +31,7 @@ const LineChart = () => {
         const res = await fetch(`${MY_APP_BASE_URL}/api/riskdata?filter=${selectedBusinessCategoryFilter}|${selectedAssetFilter}`);
         const data: ResponseData = await res.json();
         setData(data);
-        setAssetLabels([...new Set(data.Data.map(item => item.assetName))]);
+        setAssetLabels([...data.Data.map(item => item.assetName)].filter((value, index, self) => self.indexOf(value) === index)        );
         setTotalPages(Number(data.totalPages));
         setLoading(false);
         } catch (error) {
