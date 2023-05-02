@@ -9,9 +9,19 @@ import ShortBanner from '@/components/shortBanner';
 import LegendToggleIcon from '@mui/icons-material/LegendToggle';
 import PanToolAltIcon from '@mui/icons-material/PanToolAlt';
 import RoomIcon from '@mui/icons-material/Room';
+import { useInView } from 'react-intersection-observer';
+import { useSpring, animated } from 'react-spring';
+
 
 export default function Page() {
     const mapsRef = useRef<HTMLDivElement>(null);
+    const { ref, inView } = useInView();
+    const spring = useSpring({
+      opacity: inView ? 1 : 0,
+      from: { opacity: 0 },
+      config: { duration: 800 },
+    });
+  
     const gridData = [
         {
           icon: <PanToolAltIcon color="primary" style={{ fontSize: '5rem', marginBottom: 5 }} />,
@@ -33,32 +43,31 @@ export default function Page() {
 
     return (
         <>
-        <div style={{background: 'black', width: 'screen', height: 'screen'}}> 
-            <Box sx={{ background: 'black', textAlign: 'center', maxWidth: 'screen', height: 'screen',  paddingTop: '5px', borderRadius: '20px' }}>
+        <div style={{ background: 'black', width: '100%', height: 'screen'}}> 
+            `<Box sx={{ background: 'black', textAlign: 'center', maxWidth: 'screen', height: 'screen',  paddingTop: '5px', borderRadius: '20px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <div>
                         <MapsHero targetRef={mapsRef} />
-                        <Divider style={{ width:'1000px', marginLeft: 'auto', marginRight: 'auto', background: 'gray', marginTop: '2%', marginBottom: '2%'}}/>
+                        <Divider style={{ width:'auto', marginLeft: 'auto', marginRight: 'auto', background: 'gray', marginTop: '2%', marginBottom: '2%'}}/>
                         <Typography variant='h1'>Usage</Typography>
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '5%', gap: '20px' }}>
-                            <ShortBanner gridData={gridData} />
-                            <div style={{ marginTop: '5%' }}>
-                                <Typography mb={'2%'} variant='h3'>Key</Typography>
+                            <div style={{ marginTop: '0%', marginBottom: '5%' }}>
                                 <ColorPalette />
                             </div>
+                            <ShortBanner gridData={gridData} />
                         </div>
-                    </div>
-                    <Divider style={{ width:'1000px', marginLeft: 'auto', marginRight: 'auto', background: 'gray', marginTop: '2%', marginBottom: '2%'}}/>
-                    <Typography mb={'1%'} variant='h1'>Risk Map</Typography>
-                    <Typography mb={'5%'} fontWeight={'regular'} variant='h4'>Powered by Highcharts</Typography>
+                        <Divider style={{ width:'auto', marginLeft: 'auto', marginRight: 'auto', background: 'gray', marginTop: '2%', marginBottom: '2%'}}/>
 
-                    <div style={{ display: 'flex' }}>
                     </div>
-                    <div ref={mapsRef} style={{ paddingLeft: '20px', paddingRight: '20px', marginLeft: '60px', marginRight: '60px'}}>
-                        <MapChart />
-                    </div>
+                        <div ref={mapsRef} style={{ background: 'black', marginBottom: '2%'}}>    
+                            <Typography mb={'1%'} variant='h1'>Risk Map</Typography>
+                            <Typography mb={'5%'} fontWeight={'regular'} variant='h4'>Powered by Highcharts</Typography>
+                            <animated.div ref={ref} style={{ paddingLeft: '20px', paddingRight: '20px', marginLeft: '60px', marginRight: '60px', ...spring}}>
+                                <MapChart />
+                            </animated.div >
+                        </div>
                 </div>
-            </Box>
+            </Box>`
         </div>
         </>
     );

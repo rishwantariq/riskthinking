@@ -9,13 +9,13 @@ import { Typography, styled } from '@mui/material';
 import { FormControl, Select, MenuItem } from '@mui/material';
 import ChevronDownIcon from '@mui/icons-material/ArrowDropDown';
 import MY_APP_BASE_URL from '../../../../config';
+import Cards from '@/components/cards';
 
 
 if (typeof Highcharts === 'object') {
   highchartsMap(Highcharts); // initialize the highchartsMap module
 }
 const MapChart = () => {
-
   //data fetching
   const [selectedDecadeFilter, setSelectedDecadeFilter] = useState('');
   const [selectedDecadeLabel, setSelectedDecadeLabel] = useState('all');
@@ -67,9 +67,8 @@ const MapChart = () => {
         businessCategory: groupedData[item].businessCategory,
         year: groupedData[item].year,
   }));
-  console.log(aggregatedData);
+
   
-  console.log(aggregatedData.length)
   const mappedData = aggregatedData.map(item => ({
     lat: item.lat,
     long: item.long,
@@ -78,8 +77,12 @@ const MapChart = () => {
     year: item.year,
     clusterPointsAmount: Number((item.riskRating * 100).toFixed(0)),
     isCluster: true
-  })).splice(0, 200);
+  }));
   
+  const sortedTopThree = mappedData.sort((a, b) => Number(b.riskRating) - Number(a.riskRating))
+  .splice(0, 3)
+  .map(({ name, lat, long, riskRating }) => ({ assetName: name, latitude: lat, longitude: long, risk: Number(riskRating) }));
+
 
   const memoizedPageData = useMemo(() => {
     return fetchPageData();
@@ -220,48 +223,51 @@ const MapChart = () => {
   });
 
   return (
-  <div style={{ background: '#242F39', width: '100%'}}>  
-    <div style={{ background: 'black', display: 'flex', flexDirection: 'column', justifyContent: 'center', borderColor: 'secondary' }}>
-      <div style={{ marginBottom: '2%', width: '100%' }}>
-        <div>
-          <div style={{ background: '#242F39', display: 'flex', borderTopLeftRadius: '20px', borderTopRightRadius: '20px', justifyContent: 'space-between', width: '100%', border: '1px solid #495262' }}>
-                <img style={{width: '250px', height: '120px'}} src="https://imgtr.ee/images/2023/04/27/JMcWb.png" alt="" />
-                <div>
-                    <Typography fontWeight={'regular'} mt={2} variant='h4'>Select Decade</Typography>
-                    <FormControl
-                      variant="outlined"
-                      color="secondary"
-                      sx={{
-                        m: 1,
-                        mt: '-2px',
-                        minWidth: 20,
-                        borderRadius: "50px",
-                        padding: "14px 40px",
-                        width: "200px",
-                        marginBottom: "5%",
-                        borderColor: "secondary.main",
-                        "& label": {
-                          color: "secondary.main"
-                        },
-                        "& fieldset": {
-                          borderColor: "secondary.main"
-                        }
-                      }}
-                      size="small"  
-                    > 
-                    <Select sx={{ borderRadius: '20px' }} color='secondary' id="all" name="all" value={selectedDecadeLabel} onChange={handleChange} IconComponent={WhiteArrowIcon}>
-                      <MenuItem value="all">All Years</MenuItem>
-                      {years.map(year => (
-                      <MenuItem key={year} value={year}>{year}</MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-              </div>
+    <div style={{ background: 'black', width: '100%' }}> 
+      <div style={{ display: 'flex' , justifyContent: 'center', gap: '8%', marginBottom: '4%'}}>
+        <Cards data={sortedTopThree}/>
+      </div>    
+      <div style={{ background: 'black', display: 'flex', flexDirection: 'column', justifyContent: 'center', borderColor: 'secondary' }}>
+        <div style={{ width: '100%' }}>
+          <div>
+            <div style={{ background: '#242F39', display: 'flex', borderTopLeftRadius: '20px', borderTopRightRadius: '20px', justifyContent: 'space-between', width: '100%', border: '1px solid #495262' }}>
+                  <img style={{width: '250px', height: '120px'}} src="https://imgtr.ee/images/2023/04/27/JMcWb.png" alt="" />
+                  <div>
+                      <Typography fontWeight={'regular'} mt={2} variant='h4'>Select Decade</Typography>
+                      <FormControl
+                        variant="outlined"
+                        color="secondary"
+                        sx={{
+                          m: 1,
+                          mt: '-2px',
+                          minWidth: 20,
+                          borderRadius: "50px",
+                          padding: "14px 40px",
+                          width: "200px",
+                          marginBottom: "5%",
+                          borderColor: "secondary.main",
+                          "& label": {
+                            color: "secondary.main"
+                          },
+                          "& fieldset": {
+                            borderColor: "secondary.main"
+                          }
+                        }}
+                        size="small"  
+                      > 
+                      <Select sx={{ borderRadius: '20px' }} color='secondary' id="all" name="all" value={selectedDecadeLabel} onChange={handleChange} IconComponent={WhiteArrowIcon}>
+                        <MenuItem value="all">All Years</MenuItem>
+                        {years.map(year => (
+                        <MenuItem key={year} value={year}>{year}</MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                </div>
+            </div>
           </div>
+          <HighchartsReact immutable={true} highcharts={Highcharts} options={options} constructorType={'mapChart'} />
         </div>
-        <HighchartsReact immutable={true} highcharts={Highcharts} options={options} constructorType={'mapChart'} />
       </div>
-    </div>
   </div>
     );
 };

@@ -37,9 +37,11 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-infinite-ticker": "^2.1.1",
+    "react-intersection-observer": "^9.4.3",
     "react-material-ui-carousel": "^3.4.2",
     "react-responsive-carousel": "^3.2.23",
     "react-slick": "^0.29.0",
+    "react-spring": "^9.7.1",
     "three": "^0.152.2",
     "typescript": "5.0.4",
     "xlsx": "^0.18.5"

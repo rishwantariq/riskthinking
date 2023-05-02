@@ -1,15 +1,6 @@
 'use client';
 import { Datatable } from '@/components/DataTable/datatable';
-import DatatableHero from '@/components/DataTable/datatableHero';
-import Box from '@mui/material/Box';
-import SortIcon from '@mui/icons-material/Sort';
-import FilterListIcon from '@mui/icons-material/FilterList';
-import SearchIcon from '@mui/icons-material/Search';
-import TableRowsIcon from '@mui/icons-material/TableRows';
-import PercentIcon from '@mui/icons-material/Percent';
-import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import { useRef } from 'react';
-import { Typography } from '@mui/material';
 
 
 export default function Page() {

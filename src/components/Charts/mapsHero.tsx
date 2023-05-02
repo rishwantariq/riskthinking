@@ -4,6 +4,7 @@ import { Box, Button, Container, Typography } from "@mui/material";
 interface MapsHeroProps {
   targetRef: RefObject<HTMLDivElement>;
 }
+
 const MapsHero = (targetRef: MapsHeroProps) => {
   const handleClick = () => {
     window.scrollTo({
