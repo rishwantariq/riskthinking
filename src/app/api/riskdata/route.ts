@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import * as XLSX from "xlsx";
+import path from 'path';
 
 export interface RiskFactor {
   number: number,
@@ -68,8 +69,8 @@ export async function GET(request: NextRequest) {
   //Data Processing
 async function parseData(startIndex: number, endIndex: number, perPage: number, filters: FilterParams = {}) {
     //read dataset
-  const publicPath = process.env.PUBLIC_PATH;
-  const workbook = XLSX.readFile(`${process.env.PUBLIC_FOLDER_PATH}/UI_UX Developer Work Sample Data.xlsx`);
+  const filePath = path.join(__dirname, 'public', 'UI_UX Developer Work Sample Data.xlsx');
+  const workbook = XLSX.readFile(`${filePath}`);
   const worksheet = workbook.Sheets["sample_data"];
   const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1 }) as string[][];
   var pageSize = endIndex - startIndex + 1;
