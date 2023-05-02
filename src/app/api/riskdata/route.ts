@@ -1,8 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import * as XLSX from "xlsx";
-import opencage  from 'opencage-api-client';
-import { reverseGeoCode } from '@/API/openmap';
-import GeocodingService  from '@mapbox/mapbox-sdk/services/geocoding';
 
 export interface RiskFactor {
   number: number,
