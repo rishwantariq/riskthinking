@@ -71,8 +71,8 @@ export async function GET(request: NextRequest) {
   //Data Processing
 async function parseData(startIndex: number, endIndex: number, perPage: number, filters: FilterParams = {}) {
     //read dataset
-    const workbook = XLSX.readFile(`${process.cwd()}/public/UI_UX Developer Work Sample Data.xlsx`);
-    const worksheet = workbook.Sheets["sample_data"];
+  const publicPath = process.env.PUBLIC_PATH;
+  const workbook = XLSX.readFile(`${publicPath}/public/UI_UX Developer Work Sample Data.xlsx`);    const worksheet = workbook.Sheets["sample_data"];
   const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1 }) as string[][];
   var pageSize = endIndex - startIndex + 1;
   var selectedRows = rows; // get paginated data
