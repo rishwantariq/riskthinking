@@ -18,13 +18,10 @@ export default function Page() {
 
     return (
       <>
-        <div style={{background: 'black', width: 'screen', height: 'scren'}}>
-            <Box sx={{ background: 'black', marginTop: '4%', textAlign: 'center', maxWidth: 'screen', paddingTop: '5px', paddingLeft: '10px', paddingRight: '10px', marginLeft: '10px', marginRight: '10px', marginBottom: '20px', borderRadius: '20px' }}>
+        <div style={{background: 'black', marginBottom: '1%', marginTop: '3%', width: 'screen', height: 'scren'}}>
                 <div style={{height: 'screen', marginTop: '-1%', marginBottom: '1%' }} ref={tablRef}>
                     <Datatable />
                 </div>
-                
-            </Box>
           </div>
         </>
     );
