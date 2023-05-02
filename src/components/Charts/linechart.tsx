@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Highcharts, { setOptions } from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import { ResponseData } from '@/app/api/riskdata/route';
-import { FormControl, Select, MenuItem, SelectChangeEvent, InputLabel } from '@mui/material';
+import { FormControl, Select, MenuItem, SelectChangeEvent, InputLabel, Typography } from '@mui/material';
 import ChevronDownIcon from '@mui/icons-material/ArrowDropDown';
 import { styled } from '@mui/material/styles';
 import { highchartsTheme } from './theme';
@@ -133,29 +133,77 @@ const LineChart = () => {
     
     return (
     <div>
-          <div style={{ display: 'flex', flexDirection: 'row' }}>
-              <div>
-                  <FormControl sx={{ m: 1, minWidth: 120, backgroundColor: '#1c2e4a', borderColor: 'secondary', borderRadius: '20px' }} size="small">    
-                        <Select sx={{borderRadius: '20px'}}  color='secondary' id="category" name="category" value={selectedBusinessCategoryLabel} onChange={handleBusinessCategoryChange} IconComponent={WhiteArrowIcon}>
-                            <MenuItem value="all">All Categories</MenuItem>
-                            {businessCategories.map(category => (
-                            <MenuItem key={category} value={category}>{category}</MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                </div>
-              <div>
-                    <FormControl sx={{ m: 1, minWidth: 120 }} size="small">    
-                        <Select id="assetName" name="assetName" value={selectedAssetLabel} onChange={handleAssetNameChange}>
-                                <MenuItem value="none">No Asset Selected</MenuItem>
+        <div style={{ background: '#242F39', display: 'flex', borderTopLeftRadius: '20px', borderTopRightRadius: '20px', justifyContent: 'space-between', width: '100%', border: '1px solid #495262', flexWrap: 'wrap' }}>
+            <img style={{ width: '250px', height: '120px', marginBottom: '2%' }} src="https://imgtr.ee/images/2023/04/27/JMcWb.png" alt="" />
+                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                    <div>
+                        <FormControl
+                            variant="outlined"
+                            color="secondary"
+                            sx={{
+                            m: 0,
+                            minWidth: 20,
+                            borderRadius: "50px",
+                            padding: "14px",
+                            width: "200px",
+                            marginBottom: "5%",
+                            maringRight: '-40px',
+                            borderColor: "secondary.main",
+                            "& label": {
+                            color: "secondary.main"
+                            },
+                            "& fieldset": {
+                            borderColor: "secondary.main"
+                            }
+                        }}
+                        size="small"
+                        > 
+                            <Typography fontWeight={'medium'} align='center' mb={3} variant='h4'></Typography>
+                            <Select sx={{borderRadius: '20px'}} color='secondary' id="category" name="category" value={selectedAssetLabel} onChange={handleAssetNameChange} IconComponent={WhiteArrowIcon}>
+                                <MenuItem value="none">No Assets selected</MenuItem>
                                 {assetLabels.map(asset => (
-                                    <MenuItem key={asset} value={asset}>{asset}</MenuItem>
+                                <MenuItem key={asset} value={asset}>{asset}</MenuItem>
                                 ))}
-                        </Select>
-                    </FormControl>
+                            </Select>
+                        </FormControl>
+                    </div>
+                    <div>
+                        <FormControl
+                        variant="outlined"
+                        color="secondary"
+                        sx={{
+                            m: 0,
+                            minWidth: 20,
+                            borderRadius: "50px",
+                            padding: "14px 40px",
+                            width: "200px",
+                            borderColor: "secondary.main",
+                            "& label": {
+                            color: "secondary.main"
+                            },
+                            "& fieldset": {
+                            borderColor: "secondary.main"
+                            }
+                        }}
+                        size="small"
+                        > 
+                            <Typography fontWeight={'medium'} align='center' mb={3} variant='h4'></Typography>
+                            <Select sx={{borderRadius: '20px'}} color='secondary' id="category" name="category" value={selectedBusinessCategoryLabel} onChange={handleBusinessCategoryChange} IconComponent={WhiteArrowIcon}>
+                                <MenuItem value="all">All Categories</MenuItem>
+                                {businessCategories.map(category => (
+                                <MenuItem key={category} value={category}>{category}</MenuItem>
+                                ))}
+                            </Select> 
+                        </FormControl>
+                     </div>
                 </div>
-        </div>
-          <HighchartsReact highcharts={Highcharts} options={options} theme={highchartsTheme} />
+            </div>
+        <HighchartsReact highcharts={Highcharts} options={options} theme={highchartsTheme} />
+        <HighchartsReact
+            highcharts={Highcharts}
+            options={{ ...options, chart: { type: 'bar' } }}
+            theme={highchartsTheme}
+        />
     </div>
   );
 };

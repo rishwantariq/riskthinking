@@ -22,7 +22,7 @@ const palette = {
       main: '#f1c40f',
     },
     info: {
-      main: '#3498db',
+      main: '#000000',
     },
     success: {
       main: '#2ecc71',

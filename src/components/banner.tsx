@@ -1,27 +1,28 @@
 import React from 'react';
 import Carousel from 'react-material-ui-carousel';
-import { Paper, Button, ThemeProvider, Typography } from '@mui/material';
+import { Paper, Button, ThemeProvider, Typography, Link } from '@mui/material';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+
 
 const items = [
-  {
-    name: 'Visualize Data',
-    description: 'Data Visualization made easy with various metrics put together in insightful data visualizations',
-    image: 'https://imgtr.ee/images/2023/04/25/8mQez.png'
-    },
+
     {
         name: 'RiskView',
         description: 'Dive Into Your Data with Our Interactive Data Table',
-        image: 'https://imgtr.ee/images/2023/04/25/8mmWi.png'
+        image: 'https://imgtr.ee/images/2023/04/25/8mmWi.png',
+        link: '/data/riskview'
       },
     {
-        name: 'Chart Your Progress',
-        description: 'Uncover Trends and Patterns with our Powerful & Insightful Charting Tools"',
-        image: 'https://imgtr.ee/images/2023/04/25/8mL6c.png'
+        name: 'SectorWatch',
+        description: 'Uncover Trends and Patterns with our Powerful & Insightful Charting Tool."',
+        image: 'https://imgtr.ee/images/2023/04/25/8mL6c.png',
+        link: '/data/chart'
     },
     {
         name: 'Geo Discoveries',
         description: 'Discover Global Insights: Navigate Your Data with our Interactive Geographical Visualization',
-        image: 'https://imgtr.ee/images/2023/04/25/8ZiPn.png'
+      image: 'https://imgtr.ee/images/2023/04/25/8ZiPn.png',
+      link: '/data/map'
     }
 ];
 
@@ -52,7 +53,9 @@ function Banner(_props: any) {
   );
 }
 
-function Item(props: { item: { name: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined; description: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined; image: string | undefined; }; }) {
+function Item(props: { item: {
+  link: string | undefined; name: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined; description: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined; image: string | undefined; 
+}; }) {
   return (
     <Paper style={{ height: '80vh', position: 'relative' }}>
       <div style={{ display:'flex', flexDirection: 'column', position: 'absolute', left: 0, top: 0, width: '50%', height: '100%' }}>
@@ -60,19 +63,23 @@ function Item(props: { item: { name: string | number | boolean | React.ReactElem
           <Typography variant='h1' color='text.primary' sx={{ fontWeight: 'bold', marginBottom: '16px' }}>{props.item.name}</Typography>
           <Typography variant='h4' color='text.secondary' sx={{ fontWeight: 'light', marginBottom: '24px' }}>{props.item.description}</Typography>
           <div style={{width:'30%', marginRight:'auto', marginLeft: 'auto', alignItems: 'center'}}>
-          <Button
-            variant="outlined"
-            color="secondary"
-            style={{
+          <Link href={props.item.link} target="_blank" >
+              <Button
+              variant="outlined"
+              color="secondary"
+              endIcon={<ChevronRightIcon />}
+              style={{
               borderRadius: "50px",
               padding: "14px 40px",
-            }}
-          >
-            Try Out
-            </Button>
-          </div>
+              width: '100%',
+              marginRight: '20px',
+              marginBottom: '5%'
+              }}>
+                  Try Now
+              </Button>
+            </Link>      
          </div>
-       
+       </div>
       </div>
       <div style={{ position: 'absolute', right: 0, top: 0, width: '50%', height: '100%' }}>
         <img src={props.item.image} style={{ objectFit: 'cover', width: '100%', height: '100%' }} />

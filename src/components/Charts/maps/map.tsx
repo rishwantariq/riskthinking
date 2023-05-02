@@ -224,51 +224,51 @@ const MapChart = () => {
 
   return (
     <div style={{ background: 'black', width: '100%' }}> 
-      <div style={{ display: 'flex' , justifyContent: 'center', gap: '8%', marginBottom: '4%'}}>
-        <Cards data={sortedTopThree}/>
-      </div>    
+        <div style={{ display: 'flex' , justifyContent: 'center', gap: '8%', marginBottom: '4%', flexWrap: 'wrap' }}>
+          <Cards data={sortedTopThree}/>
+        </div>    
       <div style={{ background: 'black', display: 'flex', flexDirection: 'column', justifyContent: 'center', borderColor: 'secondary' }}>
         <div style={{ width: '100%' }}>
-          <div>
-            <div style={{ background: '#242F39', display: 'flex', borderTopLeftRadius: '20px', borderTopRightRadius: '20px', justifyContent: 'space-between', width: '100%', border: '1px solid #495262' }}>
-                  <img style={{width: '250px', height: '120px'}} src="https://imgtr.ee/images/2023/04/27/JMcWb.png" alt="" />
-                  <div>
-                      <Typography fontWeight={'regular'} mt={2} variant='h4'>Select Decade</Typography>
-                      <FormControl
-                        variant="outlined"
-                        color="secondary"
-                        sx={{
-                          m: 1,
-                          mt: '-2px',
-                          minWidth: 20,
-                          borderRadius: "50px",
-                          padding: "14px 40px",
-                          width: "200px",
-                          marginBottom: "5%",
-                          borderColor: "secondary.main",
-                          "& label": {
-                            color: "secondary.main"
-                          },
-                          "& fieldset": {
-                            borderColor: "secondary.main"
-                          }
-                        }}
-                        size="small"  
-                      > 
-                      <Select sx={{ borderRadius: '20px' }} color='secondary' id="all" name="all" value={selectedDecadeLabel} onChange={handleChange} IconComponent={WhiteArrowIcon}>
-                        <MenuItem value="all">All Years</MenuItem>
-                        {years.map(year => (
-                        <MenuItem key={year} value={year}>{year}</MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                </div>
+            <div>
+              <div style={{ background: '#242F39', display: 'flex', borderTopLeftRadius: '20px', borderTopRightRadius: '20px', justifyContent: 'space-between', width: '100%', border: '1px solid #495262', flexWrap: 'wrap' }}>
+                <img style={{width: '250px', height: '120px', marginBottom: '2%'}} src="https://imgtr.ee/images/2023/04/27/JMcWb.png" alt="" />
+                <div>
+                  <Typography fontWeight={'medium'} mt={2} variant='h4'>Select Decade</Typography>
+                  <FormControl
+                    variant="outlined"
+                    color="secondary"
+                    sx={{
+                      m: 1,
+                      mt: '-2px',
+                      minWidth: 20,
+                      borderRadius: "50px",
+                      padding: "14px 40px",
+                      width: "200px",
+                      marginBottom: "5%",
+                      borderColor: "secondary.main",
+                      "& label": {
+                        color: "secondary.main"
+                      },
+                      "& fieldset": {
+                        borderColor: "secondary.main"
+                      }
+                    }}
+                    size="small"  
+                  > 
+                  <Select sx={{ borderRadius: '20px' }} color='secondary' id="all" name="all" value={selectedDecadeLabel} onChange={handleChange} IconComponent={WhiteArrowIcon}>
+                    <MenuItem value="all">All Years</MenuItem>
+                    {years.map(year => (
+                    <MenuItem key={year} value={year}>{year}</MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
             </div>
+            <HighchartsReact immutable={true} highcharts={Highcharts} options={options} constructorType={'mapChart'} />
           </div>
-          <HighchartsReact immutable={true} highcharts={Highcharts} options={options} constructorType={'mapChart'} />
         </div>
       </div>
-  </div>
+    </div>
     );
 };
   

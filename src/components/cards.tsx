@@ -46,12 +46,15 @@ export default function Cards({ data }: CardsProps) {
             maxWidth: '1000px',
             width: '100%',
             mt: '20px',
+            '@media (max-width: 1000px)': {
+              justifyContent: 'center',
+            },
           }}
         >
           {rowData.map((item, i) => (
             <Card
               key={i}
-              sx={{ display: 'flex', width: '30%', borderRadius: '20px', background: '#242F39', mb: '20px', border: '1px solid #495262' }}
+              sx={{ display: 'flex', width: ['100%', '45%', '30%'], borderRadius: '20px', background: '#242F39', mb: '20px', border: '1px solid #495262' }}
             >
               <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <CardContent sx={{ flex: '1 0 auto', justifyContent: 'center' }}>
