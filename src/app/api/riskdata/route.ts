@@ -69,7 +69,7 @@ export async function GET(request: NextRequest) {
   //Data Processing
 async function parseData(startIndex: number, endIndex: number, perPage: number, filters: FilterParams = {}) {
     //read dataset
-  const filePath = path.join(__dirname, 'public', 'UI_UX Developer Work Sample Data.xlsx');
+  const filePath = path.join(process.cwd(), 'public', 'UI_UX Developer Work Sample Data.xlsx');
   const workbook = XLSX.readFile(`${filePath}`);
   const worksheet = workbook.Sheets["sample_data"];
   const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1 }) as string[][];
