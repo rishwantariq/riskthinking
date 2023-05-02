@@ -33,9 +33,10 @@ export default function Page() {
 
     return (
         <>
+        <div style={{background: 'black', width: 'screen', height: 'screen'}}> 
             <Box sx={{ background: 'black', textAlign: 'center', maxWidth: 'screen', height: 'screen',  paddingTop: '5px', borderRadius: '20px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <div style={{ width: '100%', height: '100%' }}>
+                    <div>
                         <MapsHero targetRef={mapsRef} />
                         <Divider style={{ width:'1000px', marginLeft: 'auto', marginRight: 'auto', background: 'gray', marginTop: '2%', marginBottom: '2%'}}/>
                         <Typography variant='h1'>Usage</Typography>
@@ -58,7 +59,7 @@ export default function Page() {
                     </div>
                 </div>
             </Box>
-
+        </div>
         </>
     );
 }

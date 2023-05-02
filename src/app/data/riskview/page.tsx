@@ -62,7 +62,7 @@ export default function Page() {
     return (
         <>
             <div></div>
-            <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+            <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', background: 'black'}}>
                 <div>
                     <DatatableHero targetRef={tablRef} />
                 </div>
