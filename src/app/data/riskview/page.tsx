@@ -81,29 +81,29 @@ export default function Page() {
                 <Divider style={{ width:'1000px', marginLeft: 'auto', marginRight: 'auto', background: 'gray', marginTop: '2%', marginBottom: '2%'}}/>
             </div>
 
-            <Box sx={{ background: 'black', textAlign: 'center', height: 'screen', maxWidth: '100vw', paddingTop: '5px', paddingLeft: '20px', paddingRight: '20px', marginLeft: '60px', marginRight: '60px', marginBottom: '60px' }}>
-                <Typography mb={5} variant={'h1'}>Datatable Preview</Typography>
-                <Link href="/data/table">
-                    <Button
-                    variant="outlined"
-                    color="secondary"
-                    endIcon={<ChevronRightIcon />}
-                    style={{
-                    borderRadius: "50px",
-                    padding: "14px 40px",
-                    marginRight: '20px',
-                    marginBottom: '5%'
-                    }}>
-                        Show fullscreen
-                    </Button>
-                </Link>
-                <Box sx={{ background: 'black', borderRadius: '30px', width: 'screen', paddingTop: '30px', padding: '30px' }}>
-                    
-                    <div style={{ height:'600px',  marginTop: '-1%', marginBottom: '1%' }} ref={tablRef}>
-                        <Datatable />
-                    </div>
+            <div style={{background: 'black'}}>
+                <Box sx={{ background: 'black', textAlign: 'center', height: 'screen', maxWidth: '100vw', paddingTop: '5px', paddingLeft: '20px', paddingRight: '20px', marginLeft: '60px', marginRight: '60px', marginBottom: '60px' }}>
+                    <Typography mb={5} variant={'h1'}>Datatable Preview</Typography>
+                    <Link href="/data/table">
+                        <Button
+                        variant="outlined"
+                        color="secondary"
+                        endIcon={<ChevronRightIcon />}
+                        style={{
+                        borderRadius: "50px",
+                        padding: "14px 40px",
+                        marginRight: '20px',
+                        marginBottom: '5%'
+                        }}>
+                            Show fullscreen
+                        </Button>
+                    </Link>
+                        <div style={{ height:'600px',  marginTop: '-1%', marginBottom: '1%' }} ref={tablRef}>
+                            <Datatable />
+                        </div>
                 </Box>
-            </Box>
+            </div>
+            
         </>
     );
 }
