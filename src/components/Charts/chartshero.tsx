@@ -1,5 +1,6 @@
 import React, { RefObject } from 'react';
 import { Box, Button, Container, Typography } from "@mui/material";
+import ChevronRightIcon from '@mui/icons-material/ArrowDownwardRounded';
 
 interface ChartsHeroProps {
   targetRef: RefObject<HTMLDivElement>;
@@ -68,28 +69,31 @@ const ChartsHero = (targetRef: ChartsHeroProps) => {
         margin="0 auto"
         gap={'20px'}
         >
-            <Button
+        <Button
             variant="outlined"
             color="secondary"
             onClick={handleClick}
             style={{
-                borderRadius: "50px",
-                padding: "14px 40px",
+              borderRadius: "50px",
+              padding: "14px 40px",
+              
+
             }}
-            >
-            Learn More
-            </Button>
-            <Button
-            variant="outlined"
-            color="secondary"
+          >
+            Read Below
+          </Button>
+          <Button
+            variant="text"
+            color="primary"
             onClick={handleTableClick}
+            endIcon={<ChevronRightIcon ></ChevronRightIcon>}
             style={{
-                borderRadius: "50px",
-                padding: "14px 40px",
+              borderRadius: "50px",
+              padding: "14px 40px",
             }}
-            >
-            Try Now
-            </Button>
+          >
+            Jump to Chart
+        </Button>
         </Box>
     </Box>
 

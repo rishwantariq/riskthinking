@@ -116,7 +116,7 @@ export default function Page() {
                     </div>
                 </div>
                 <div>
-                    <Box sx={{ background: 'black', textAlign: 'center', maxWidth: '100vw', paddingTop: '5px', paddingLeft: '20px', paddingRight: '20px', marginLeft: '5%', marginRight: '5%', marginBottom: '3%' }}>
+                    <Box sx={{ background: 'black', textAlign: 'center', maxWidth: '100vw', marginBottom: '3%' }}>
                         <Typography mb={5} variant={'h1'}>Datatable Preview</Typography>
                         <Link href="/data/table">
                             <Button
@@ -133,10 +133,6 @@ export default function Page() {
                             </Button>
                         </Link>
                         <animated.div ref={ref} style={{ ...spring}}>
-                            <div style={{ display: 'flex', gap: '4px', justifyContent: 'center', alignItems: 'center', alignContent: 'center', marginBottom: '4%'}}>
-                                <InfoIcon />
-                                <Typography align='center' variant='h4' fontWeight={'medium'}>Data is relative to page</Typography>
-                            </div>
                             <div style={{ background: 'black', height:'600px', marginTop: '-1%', marginBottom: '1%' }} ref={tablRef}>
                                 <Datatable />
                             </div>

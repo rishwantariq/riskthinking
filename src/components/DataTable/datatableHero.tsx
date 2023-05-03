@@ -1,5 +1,6 @@
 import React, { RefObject } from 'react';
 import { Box, Button, Container, Typography } from "@mui/material";
+import ChevronRightIcon from '@mui/icons-material/ArrowDownwardRounded';
 
 interface DatatableHeroProps {
   targetRef: RefObject<HTMLDivElement>;
@@ -59,20 +60,23 @@ const DatatableHero = (targetRef : DatatableHeroProps) => {
             style={{
               borderRadius: "50px",
               padding: "14px 40px",
+              
+
             }}
           >
-            learn More
+            Read Below
           </Button>
           <Button
-            variant="outlined"
-            color="secondary"
+            variant="text"
+            color="primary"
             onClick={handleTableClick}
+            endIcon={<ChevronRightIcon ></ChevronRightIcon>}
             style={{
               borderRadius: "50px",
               padding: "14px 40px",
             }}
           >
-            Try Now
+            Jump to Table
         </Button>
       </Box>
     </Box>

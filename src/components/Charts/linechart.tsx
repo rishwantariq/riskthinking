@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Highcharts, { setOptions } from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import { ResponseData } from '@/app/api/riskdata/route';
-import { FormControl, Select, MenuItem, SelectChangeEvent, InputLabel, Typography } from '@mui/material';
+import { FormControl, Select, MenuItem, SelectChangeEvent, InputLabel, Typography, CircularProgress } from '@mui/material';
 import ChevronDownIcon from '@mui/icons-material/ArrowDropDown';
 import { styled } from '@mui/material/styles';
 import { highchartsTheme } from './theme';
 import MY_APP_BASE_URL from '../../../config';
 import Cards from '../cards';
+
 
 const LineChart = () => {
     const [selectedAssetFilter, setSelectedAssetFilter] = useState('');
@@ -20,7 +21,6 @@ const LineChart = () => {
     const [unfilteredData, setUnfilteredData] = useState<ResponseData>({ Data: [], hasNext: false, totalPages: 0, pageSize: 0 });
     const [totalPages, setTotalPages] = useState(0);
     const [loading, setLoading] = useState(false);
-
     const [paginationModel, setPaginationModel] = useState({
         page: 0,
         pageSize: 300,
@@ -43,26 +43,64 @@ const LineChart = () => {
             setLoading(true);
             const res = await fetch(`${MY_APP_BASE_URL}/api/riskdata?page=1&pagesize=2000`);
             const items: ResponseData = await res.json();
-            setUnfilteredData(items);            
+            setUnfilteredData(items);      
             setLoading(false);
         } catch (error) {
             console.log(error);
+            throw error; // explicitly throw the error to be caught in the calling function
         }
     };
+    
+
+    //calculate aggregated risk factor for all categories and rank them from top 1 to top 3
+    function getTopSortedCategories() {
+        const groupedUnfilteredData: {[key: string]: {riskSum: number, count: number, lat: number, long: number, businessCategory: string, year: number}} = {};
+        unfilteredData.Data.forEach(item => {
+        if (!groupedUnfilteredData[item.businessCategory]) {
+            groupedUnfilteredData[item.businessCategory] = {
+                riskSum: 0,
+                lat: item.lat,
+                long: item.long,
+                businessCategory: item.businessCategory,
+                year: item.year,
+                count: 0
+            };
+            }
+            groupedUnfilteredData[item.businessCategory].riskSum += item.riskRating;
+            groupedUnfilteredData[item.businessCategory].count++;
+        });
+        
+        const aggregatedUnfilteredData = Object.keys(groupedUnfilteredData).map(item => ({
+            name: item,
+            riskRating: ((groupedUnfilteredData[item].riskSum / groupedUnfilteredData[item].count)*100),
+            businessCategory: groupedUnfilteredData[item].businessCategory,
+            year: groupedUnfilteredData[item].year,
+        }));
+
+        const sortedTopThree = aggregatedUnfilteredData.sort((a, b) => Number(b.riskRating) - Number(a.riskRating))
+        .splice(0, 3)
+        .map(({ businessCategory, riskRating, year, name }) => ({ assetName: businessCategory, latitude: 0, longitude: 0, risk: riskRating }));
+        
+        return sortedTopThree;
+    }
 
     useEffect(() => {         
         fetchPageData(paginationModel.page);
     }, [paginationModel.page, paginationModel.pageSize, selectedAssetFilter, selectedBusinessCategoryFilter]);
 
     useEffect(() => {
-        fetchPageDataAll();
-    }, []);
+          fetchPageDataAll();
+          setUnfilteredData(data);
+      }, []);
+      
+      const sortedDataFiltered = getTopSortedCategories();        
+
 
     // get unique list of countries from data
     const businessCategories = ['Energy', 'Manufacturing', 'Retail', 'Technology', 'Healthcare', 'Finance'];
     //const assetNames = [...new Set(data.Data.map(item => item.assetName))];
-    
     // perform data aggregation for selected country
+
     const groupedData: {[key: string]: {riskSum: number, count: number}} = {};
         data.Data.forEach(item => {
             if (!groupedData[item.year]) {
@@ -79,34 +117,6 @@ const LineChart = () => {
         y: (groupedData[year].riskSum / groupedData[year].count)*100
     }));
 
-    //for business categories avg
-    const groupedUnfilteredData: {[key: string]: {riskSum: number, count: number, lat: number, long: number, businessCategory: string, year: number}} = {};
-    unfilteredData.Data.forEach(item => {
-    if (!groupedUnfilteredData[item.businessCategory]) {
-        groupedUnfilteredData[item.businessCategory] = {
-            riskSum: 0,
-            lat: item.lat,
-            long: item.long,
-            businessCategory: item.businessCategory,
-            year: item.year,
-            count: 0
-        };
-        }
-        groupedUnfilteredData[item.businessCategory].riskSum += item.riskRating;
-        groupedUnfilteredData[item.businessCategory].count++;
-    });
-    
-    const aggregatedUnfilteredData = Object.keys(groupedUnfilteredData).map(item => ({
-        name: item,
-        riskRating: ((groupedUnfilteredData[item].riskSum / groupedUnfilteredData[item].count)*100),
-        businessCategory: groupedUnfilteredData[item].businessCategory,
-        year: groupedUnfilteredData[item].year,
-    }));
-
-    const sortedTopThree = aggregatedUnfilteredData.sort((a, b) => Number(b.riskRating) - Number(a.riskRating))
-    .splice(0, 3)
-    .map(({ businessCategory, riskRating, year, name }) => ({ assetName: businessCategory, latitude: 0, longitude: 0, risk: riskRating}));
-        
     const options = {
         chart: {
             type: 'line',
@@ -183,12 +193,19 @@ const LineChart = () => {
     const WhiteArrowIcon = styled(ChevronDownIcon)({
         color: 'white',
         fill: 'white'
-      });
+    });
+    
+
     return (
     <div>
-        <div style={{marginBottom: '4%'}}>
-            <Cards data={sortedTopThree} />   
-        </div>  
+        <div style={{ display: 'relative', marginBottom: '6%' }}>
+            <div style={{ marginBottom: '20px', display: 'relative'}}>
+                {loading && <CircularProgress />}
+            </div>
+            <div>
+                <Cards data={sortedDataFiltered} subheading={'High Risk Business Categoires'} info={'Data is aggregated from 2000 random entries'} />
+            </div>
+        </div>
         <div style={{ background: '#242F39', display: 'flex', borderTopLeftRadius: '20px', borderTopRightRadius: '20px', justifyContent: 'space-between', width: '100%', border: '1px solid #495262', flexWrap: 'wrap' }}>
             <img style={{ width: '250px', height: '120px', marginBottom: '2%' }} src="https://imgtr.ee/images/2023/04/27/JMcWb.png" alt="" />
                 <div style={{ display: 'flex', flexDirection: 'row', height: 'auto', overflow: 'auto' }}>

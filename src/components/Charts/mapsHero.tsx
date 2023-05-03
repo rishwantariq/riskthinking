@@ -1,5 +1,6 @@
 import React, { RefObject } from 'react';
 import { Box, Button, Container, Typography } from "@mui/material";
+import ChevronRightIcon from '@mui/icons-material/ArrowDownwardRounded';
 
 interface MapsHeroProps {
   targetRef: RefObject<HTMLDivElement>;
@@ -69,26 +70,29 @@ const MapsHero = (targetRef: MapsHeroProps) => {
         gap={'30px'}
       >
         <Button
-          variant="outlined"
-          color="secondary"
-          onClick={handleClick}
-          style={{
-            borderRadius: "50px",
-            padding: "14px 40px",
-          }}
-        >
-          Learn More
-        </Button>
-        <Button
-          variant="outlined"
-          color="secondary"
-          onClick={handleTableClick}
-          style={{
-            borderRadius: "50px",
-            padding: "14px 40px",
-          }}
-        >
-          Try Now
+            variant="outlined"
+            color="secondary"
+            onClick={handleClick}
+            style={{
+              borderRadius: "50px",
+              padding: "14px 40px",
+              
+
+            }}
+          >
+            Read Below
+          </Button>
+          <Button
+            variant="text"
+            color="primary"
+            onClick={handleTableClick}
+            endIcon={<ChevronRightIcon ></ChevronRightIcon>}
+            style={{
+              borderRadius: "50px",
+              padding: "14px 40px",
+            }}
+          >
+            Jump to Map
         </Button>
       </Box>
     </Box>

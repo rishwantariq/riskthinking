@@ -5,7 +5,7 @@ import Highcharts from 'highcharts';
 import topology from '@/components/Charts/maps/topology.json';
 import highchartsMap from 'highcharts/modules/map';
 import { ResponseData } from '@/app/api/riskdata/route';
-import { Typography, styled } from '@mui/material';
+import { Chip, Typography, styled } from '@mui/material';
 import { FormControl, Select, MenuItem } from '@mui/material';
 import ChevronDownIcon from '@mui/icons-material/ArrowDropDown';
 import MY_APP_BASE_URL from '../../../../config';
@@ -208,14 +208,16 @@ const MapChart = () => {
     ],
   };
 
-  const handleChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
-    setSelectedDecadeFilter(encodeURIComponent(`Year:${e.target.value}`));
-    setSelectedDecadeLabel(e.target.value);
-    if (e.target.value === 'all') {
-      setSelectedDecadeLabel('all');
+  const handleChange = (e: String) => {
+    if (e === 'all') {
       setSelectedDecadeFilter('');
-
-  }
+      setSelectedDecadeLabel('all');
+    }
+    else {
+      setSelectedDecadeFilter(encodeURIComponent(`Year:${e}`));
+      setSelectedDecadeLabel(e.toString());
+    }
+    
   };
   const WhiteArrowIcon = styled(ChevronDownIcon)({
     color: 'white',
@@ -225,43 +227,36 @@ const MapChart = () => {
   return (
     <div style={{ background: 'black', width: '100%' }}> 
         <div style={{ display: 'flex' , justifyContent: 'center', gap: '8%', marginBottom: '4%', flexWrap: 'wrap' }}>
-          <Cards data={sortedTopThree}/>
+          <Cards data={sortedTopThree} subheading='High Risk Assets' info='Data is aggregated for a given decade'/>
         </div>    
-      <div style={{ background: 'black', display: 'flex', flexDirection: 'column', justifyContent: 'center', borderColor: 'secondary' }}>
+      <div style={{ background: 'black', display: 'flex', flexDirection: 'column', justifyContent: 'center', borderColor: 'secondary', width: '100%'}}>
         <div style={{ width: '100%' }}>
             <div>
               <div style={{ background: '#242F39', display: 'flex', borderTopLeftRadius: '20px', borderTopRightRadius: '20px', justifyContent: 'space-between', width: '100%', border: '1px solid #495262', flexWrap: 'wrap' }}>
                 <img style={{width: '250px', height: '120px', marginBottom: '2%'}} src="https://imgtr.ee/images/2023/04/27/JMcWb.png" alt="" />
-                <div>
-                  <Typography fontWeight={'medium'} mt={2} variant='h4'>Select Decade</Typography>
-                  <FormControl
-                    variant="outlined"
-                    color="secondary"
-                    sx={{
-                      m: 1,
-                      mt: '-2px',
-                      minWidth: 20,
-                      borderRadius: "50px",
-                      padding: "14px 40px",
-                      width: "200px",
-                      marginBottom: "5%",
-                      borderColor: "secondary.main",
-                      "& label": {
-                        color: "secondary.main"
-                      },
-                      "& fieldset": {
-                        borderColor: "secondary.main"
-                      }
-                    }}
-                    size="small"  
-                  > 
-                  <Select sx={{ borderRadius: '20px' }} color='secondary' id="all" name="all" value={selectedDecadeLabel} onChange={handleChange} IconComponent={WhiteArrowIcon}>
-                    <MenuItem value="all">All Years</MenuItem>
-                    {years.map(year => (
-                    <MenuItem key={year} value={year}>{year}</MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
+              <div style={{ display: 'flex', flexDirection: 'row', marginLeft: 'auto'}}>
+                  <div>
+                    <div style={{ display: 'flex', flexWrap: 'wrap-reverse', justifyContent: 'justify-between', overflow: 'auto', width: 'fit-content', gap: '8px', marginTop: '10%', marginRight: '20px', marginBottom: '4%', marginLeft: '4%' }}>
+                      {years.map(year => (
+                        <Chip
+                          key={year}
+                          label={year.toString()}
+                          style={{ fontWeight: 'bold', marginLeft: '2%', marginTop: '1%' }}
+                          onClick={() => handleChange(year)}
+                          color={year === selectedDecadeLabel ? 'secondary' : 'default'}
+                          variant={year === selectedDecadeLabel ? 'filled' : 'outlined'}
+                        />
+                      ))}
+                      <Chip
+                      label="All Years"
+                        
+                        onClick={() => handleChange('all')}
+                      style={{ fontWeight: 'bold', marginTop: '0%'}}
+                        color={selectedDecadeLabel == 'all' ? 'secondary' : 'default'}
+                        variant={selectedDecadeLabel == 'all'  ? 'filled' : 'outlined'}
+                      />
+                    </div>
+                  </div>
               </div>
             </div>
             <HighchartsReact immutable={true} highcharts={Highcharts} options={options} constructorType={'mapChart'} />
