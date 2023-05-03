@@ -7,22 +7,25 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 const items = [
 
     {
-        name: 'RiskView',
+        name: 'Not Sure Climate Can Impact Your Decisions? Get Full Inisghts with ',
+        module: 'RiskView',
         description: 'Dive Into Your Data with Our Interactive Data Table',
         image: 'https://imgtr.ee/images/2023/04/25/8mmWi.png',
         link: '/data/riskview'
       },
     {
-        name: 'SectorWatch',
-        description: 'Uncover Trends and Patterns with our Powerful & Insightful Charting Tool."',
+        name: 'Concerned About a Specific Category? Find Out With ',
+        module: 'SectorWatch',
+        description: 'Uncover Trends and Patterns across business categories with our Powerful & Insightful Charting Tool."',
         image: 'https://imgtr.ee/images/2023/04/25/8mL6c.png',
         link: '/data/chart'
     },
     {
-        name: 'Geo Discoveries',
+        name: 'Want to Visualize Risk Areas? Navigate the Map With ',
+        module: ' Geo Discoveries',
         description: 'Discover Global Insights: Navigate Your Data with our Interactive Geographical Visualization',
-      image: 'https://imgtr.ee/images/2023/04/25/8ZiPn.png',
-      link: '/data/map'
+        image: 'https://imgtr.ee/images/2023/04/25/8ZiPn.png',
+        link: '/data/map'
     }
 ];
 
@@ -54,16 +57,21 @@ function Banner(_props: any) {
 }
 
 function Item(props: { item: {
-  link: string | undefined; name: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined; description: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined; image: string | undefined; 
+  link: string | undefined; name: string | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined; description: string; image: string; module: string;
 };
 }) {
     const isSmallScreen = useMediaQuery("(max-width:600px)");
   return (
-    <Paper style={{ height: '80vh', position: 'relative', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-      <div style={{ width: '100%', height: '50%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-        <Typography variant='h1' color='text.primary' sx={{ fontWeight: 'bold', marginBottom: '16px', textAlign: 'center' }}>{props.item.name}</Typography>
-        <Typography variant='h4' color='text.secondary' sx={{ fontWeight: 'light', marginBottom: '24px', textAlign: 'center' }}>{props.item.description}</Typography>
-        <div style={{ width: 'auto', alignItems: 'center' }}>
+    <Paper style={{ height: '80vh', position: 'relative', display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center' }}>
+      <div style={{ width: '100%', height: '50%', display: 'flex', flexDirection: 'column', justifyContent: 'start', alignItems: 'center', marginLeft: '5%' }}>
+        <div>
+        <Typography fontSize={{ xs: "3rem", sm: "4rem" }} align='left' variant='h1' color='text.primary' sx={{ fontWeight: 'bold', marginBottom: '16px', textAlign: 'left' }}>
+        {props.item.name}
+          <Typography fontSize={{ xs: "3rem", sm: "4rem" }} fontWeight={'bold'} component='span' color='primary'>{props.item.module}</Typography>
+        </Typography>
+          <Typography align='left' variant='h4' color='text.secondary' sx={{ fontWeight: 'light', marginBottom: '24px', textAlign: 'left' }}>{props.item.description}</Typography>
+        </div>
+        <div style={{ width: 'auto', alignItems: 'center', marginRight: 'auto', marginBottom: 'auto' }}>
           <Link href={props.item.link} target="_blank">
             <Button
               variant="outlined"
@@ -80,6 +88,7 @@ function Item(props: { item: {
           </Link>
         </div>
       </div>
+
       <div style={{ width: 'auto', height: 'auto' }}>
         {isSmallScreen ? null : (
             <img

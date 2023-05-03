@@ -132,7 +132,7 @@ export default function Page() {
                             Show fullscreen
                             </Button>
                         </Link>
-                        <animated.div ref={ref} style={{ ...spring }}>
+                        <animated.div ref={ref} style={{ ...spring}}>
                             <div style={{ display: 'flex', gap: '4px', justifyContent: 'center', alignItems: 'center', alignContent: 'center', marginBottom: '4%'}}>
                                 <InfoIcon />
                                 <Typography align='center' variant='h4' fontWeight={'medium'}>Data is relative to page</Typography>

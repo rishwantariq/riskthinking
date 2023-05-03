@@ -55,15 +55,21 @@ function getFilters(request: NextRequest) {
 export async function GET(request: NextRequest) {
   
   //filters
-  let filters: FilterParams = {};
-  filters = getFilters(request);
-  //compute pagination logic
-  const page = request.nextUrl.searchParams.get('page');
-  const perPage = Number(request.nextUrl.searchParams.get('pagesize'));
-  const startIndex = (Number(page) - 1) * Number(perPage);;
-  const endIndex = startIndex + Number(perPage);
-  const riskData: ResponseData = await parseData(startIndex, endIndex, perPage, filters);
-  return NextResponse.json(riskData);
+  try
+  {
+    let filters: FilterParams = {};
+    filters = getFilters(request);
+    //compute pagination logic
+    const page = request.nextUrl.searchParams.get('page');
+    const perPage = Number(request.nextUrl.searchParams.get('pagesize'));
+    const startIndex = (Number(page) - 1) * Number(perPage);;
+    const endIndex = startIndex + Number(perPage);
+    const riskData: ResponseData = await parseData(startIndex, endIndex, perPage, filters);
+    return NextResponse.json(riskData);
+  } catch (error) {
+    console.log(error)
+  }
+ 
 }
 
   //Data Processing

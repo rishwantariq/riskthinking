@@ -85,15 +85,13 @@ export default function Page() {
                             </div>
                         </div>
                     </div>
-                        <div ref={mapsRef} style={{ background: 'black', marginBottom: '2%' }}> 
-    
-                            <Typography mb={'1%'} variant='h1'>Risk Map</Typography>
-                           
-                            <Typography mb={'5%'} fontWeight={'regular'} variant='h4'>Powered by Highcharts</Typography>
-                            <animated.div ref={ref} style={{ paddingLeft: '20px', paddingRight: '20px', marginLeft: '60px', marginRight: '60px', ...spring}}>
-                                <MapChart />
-                            </animated.div >
-                        </div>
+                    <div ref={mapsRef} style={{ background: 'black', marginBottom: '2%' }}> 
+                        <Typography mb={'1%'} variant='h1'>Risk Map</Typography>
+                        <Typography mb={'5%'} fontWeight={'regular'} variant='h4'>Powered by Highcharts</Typography>
+                        <animated.div ref={ref} style={{ paddingLeft: '20px', paddingRight: '20px', marginLeft: '60px', marginRight: '60px', ...spring}}>
+                            <MapChart />
+                        </animated.div >
+                    </div>
                 </div>
             </Box>`
         </div>

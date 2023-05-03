@@ -23,15 +23,26 @@ type CardsProps = {
 
 export default function Cards({ data }: CardsProps) {
     const theme = useTheme();
-
-  const rows = Math.ceil(data.length / 3); // Calculate number of rows based on data length
+    const filtered = data.map(item => {
+      if (item.assetName === 'extremecold') {
+        return { ...item, assetName: 'Extreme Cold' };
+      } else if (item.assetName === 'extremeheat') {
+        return { ...item, assetName: 'Extreme Heat' };
+      } else if (item.assetName === 'sealevelrise') {
+        return { ...item, assetName: 'Sea Level Rise' };
+      } else {
+        return item;
+      }
+    });
+  
+  const rows = Math.ceil(filtered.length / 3); // Calculate number of rows based on data length
   const cardData = []; // Initialize array to store data for each card
 
   // Divide data into groups of 3 for each row
   for (let i = 0; i < rows; i++) {
     const start = i * 3;
     const end = start + 3;
-    cardData.push(data.slice(start, end));
+    cardData.push(filtered.slice(start, end));
   }
 
   return (
@@ -69,20 +80,21 @@ export default function Cards({ data }: CardsProps) {
                         textWrap: 'none',
                         overflow: 'hidden',
                         cursor: 'pointer',
+                        textTransform: 'capitalize'
                     }}
                     >
                     <Tooltip title={item.assetName}>
                         <span>
-                        {item.assetName.length > 10 ? item.assetName.slice(0, 12) + '...' : item.assetName}
+                        {item.assetName.length > 10 ? item.assetName.slice(0, 8) + '...' : item.assetName}
                         </span>
                     </Tooltip>
                     </Typography>  
-                  <div style={{ display: 'flex', alignItems: 'center', alignContent: 'center', marginTop: '2%' }}>
-                    <LocationOnOutlinedIcon />
-                    <Typography variant="h4" align='left' color="white" component="div">
-                      {item.latitude}, {item.longitude}
-                    </Typography>  
-                  </div>
+                    <div style={{ display: 'flex', alignItems: 'center', alignContent: 'center', marginTop: '2%' }}>
+                      <LocationOnOutlinedIcon />
+                      <Typography variant="h4" align='left' color="white" component="div">
+                        {item.latitude}, {item.longitude}
+                      </Typography>  
+                    </div>
                   <BorderLinearProgress
                     sx={{ marginTop: '20%' }}
                     variant="determinate"

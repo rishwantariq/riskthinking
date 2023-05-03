@@ -203,7 +203,7 @@ export function Datatable() {
   const getRowId = (data: any) => data.number;
 
   return (
-    <div style={{ height: '100%' }}>
+    <div style={{ height: '100%'}}>
       <div style={{ display: 'flex', justifyContent: 'center', gap: '8%', marginBottom: '4%', flexWrap: 'wrap' }}>
         <Cards data={sortedData.splice(0, 3)} />
       </div>    

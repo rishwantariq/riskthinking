@@ -7,7 +7,7 @@ import ChevronDownIcon from '@mui/icons-material/ArrowDropDown';
 import { styled } from '@mui/material/styles';
 import { highchartsTheme } from './theme';
 import MY_APP_BASE_URL from '../../../config';
-
+import Cards from '../cards';
 
 const LineChart = () => {
     const [selectedAssetFilter, setSelectedAssetFilter] = useState('');
@@ -17,8 +17,10 @@ const LineChart = () => {
     const [assetLabels, setAssetLabels] = useState(['']);
     const [selectedFilter, setSelectedFilter] = useState('');
     const [data, setData] = useState<ResponseData>({ Data: [], hasNext: false, totalPages: 0, pageSize: 0 });
+    const [cardData, setCardData] = useState([{ assetName: '', latitude: 0, longitude: 0, risk: 0}]);
     const [totalPages, setTotalPages] = useState(0);
     const [loading, setLoading] = useState(false);
+
     const [paginationModel, setPaginationModel] = useState({
         page: 0,
         pageSize: 300,
@@ -36,10 +38,50 @@ const LineChart = () => {
         console.log(error);
         }
     };
+    const fetchPageDataAll = async () => {
+        try {
+            setLoading(true);
+            const res = await fetch(`${MY_APP_BASE_URL}/api/riskdata?page=1&pagesize=2000`);
+            const items: ResponseData = await res.json();
+            const groupedData: {[key: string]: {riskSum: number, count: number, lat: number, long: number, businessCategory: string, year: number}} = {};
+            items.Data.forEach(item => {
+            if (!groupedData[item.assetName]) {
+                groupedData[item.assetName] = {
+                    riskSum: 0,
+                    lat: item.lat,
+                    long: item.long,
+                    businessCategory: item.businessCategory,
+                    year: item.year,
+                    count: 0
+                };
+                }
+                groupedData[item.assetName].riskSum += item.riskRating;
+                groupedData[item.assetName].count++;
+            });
+            const aggregatedData = Object.keys(groupedData).map(item => ({
+                name: item,
+                riskRating: ((groupedData[item].riskSum / groupedData[item].count)*100),
+                businessCategory: groupedData[item].businessCategory,
+                year: groupedData[item].year,
+            }));
+            const sortedTopThree = aggregatedData.sort((a, b) => Number(b.riskRating) - Number(a.riskRating))
+            .splice(0, 3)
+            .map(({ businessCategory, riskRating, year, name }) => ({ assetName: businessCategory, latitude: 0, longitude: 0, risk: riskRating}));
+            setCardData(sortedTopThree);
+                
+            setLoading(false);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
-        useEffect(() => {         
-            fetchPageData(paginationModel.page);
-        }, [paginationModel.page, paginationModel.pageSize, selectedAssetFilter, selectedBusinessCategoryFilter]);
+    useEffect(() => {         
+        fetchPageData(paginationModel.page);
+    }, [paginationModel.page, paginationModel.pageSize, selectedAssetFilter, selectedBusinessCategoryFilter]);
+
+    useEffect(() => {
+        fetchPageDataAll();
+    }, []);
 
     // get unique list of countries from data
     const businessCategories = ['Energy', 'Manufacturing', 'Retail', 'Technology', 'Healthcare', 'Finance'];
@@ -64,7 +106,16 @@ const LineChart = () => {
         
     const options = {
         chart: {
-        type: 'line',
+            type: 'line',
+            events: {
+                load(this: Highcharts.Chart): void {
+                  if (loading) {
+                    this.showLoading();
+                  } else {
+                    this.hideLoading();
+                  }
+                }
+            },
         },
         title: {
             text: 'Climate Risk Rating vs Year',
@@ -130,9 +181,11 @@ const LineChart = () => {
         color: 'white',
         fill: 'white'
       });
-    
     return (
     <div>
+        <div style={{marginBottom: '4%'}}>
+            <Cards data={cardData} />   
+        </div>  
         <div style={{ background: '#242F39', display: 'flex', borderTopLeftRadius: '20px', borderTopRightRadius: '20px', justifyContent: 'space-between', width: '100%', border: '1px solid #495262', flexWrap: 'wrap' }}>
             <img style={{ width: '250px', height: '120px', marginBottom: '2%' }} src="https://imgtr.ee/images/2023/04/27/JMcWb.png" alt="" />
                 <div style={{ display: 'flex', flexDirection: 'row', height: 'auto', overflow: 'auto' }}>
