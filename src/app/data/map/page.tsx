@@ -68,9 +68,19 @@ export default function Page() {
                                 </Typography>
                                 </div>
                                 {isSmallScreen ? null : (
-                                <div style={{ position: "relative", background: "black", alignItems: "end", marginLeft: "auto", marginTop: "-40%", height: "200px" }}>
-                                    <img src="https://imgtr.ee/images/2023/05/02/J3fw2.png" alt="" style={{ position: "relative", width: "600px", height: "auto" }} />
-                                </div>
+                               <img
+                               src="https://imgtr.ee/images/2023/05/02/J3fw2.png"
+                               alt=""
+                               style={{
+                                 position: "relative",
+                                 width: "500px",
+                                 height: "auto",
+                                 top: "-200px",
+                                 display: "block",
+                                 marginLeft: "auto",
+                                 marginBottom: '-15%'
+                               }}
+                                />                             
                                 )}
                             </div>
                         </div>

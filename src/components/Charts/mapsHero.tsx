@@ -66,7 +66,7 @@ const MapsHero = (targetRef: MapsHeroProps) => {
         flexWrap="wrap"
         maxWidth="700px"
         margin="0 auto"
-        gap={'20px'}
+        gap={'30px'}
       >
         <Button
           variant="outlined"

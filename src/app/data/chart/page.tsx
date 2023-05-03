@@ -48,7 +48,7 @@ export default function Page() {
             <ChartsHero targetRef={chartsRef} />
                 <Box sx={{ background: 'black', marginTop: '4%', textAlign: 'center', maxWidth: 'screen', paddingTop: '5px', heght: 'auto'}}>
                     <div style={{ display: "flex", flexDirection: "column", background: "#ad96af", marginBottom: "5%" }}>
-                        <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "left", position: "relative" }}>
+                        <div style={{display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "left", position: "relative" }}>
                             <div style={{ display: "flex", flexDirection: "column", width: "50%", maxWidth: "500px", padding: "20px" }}>
                             <Typography align="left" variant="h1" fontWeight={"bold"} color={"black"}>
                                 Data-Driven. Stochastic. Aggregated. All together.
@@ -58,9 +58,19 @@ export default function Page() {
                             </Typography>
                             </div>
                             {isSmallScreen ? null : (
-                            <div style={{ position: "relative", background: "black", alignItems: "end", marginLeft: "auto", marginTop: "-40%", height: "200px" }}>
-                                <img src="https://imgtr.ee/images/2023/05/02/Jig6i.png" alt="" style={{ position: "relative", width: "600px", height: "auto" }} />
-                            </div>
+                                <img
+                                src="https://imgtr.ee/images/2023/05/02/Jig6i.png"                               
+                                alt=""
+                               style={{
+                                 position: "relative",
+                                 width: "600px",
+                                 height: "auto",
+                                 top: "-200px",
+                                 display: "block",
+                                 marginLeft: "auto",
+                                 marginBottom: '-15%'
+                               }}
+                                />  
                             )}
                         </div>
                     </div>

@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { Typography } from '@mui/material';
 import { BorderLinearProgress, StyledDataGrid } from '@/app/theme/theme';
 import MY_APP_BASE_URL from '../../../config';
+import Cards from '../cards';
+import InfoIcon from '@mui/icons-material/Info';
 
 export function Datatable() {
   const [data, setData] = useState<ResponseData>({ Data: [], hasNext: false, totalPages: 0, pageSize: 0 });
@@ -25,7 +27,9 @@ export function Datatable() {
   'flooding',
   'volcano'
   ];
-
+  type Factor = {
+    [factor: string]: number;
+  };
   function CustomToolbar() {
     return (
       <div style={{ borderColor: '#949494', borderBottom: '2px solid #949494' }}>
@@ -56,6 +60,32 @@ export function Datatable() {
       console.log(error);
     }
   };
+  
+
+  let factorCounts: Factor = {};
+  let factorSums: Factor = {};
+
+  data.Data.forEach(item => {
+    Object.keys(item.riskFactors).forEach(riskFactor => {
+      if (!factorCounts[riskFactor]) {
+        factorCounts[riskFactor] = 0;
+        factorSums[riskFactor] = 0;
+      }
+      factorCounts[riskFactor]++;
+      factorSums[riskFactor] += item.riskFactors[riskFactor];
+    });
+  });
+  
+  let factorAve: Factor = {};
+  
+  Object.keys(factorCounts).forEach(riskFactor => {
+    factorAve[riskFactor] = factorSums[riskFactor] / factorCounts[riskFactor];
+  });
+
+  const sortedData = Object.entries(factorAve)
+    .sort((a, b) => b[1] - a[1])
+    .map(([riskFactorName, avg]) => ({ assetName: riskFactorName, latitude: 0, longitude: 0, risk: Number(Number(avg*100).toFixed(0))}));
+      
   
   useEffect(() => {
     fetchPageData(paginationModel.page);
@@ -173,19 +203,25 @@ export function Datatable() {
   const getRowId = (data: any) => data.number;
 
   return (
-    <div style={{ background: '#242F39', marginLeft: '16px', marginRight: '16px', alignItems: 'center', height: '100%', width: 'screen' }}>
-      <StyledDataGrid
-        getRowId={getRowId}
-        rows={data.Data}
-        columns={columns}
-        rowCount={totalPages}
-        pageSizeOptions={[50, 100]}
-        paginationModel={paginationModel}
-        paginationMode="server"
-        onPaginationModelChange={setPaginationModel}
-        loading={isLoading}
-        components={{ Toolbar: CustomToolbar }}
-      />
+    <div style={{ height: '100%' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '8%', marginBottom: '4%', flexWrap: 'wrap' }}>
+        <Cards data={sortedData.splice(0, 3)} />
+      </div>    
+      <div style={{ background: '#242F39', marginLeft: '16px', marginRight: '16px', alignItems: 'center', height: '100%', width: 'screen' }}>
+        <StyledDataGrid
+          getRowId={getRowId}
+          rows={data.Data}
+          columns={columns}
+          rowCount={totalPages}
+          pageSizeOptions={[50, 100]}
+          paginationModel={paginationModel}
+          paginationMode="server"
+          onPaginationModelChange={setPaginationModel}
+          loading={isLoading}
+          components={{ Toolbar: CustomToolbar }}
+          style={{ minWidth: '100%', minHeight: '60vh' }}
+        />
+      </div>
     </div>
   );
 }

@@ -9,16 +9,25 @@ import TableRowsIcon from '@mui/icons-material/TableRows';
 import PercentIcon from '@mui/icons-material/Percent';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import InfoIcon from '@mui/icons-material/Info';
 import ShortBanner from '@/components/shortBanner';
-import { Divider, Button, Typography } from '@mui/material';
+import { Divider, Button, Typography, useMediaQuery } from '@mui/material';
 import { useRef } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-
+import { useInView } from 'react-intersection-observer';
+import { useSpring, animated } from 'react-spring';
 
 export default function Page() {
     
     const tablRef = useRef<HTMLDivElement>(null);
+    const isSmallScreen = useMediaQuery("(max-width:600px)");
+    const { ref, inView } = useInView();
+    const spring = useSpring({
+      opacity: inView ? 1 : 0,
+      from: { opacity: 0 },
+      config: { duration: 800 },
+    });
     const DynamicButtonBase = dynamic(() => import('@mui/material/ButtonBase'), {
         ssr: false
       });
@@ -63,47 +72,78 @@ export default function Page() {
         <>
             <div></div>
             <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', background: 'black'}}>
-                <div>
+                <div style={{}}>
                     <DatatableHero targetRef={tablRef} />
+                    <img src="" alt="" />
                 </div>
-                <Divider style={{ width:'1000px', marginLeft: 'auto', marginRight: 'auto', background: 'gray', marginTop: '2%', marginBottom: '5%'}}/>
+                <Divider style={{ width:'100%', marginLeft: 'auto', marginRight: 'auto', background: 'gray', marginBottom: '5%'}}/>
                 <div>
-                    <Box sx={{ textAlign: 'center', maxHeight: 'screen', maxWidth: 'screen', marginBottom: '5%' }}>
-                        <Typography mt={-5} mb={5} variant={'h1'}> Key Features</Typography>
-                        <div style={{marginBottom: 100}}>
-                            <ShortBanner gridData={gridData} />
-                        </div>
-                        <div style={{marginBottom: 8}}>
-                            <ShortBanner gridData={gridDataDup} />
-                        </div>
+                    <Box sx={{ textAlign: 'center', marginBottom: '5%' }}>
+                    <Typography mt={-5} mb={5} variant={'h1'}> Key Features</Typography>
+                    <div style={{marginBottom: '5%'}}>
+                        <ShortBanner gridData={gridData} />
+                    </div>
+                    <div style={{marginBottom: '8%'}}>
+                        <ShortBanner gridData={gridDataDup} />
+                    </div>
                     </Box>
                 </div>
-                <Divider style={{ width:'1000px', marginLeft: 'auto', marginRight: 'auto', background: 'gray', marginTop: '2%', marginBottom: '2%'}}/>
-            </div>
-
-            <div style={{background: 'black'}}>
-                <Box sx={{ background: 'black', textAlign: 'center', height: 'screen', maxWidth: '100vw', paddingTop: '5px', paddingLeft: '20px', paddingRight: '20px', marginLeft: '60px', marginRight: '60px', marginBottom: '60px' }}>
-                    <Typography mb={5} variant={'h1'}>Datatable Preview</Typography>
-                    <Link href="/data/table">
-                        <Button
-                        variant="outlined"
-                        color="secondary"
-                        endIcon={<ChevronRightIcon />}
+                <div style={{ display: "flex", flexDirection: "column", background: "#defde0", marginBottom: "10%", marginTop: '1%' }}>
+                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "left", position: "relative" }}>
+                    <div style={{ display: "flex", flexDirection: "column", width: "100%", maxWidth: "500px", padding: "20px" }}>
+                        <Typography align="left" variant="h1" fontWeight={"bold"} color={"black"}>
+                        Interactive. Visual. Custoimizable. Fully Climate-Ready.
+                        </Typography>
+                        <Typography align="left" mt={2} variant="h4" fontSize={"1rem"} fontWeight={"medium"} color={"black"}>
+                        Identify all the risk factors, with indicators, a glance.
+                        </Typography>
+                    </div>
+                    {isSmallScreen ? null : (
+                        <img
+                        src="https://imgtr.ee/images/2023/05/03/ao7fL.png"
+                        alt=""
                         style={{
-                        borderRadius: "50px",
-                        padding: "14px 40px",
-                        marginRight: '20px',
-                        marginBottom: '5%'
-                        }}>
+                            position: "relative",
+                            width: "500px",
+                            height: "auto",
+                            top: "0px",
+                            display: "block",
+                            marginLeft: "auto",
+                            marginBottom: '-15%'
+                        }}
+                        />                             
+                    )}   
+                    </div>
+                </div>
+                <div>
+                    <Box sx={{ background: 'black', textAlign: 'center', maxWidth: '100vw', paddingTop: '5px', paddingLeft: '20px', paddingRight: '20px', marginLeft: '5%', marginRight: '5%', marginBottom: '60px' }}>
+                        <Typography mb={5} variant={'h1'}>Datatable Preview</Typography>
+                        <Link href="/data/table">
+                            <Button
+                            variant="outlined"
+                            color="secondary"
+                            endIcon={<ChevronRightIcon />}
+                            style={{
+                                borderRadius: "50px",
+                                padding: "14px 40px",
+                                marginRight: '20px',
+                                marginBottom: '5%'
+                            }}>
                             Show fullscreen
-                        </Button>
-                    </Link>
-                        <div style={{ height:'600px',  marginTop: '-1%', marginBottom: '1%' }} ref={tablRef}>
-                            <Datatable />
-                        </div>
-                </Box>
+                            </Button>
+                        </Link>
+                        <animated.div ref={ref} style={{ ...spring }}>
+                            <div style={{ display: 'flex', gap: '4px', justifyContent: 'center', alignItems: 'center', alignContent: 'center', marginBottom: '4%'}}>
+                                <InfoIcon />
+                                <Typography align='center' variant='h4' fontWeight={'medium'}>Data is relative to page</Typography>
+                            </div>
+                            <div style={{ background: 'black', height:'600px', marginTop: '-1%', marginBottom: '1%' }} ref={tablRef}>
+                                <Datatable />
+                            </div>
+                        </animated.div>
+                    </Box>
+                </div>
             </div>
-            
         </>
     );
 }

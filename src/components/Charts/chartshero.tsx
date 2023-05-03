@@ -64,9 +64,9 @@ const ChartsHero = (targetRef: ChartsHeroProps) => {
         justifyContent="center"
         alignItems="center"
         flexWrap="wrap"
-        maxWidth="700px"
+        maxWidth="800px"
         margin="0 auto"
-        gap={'20px'}
+        gap={'80px'}
         >
             <Button
             variant="outlined"
@@ -86,6 +86,7 @@ const ChartsHero = (targetRef: ChartsHeroProps) => {
             style={{
                 borderRadius: "50px",
                 padding: "14px 40px",
+                marginLeft: '30px'
             }}
             >
             Try Now
