@@ -17,7 +17,7 @@ const LineChart = () => {
     const [assetLabels, setAssetLabels] = useState(['']);
     const [selectedFilter, setSelectedFilter] = useState('');
     const [data, setData] = useState<ResponseData>({ Data: [], hasNext: false, totalPages: 0, pageSize: 0 });
-    const [cardData, setCardData] = useState([{ assetName: '', latitude: 0, longitude: 0, risk: 0}]);
+    const [unfilteredData, setUnfilteredData] = useState<ResponseData>({ Data: [], hasNext: false, totalPages: 0, pageSize: 0 });
     const [totalPages, setTotalPages] = useState(0);
     const [loading, setLoading] = useState(false);
 
@@ -43,32 +43,7 @@ const LineChart = () => {
             setLoading(true);
             const res = await fetch(`${MY_APP_BASE_URL}/api/riskdata?page=1&pagesize=2000`);
             const items: ResponseData = await res.json();
-            const groupedData: {[key: string]: {riskSum: number, count: number, lat: number, long: number, businessCategory: string, year: number}} = {};
-            items.Data.forEach(item => {
-            if (!groupedData[item.assetName]) {
-                groupedData[item.assetName] = {
-                    riskSum: 0,
-                    lat: item.lat,
-                    long: item.long,
-                    businessCategory: item.businessCategory,
-                    year: item.year,
-                    count: 0
-                };
-                }
-                groupedData[item.assetName].riskSum += item.riskRating;
-                groupedData[item.assetName].count++;
-            });
-            const aggregatedData = Object.keys(groupedData).map(item => ({
-                name: item,
-                riskRating: ((groupedData[item].riskSum / groupedData[item].count)*100),
-                businessCategory: groupedData[item].businessCategory,
-                year: groupedData[item].year,
-            }));
-            const sortedTopThree = aggregatedData.sort((a, b) => Number(b.riskRating) - Number(a.riskRating))
-            .splice(0, 3)
-            .map(({ businessCategory, riskRating, year, name }) => ({ assetName: businessCategory, latitude: 0, longitude: 0, risk: riskRating}));
-            setCardData(sortedTopThree);
-                
+            setUnfilteredData(items);            
             setLoading(false);
         } catch (error) {
             console.log(error);
@@ -86,23 +61,51 @@ const LineChart = () => {
     // get unique list of countries from data
     const businessCategories = ['Energy', 'Manufacturing', 'Retail', 'Technology', 'Healthcare', 'Finance'];
     //const assetNames = [...new Set(data.Data.map(item => item.assetName))];
-        
+    
     // perform data aggregation for selected country
     const groupedData: {[key: string]: {riskSum: number, count: number}} = {};
-    data.Data.forEach(item => {
-        if (!groupedData[item.year]) {
-        groupedData[item.year] = {
-            riskSum: 0,
-            count: 0
-        };
-        }
-        groupedData[item.year].riskSum += item.riskRating;
-        groupedData[item.year].count++;
-    });
+        data.Data.forEach(item => {
+            if (!groupedData[item.year]) {
+            groupedData[item.year] = {
+                riskSum: 0,
+                count: 0
+            };
+            }
+            groupedData[item.year].riskSum += item.riskRating;
+            groupedData[item.year].count++;
+        });
     const aggregatedData = Object.keys(groupedData).map(year => ({
         x: parseInt(year),
         y: (groupedData[year].riskSum / groupedData[year].count)*100
     }));
+
+    //for business categories avg
+    const groupedUnfilteredData: {[key: string]: {riskSum: number, count: number, lat: number, long: number, businessCategory: string, year: number}} = {};
+    unfilteredData.Data.forEach(item => {
+    if (!groupedUnfilteredData[item.businessCategory]) {
+        groupedUnfilteredData[item.businessCategory] = {
+            riskSum: 0,
+            lat: item.lat,
+            long: item.long,
+            businessCategory: item.businessCategory,
+            year: item.year,
+            count: 0
+        };
+        }
+        groupedUnfilteredData[item.businessCategory].riskSum += item.riskRating;
+        groupedUnfilteredData[item.businessCategory].count++;
+    });
+    
+    const aggregatedUnfilteredData = Object.keys(groupedUnfilteredData).map(item => ({
+        name: item,
+        riskRating: ((groupedUnfilteredData[item].riskSum / groupedUnfilteredData[item].count)*100),
+        businessCategory: groupedUnfilteredData[item].businessCategory,
+        year: groupedUnfilteredData[item].year,
+    }));
+
+    const sortedTopThree = aggregatedUnfilteredData.sort((a, b) => Number(b.riskRating) - Number(a.riskRating))
+    .splice(0, 3)
+    .map(({ businessCategory, riskRating, year, name }) => ({ assetName: businessCategory, latitude: 0, longitude: 0, risk: riskRating}));
         
     const options = {
         chart: {
@@ -184,7 +187,7 @@ const LineChart = () => {
     return (
     <div>
         <div style={{marginBottom: '4%'}}>
-            <Cards data={cardData} />   
+            <Cards data={sortedTopThree} />   
         </div>  
         <div style={{ background: '#242F39', display: 'flex', borderTopLeftRadius: '20px', borderTopRightRadius: '20px', justifyContent: 'space-between', width: '100%', border: '1px solid #495262', flexWrap: 'wrap' }}>
             <img style={{ width: '250px', height: '120px', marginBottom: '2%' }} src="https://imgtr.ee/images/2023/04/27/JMcWb.png" alt="" />

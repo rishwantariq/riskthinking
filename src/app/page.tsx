@@ -35,12 +35,12 @@ export default function Home() {
   
   return (
     <>
-     <Box sx={{ textAlign: 'center', maxWidth: '100vw', overflow: 'hidden' }}>
+     <Box sx={{ background: 'black', textAlign: 'center', maxWidth: '100vw', overflow: 'hidden' }}>
         <div style={{ position: 'relative' }}>
           <Banner />
         </div>
-        <div style={{ display: "flex", flexDirection: "column", background: "#fff5ba", marginBottom: "5%", marginTop: '15%' }}>
-        <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "left", position: "relative" }}>
+        <div style={{display: "flex", flexDirection: "column", background: "#fff5ba", marginBottom: "5%", marginTop: '15%' }}>
+          <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "left", position: "relative" }}>
             <div style={{ display: "flex", flexDirection: "column", width: "50%", maxWidth: "500px", padding: "20px" }}>
                 <Typography align="left" variant="h1" fontWeight={"bold"} color={"black"}>
                     Predict The Future. Assess Climate Risks Through Visualizations.
@@ -66,15 +66,11 @@ export default function Home() {
                 )}
           </div>
         </div>
-        <div style={{ position: 'relative', marginBottom: '10%' }}>
+        <div  style={{ position: 'relative', background: 'black', marginBottom: '10%' }}>
           <Typography fontWeight='bold' variant="h1" color={'text'} mb={2}>Top Metrics</Typography>
           <ShortBanner gridData={gridData} />
         </div>
-
-        <div style={{ marginBottom: '4%', marginTop: '5%'}}>
-          <Ticker />
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', placeItems: 'center', marginBottom: '5%' }}>
+        <div style={{ background: 'black', display: 'flex', flexDirection: 'column', alignItems: 'center', placeItems: 'center', marginBottom: '5%' }}>
           <Link href="https://github.com/RiskThinking/work-samples/blob/main/UI-UX-Developer.md" target="_blank" >
             <Button
               variant="outlined"
