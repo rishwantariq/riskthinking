@@ -84,10 +84,10 @@ export default function Page() {
                         </div>   
                     </div>
                     <Divider style={{ width: 'auto', marginLeft: 'auto', marginRight: 'auto', background: 'gray', marginTop: '2%', marginBottom: '4%' }} />
-                    <div ref={ref} style={{ background: 'black', marginBottom: '2%'}}>    
-                        <Typography mb={'1%'} variant='h1'>Risk Map</Typography>
+                    <div ref={ref} style={{ background: 'black', marginBottom: '2%', padding: '1rem'}}>    
+                        <Typography mb={'1%'} variant='h1'>Risk Chart</Typography>
                         <Typography mb={'5%'} fontWeight={'regular'} variant='h4'>Powered by Highcharts</Typography>
-                        <animated.div ref={chartsRef} style={{ paddingLeft: '20px', paddingRight: '20px', marginLeft: '60px', marginRight: '60px', ...spring}}>
+                        <animated.div ref={chartsRef} style={{ paddingLeft: '20px', paddingRight: '20px', marginLeft: '40px', marginRight: '40px', ...spring}}>
                             <LineChart />
                         </animated.div >
                     </div>

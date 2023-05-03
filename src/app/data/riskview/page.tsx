@@ -78,7 +78,7 @@ export default function Page() {
                 </div>
                 <Divider style={{ width:'100%', marginLeft: 'auto', marginRight: 'auto', background: 'gray', marginBottom: '5%'}}/>
                 <div>
-                    <Box sx={{ textAlign: 'center', marginBottom: '5%' }}>
+                    <Box sx={{ textAlign: 'center', marginBottom: '5%', marginTop: '5%' }}>
                     <Typography mt={-5} mb={5} variant={'h1'}> Key Features</Typography>
                     <div style={{marginBottom: '5%'}}>
                         <ShortBanner gridData={gridData} />
@@ -92,7 +92,7 @@ export default function Page() {
                     <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "left", position: "relative" }}>
                     <div style={{ display: "flex", flexDirection: "column", width: "100%", maxWidth: "500px", padding: "20px" }}>
                         <Typography align="left" variant="h1" fontWeight={"bold"} color={"black"}>
-                        Interactive. Visual. Custoimizable. Fully Climate-Ready.
+                        Interactive. Visual. Custom. Fully Climate-Ready.
                         </Typography>
                         <Typography align="left" mt={2} variant="h4" fontSize={"1rem"} fontWeight={"medium"} color={"black"}>
                         Identify all the risk factors, with indicators, a glance.
@@ -116,7 +116,7 @@ export default function Page() {
                     </div>
                 </div>
                 <div>
-                    <Box sx={{ background: 'black', textAlign: 'center', maxWidth: '100vw', paddingTop: '5px', paddingLeft: '20px', paddingRight: '20px', marginLeft: '5%', marginRight: '5%', marginBottom: '60px' }}>
+                    <Box sx={{ background: 'black', textAlign: 'center', maxWidth: '100vw', paddingTop: '5px', paddingLeft: '20px', paddingRight: '20px', marginLeft: '5%', marginRight: '5%', marginBottom: '3%' }}>
                         <Typography mb={5} variant={'h1'}>Datatable Preview</Typography>
                         <Link href="/data/table">
                             <Button

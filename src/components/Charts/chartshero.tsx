@@ -66,7 +66,7 @@ const ChartsHero = (targetRef: ChartsHeroProps) => {
         flexWrap="wrap"
         maxWidth="800px"
         margin="0 auto"
-        gap={'80px'}
+        gap={'20px'}
         >
             <Button
             variant="outlined"
@@ -86,7 +86,6 @@ const ChartsHero = (targetRef: ChartsHeroProps) => {
             style={{
                 borderRadius: "50px",
                 padding: "14px 40px",
-                marginLeft: '30px'
             }}
             >
             Try Now

@@ -33,11 +33,11 @@ export default function Home() {
   
   return (
     <>
-      <Box sx={{ textAlign: 'center', maxWidth: 'screen' }}>
+     <Box sx={{ textAlign: 'center', maxWidth: '100vw', overflow: 'hidden' }}>
         <div style={{ position: 'relative', marginBottom :'5%' }}>
-            <Banner />
+          <Banner />
         </div>
-        <Divider style={{ width:'1000px', marginLeft: 'auto', marginRight: 'auto', background: 'gray', marginTop: '2%', marginBottom: '5%'}}/>
+        <Divider style={{ width:'100%', background: 'gray', marginTop: '2%', marginBottom: '5%'}}/>
 
         <div style={{ position: 'relative', marginBottom: '10%' }}>
           <Typography fontWeight='bold' variant="h1" color={'text'} mb={2}>Top Metrics</Typography>
@@ -47,23 +47,23 @@ export default function Home() {
         <div style={{ marginBottom: '4%', marginTop: '5%'}}>
           <Ticker />
         </div>
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', placeItems: 'center', marginLeft: 'auto', marginRight: 'auto', height: '100px', width: '250px', border: '1px solid black', transition: 'transform 0.2s ease-in-out' }}>
-            <Link href="https://github.com/RiskThinking/work-samples/blob/main/UI-UX-Developer.md" target="_blank" >
-                  <Button
-                  variant="outlined"
-                  color="secondary"
-                  endIcon={<ChevronRightIcon />}
-                  style={{
-                  borderRadius: "50px",
-                    padding: "14px 40px",
-                  width: '100%',
-                  marginRight: '20px',
-                  marginBottom: '5%'
-                  }}>
-                      View Guidelines
-                  </Button>
-            </Link>      
-      </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', placeItems: 'center', marginBottom: '5%' }}>
+          <Link href="https://github.com/RiskThinking/work-samples/blob/main/UI-UX-Developer.md" target="_blank" >
+            <Button
+              variant="outlined"
+              color="secondary"
+              endIcon={<ChevronRightIcon />}
+              style={{
+                borderRadius: "50px",
+                padding: "14px 40px",
+                width: '100%',
+                marginBottom: '5%'
+              }}>
+              View Guidelines
+            </Button>
+          </Link>
+        </div>
 
       </Box>
     </>
