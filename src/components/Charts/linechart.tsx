@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Highcharts, { setOptions } from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import { ResponseData } from '@/app/api/riskdata/route';
-import { FormControl, Select, MenuItem, SelectChangeEvent, InputLabel, Typography, CircularProgress } from '@mui/material';
+import { FormControl, Select, MenuItem, SelectChangeEvent, InputLabel, Typography, CircularProgress, Chip } from '@mui/material';
 import ChevronDownIcon from '@mui/icons-material/ArrowDropDown';
 import { styled } from '@mui/material/styles';
 import { highchartsTheme } from './theme';
 import MY_APP_BASE_URL from '../../../config';
 import Cards from '../cards';
-
+import DarkUnica from 'highcharts'
 
 const LineChart = () => {
     const [selectedAssetFilter, setSelectedAssetFilter] = useState('');
@@ -21,10 +21,13 @@ const LineChart = () => {
     const [unfilteredData, setUnfilteredData] = useState<ResponseData>({ Data: [], hasNext: false, totalPages: 0, pageSize: 0 });
     const [totalPages, setTotalPages] = useState(0);
     const [loading, setLoading] = useState(false);
+    const [chartType, setChartType] = useState('line');
     const [paginationModel, setPaginationModel] = useState({
         page: 0,
         pageSize: 300,
     });
+    const chartTypes = ['line', 'area', 'column', 'bar', 'pie', 'scatter'];
+
     const fetchPageData = async (page: number) => {
         try {
         setLoading(true);
@@ -54,34 +57,38 @@ const LineChart = () => {
 
     //calculate aggregated risk factor for all categories and rank them from top 1 to top 3
     function getTopSortedCategories() {
-        const groupedUnfilteredData: {[key: string]: {riskSum: number, count: number, lat: number, long: number, businessCategory: string, year: number}} = {};
-        unfilteredData.Data.forEach(item => {
-        if (!groupedUnfilteredData[item.businessCategory]) {
-            groupedUnfilteredData[item.businessCategory] = {
-                riskSum: 0,
-                lat: item.lat,
-                long: item.long,
-                businessCategory: item.businessCategory,
-                year: item.year,
-                count: 0
-            };
+        const groupedUnfilteredData: { [key: string]: { riskSum: number, count: number, lat: number, long: number, businessCategory: string, year: number } } = {};
+        if (unfilteredData && unfilteredData.Data.length > 0)
+        {
+            unfilteredData.Data.forEach(item => {
+            if (!groupedUnfilteredData[item.businessCategory]) {
+                groupedUnfilteredData[item.businessCategory] = {
+                        riskSum: 0,
+                        lat: item.lat,
+                        long: item.long,
+                        businessCategory: item.businessCategory,
+                        year: item.year,
+                        count: 0
+                    };
             }
-            groupedUnfilteredData[item.businessCategory].riskSum += item.riskRating;
-            groupedUnfilteredData[item.businessCategory].count++;
-        });
-        
-        const aggregatedUnfilteredData = Object.keys(groupedUnfilteredData).map(item => ({
-            name: item,
-            riskRating: ((groupedUnfilteredData[item].riskSum / groupedUnfilteredData[item].count)*100),
-            businessCategory: groupedUnfilteredData[item].businessCategory,
-            year: groupedUnfilteredData[item].year,
-        }));
-
-        const sortedTopThree = aggregatedUnfilteredData.sort((a, b) => Number(b.riskRating) - Number(a.riskRating))
-        .splice(0, 3)
-        .map(({ businessCategory, riskRating, year, name }) => ({ assetName: businessCategory, latitude: 0, longitude: 0, risk: riskRating }));
-        
-        return sortedTopThree;
+                    groupedUnfilteredData[item.businessCategory].riskSum += item.riskRating;
+                    groupedUnfilteredData[item.businessCategory].count++;
+            });
+            
+            const aggregatedUnfilteredData = Object.keys(groupedUnfilteredData).map(item => ({
+                name: item,
+                riskRating: ((groupedUnfilteredData[item].riskSum / groupedUnfilteredData[item].count)*100),
+                businessCategory: groupedUnfilteredData[item].businessCategory,
+                year: groupedUnfilteredData[item].year,
+            }));
+    
+            const sortedTopThree = aggregatedUnfilteredData.sort((a, b) => Number(b.riskRating) - Number(a.riskRating))
+            .splice(0, 3)
+            .map(({ businessCategory, riskRating, year, name }) => ({ assetName: businessCategory, latitude: 0, longitude: 0, risk: riskRating }));
+                
+            return sortedTopThree;
+        }
+        return  [{ assetName: 'Loading...', latitude: 0, longitude: 0, risk: 0 }, { assetName: 'Loading...', latitude: 0, longitude: 0, risk: 0 }, { assetName: 'Loading...', latitude: 0, longitude: 0, risk: 0 }]
     }
 
     useEffect(() => {         
@@ -119,7 +126,7 @@ const LineChart = () => {
 
     const options = {
         chart: {
-            type: 'line',
+            type: `${chartType}`,
             events: {
                 load(this: Highcharts.Chart): void {
                   if (loading) {
@@ -169,7 +176,11 @@ const LineChart = () => {
             turboThreshold: 2000 // Maximum number of data points to display at a time
         },
     };
-
+    var combinedOptions = options;
+    if (typeof Highcharts === 'object') {
+        combinedOptions =  Highcharts.merge(options, highchartsTheme);
+    }
+    
     const handleBusinessCategoryChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
         setSelectedAssetFilter('');
         setSelectedAssetLabel('none');
@@ -189,7 +200,10 @@ const LineChart = () => {
           setSelectedBusinessCategoryFilter(selectedBusinessCategoryFilter);
         }
     }
-    
+    const handleChange = (e: string) => {
+        setChartType(e);
+    };
+
     const WhiteArrowIcon = styled(ChevronDownIcon)({
         color: 'white',
         fill: 'white'
@@ -206,77 +220,87 @@ const LineChart = () => {
                 <Cards data={sortedDataFiltered} subheading={'High Risk Business Categoires'} info={'Data is aggregated from 2000 random entries'} />
             </div>
         </div>
-        <div style={{ background: '#242F39', display: 'flex', borderTopLeftRadius: '20px', borderTopRightRadius: '20px', justifyContent: 'space-between', width: '100%', border: '1px solid #495262', flexWrap: 'wrap' }}>
+        <div style={{ background: '#242F39', display: 'flex', borderTopLeftRadius: '20px', borderTopRightRadius: '20px', justifyContent: 'space-between', width: '100%', border: '1px solid #495262', flexWrap: 'wrap', alignItems: 'center' }}>
             <img style={{ width: '250px', height: '120px', marginBottom: '2%' }} src="https://imgtr.ee/images/2023/04/27/JMcWb.png" alt="" />
-                <div style={{ display: 'flex', flexDirection: 'row', height: 'auto', overflow: 'auto' }}>
-                    <div>
-                        <FormControl
-                            variant="outlined"
-                            color="secondary"
-                            sx={{
-                            m: 0,
-                            minWidth: 20,
-                            borderRadius: "50px",
-                            padding: "14px",
-                            width: "200px",
-                            marginBottom: "5%",
-                            maringRight: '-40px',
-                            borderColor: "secondary.main",
-                            "& label": {
-                            color: "secondary.main"
-                            },
-                            "& fieldset": {
-                            borderColor: "secondary.main"
-                            }
-                        }}
-                        size="small"
-                        > 
-                            <Typography fontWeight={'medium'} align='center' mb={3} variant='h4'></Typography>
-                            <Select sx={{borderRadius: '20px'}} color='secondary' id="category" name="category" value={selectedAssetLabel} onChange={handleAssetNameChange} IconComponent={WhiteArrowIcon}>
-                                <MenuItem value="none">No Assets selected</MenuItem>
-                                {assetLabels.map(asset => (
-                                <MenuItem key={asset} value={asset}>{asset}</MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    </div>
-                    <div>
-                        <FormControl
+                <div style={{ display: 'flex', flexDirection: 'row', height: 'auto', marginTop: 'auto', flexWrap: 'wrap' }}>
+                <div> 
+                    <Typography fontWeight={'medium'} fontSize={'small'} ml={3} align='left' variant='h4'>Sector</Typography>
+                    <FormControl
                         variant="outlined"
                         color="secondary"
                         sx={{
-                            m: 0,
-                            minWidth: 20,
-                            borderRadius: "50px",
-                            padding: "14px 40px",
-                            width: "200px",
-                            borderColor: "secondary.main",
-                            "& label": {
+                        m: 0,
+                        minWidth: 30,
+                        borderRadius: "50px",
+                        padding: "14px",
+                        width: "200px",
+                        marginBottom: "5%",
+                        borderColor: "secondary.main",
+                        "& label": {
                             color: "secondary.main"
-                            },
-                            "& fieldset": {
+                        },
+                        "& fieldset": {
                             borderColor: "secondary.main"
-                            }
+                        }
+                        }}
+                        size="small"
+                    > 
+                        <Select sx={{borderRadius: '20px'}} color='secondary' id="category" name="category" value={selectedAssetLabel} onChange={handleAssetNameChange} IconComponent={WhiteArrowIcon}>
+                        <MenuItem value="none">No Assets selected</MenuItem>
+                        {assetLabels.map(asset => (
+                            <MenuItem key={asset} value={asset}>{asset}</MenuItem>
+                        ))}
+                        </Select>
+                    </FormControl>     
+                </div>
+                <div>
+                <Typography fontWeight={'medium'} fontSize={'small'} ml={3} align='left' variant='h4'>Assets</Typography>
+                    <FormControl
+                        variant="outlined"
+                        color="secondary"
+                        sx={{
+                        m: 0,
+                        minWidth: 30,
+                        borderRadius: "50px",
+                        padding: "14px",
+                        width: "200px",
+                        marginBottom: "5%",
+                        borderColor: "secondary.main",
+                        "& label": {
+                            color: "secondary.main"
+                        },
+                        "& fieldset": {
+                            borderColor: "secondary.main"
+                        }
                         }}
                         size="small"
                         > 
-                            <Typography fontWeight={'medium'} align='center' mb={3} variant='h4'></Typography>
-                            <Select sx={{borderRadius: '20px'}} color='secondary' id="category" name="category" value={selectedBusinessCategoryLabel} onChange={handleBusinessCategoryChange} IconComponent={WhiteArrowIcon}>
-                                <MenuItem value="all">All Categories</MenuItem>
-                                {businessCategories.map(category => (
-                                <MenuItem key={category} value={category}>{category}</MenuItem>
-                                ))}
-                            </Select> 
-                        </FormControl>
-                     </div>
+                        <Select sx={{borderRadius: '20px'}} color='secondary' id="category" name="category" value={selectedBusinessCategoryLabel} onChange={handleBusinessCategoryChange} IconComponent={WhiteArrowIcon}>
+                        <MenuItem value="all">All Categories</MenuItem>
+                        {businessCategories.map(category => (
+                            <MenuItem key={category} value={category}>{category}</MenuItem>
+                        ))}
+                        </Select> 
+                    </FormControl>     
+                </div>
+                <div>
+                <Typography fontWeight={'medium'} fontSize={'small'} ml={3} mb={3} align='left' variant='h4'>Chart Type</Typography>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', overflow: 'auto', gap: '8px', marginTop: '1%', marginBottom: '4%', paddingLeft: '4%' }}>
+                        {chartTypes.map(type => (
+                        <Chip
+                            key={type}
+                            label={type.toString()}
+                            style={{ fontWeight: 'bold', marginRight: '2%', marginBottom: '1%' }}
+                            onClick={() => handleChange(type)}
+                            color={type === chartType ? 'secondary' : 'default'}
+                            variant={type === chartType ? 'filled' : 'outlined'}
+                        />
+                        ))}
+                    </div>    
                 </div>
             </div>
-        <HighchartsReact highcharts={Highcharts} options={options} theme={highchartsTheme} />
-        <HighchartsReact
-            highcharts={Highcharts}
-            options={{ ...options, chart: { type: 'bar' } }}
-            theme={highchartsTheme}
-        />
+        </div>
+        <HighchartsReact highcharts={Highcharts} options={combinedOptions} theme={highchartsTheme} />
     </div>
   );
 };

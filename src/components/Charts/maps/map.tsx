@@ -10,6 +10,8 @@ import { FormControl, Select, MenuItem } from '@mui/material';
 import ChevronDownIcon from '@mui/icons-material/ArrowDropDown';
 import MY_APP_BASE_URL from '../../../../config';
 import Cards from '@/components/cards';
+import { darkTheme } from '@/app/theme/theme';
+import { highchartsTheme } from '../theme';
 
 
 if (typeof Highcharts === 'object') {
@@ -96,7 +98,6 @@ const MapChart = () => {
   // Define the options
 
   const options = {
-    
     chart: {
       map: topology,
       height: 600, // set the height to 600 pixels
@@ -207,7 +208,11 @@ const MapChart = () => {
       },
     ],
   };
-
+  var combinedOptions = options;
+  if (typeof Highcharts === 'object') {
+      combinedOptions =  Highcharts.merge(options, highchartsTheme);
+  }
+  
   const handleChange = (e: String) => {
     if (e === 'all') {
       setSelectedDecadeFilter('');
@@ -229,7 +234,7 @@ const MapChart = () => {
         <div style={{ display: 'flex' , justifyContent: 'center', gap: '8%', marginBottom: '4%', flexWrap: 'wrap' }}>
           <Cards data={sortedTopThree} subheading='High Risk Assets' info='Data is aggregated for a given decade'/>
         </div>    
-      <div style={{ background: 'black', display: 'flex', flexDirection: 'column', justifyContent: 'center', borderColor: 'secondary', width: '100%'}}>
+      <div style={{ background: 'black', display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '100%', border: '1px solid #495262', borderRadius: '20px'}}>
         <div style={{ width: '100%' }}>
             <div>
               <div style={{ background: '#242F39', display: 'flex', borderTopLeftRadius: '20px', borderTopRightRadius: '20px', justifyContent: 'space-between', width: '100%', border: '1px solid #495262', flexWrap: 'wrap' }}>
@@ -259,7 +264,7 @@ const MapChart = () => {
                   </div>
               </div>
             </div>
-            <HighchartsReact immutable={true} highcharts={Highcharts} options={options} constructorType={'mapChart'} />
+            <HighchartsReact immutable={true} highcharts={Highcharts} options={combinedOptions} constructorType={'mapChart'}  />
           </div>
         </div>
       </div>

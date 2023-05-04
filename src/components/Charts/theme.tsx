@@ -1,6 +1,3 @@
-
-
-
 export const highchartsTheme = 
 {
   "colors": ["#A9CF54", "#C23C2A", "#FFFFFF", "#979797", "#FBB829"],
@@ -24,7 +21,8 @@ export const highchartsTheme =
   },
   "title": {
     "style": {
-      "color": "#FFFFFF"
+      "color": "#b2bdd0",
+      "fontWeight": "regular"
     }
   },
   "tooltip": {
@@ -46,14 +44,14 @@ export const highchartsTheme =
     "gridLineWidth": 1,
     "labels": {
       "style": {
-        "color": "#525252"
+        "color": "#b2bdd0"
       }
     },
     "lineColor": "#2E3740",
     "tickColor": "#2E3740",
     "title": {
       "style": {
-        "color": "#FFFFFF"
+        "color": "#b2bdd0"
       },
     }
   },
@@ -62,13 +60,13 @@ export const highchartsTheme =
     "gridLineWidth": 1,
     "labels": {
       "style": {
-        "color": "#525252"
+        "color": "#b2bdd0"
       },
       "lineColor": "#2E3740",
       "tickColor": "#2E3740",
       "title": {
         "style": {
-          "color": "#FFFFFF"
+          "color": "#b2bdd0"
         },
       }
     }
