@@ -29,63 +29,58 @@ const LineChart = () => {
         pageSize: 300,
     });
     const chartTypes = ['line', 'area', 'column', 'bar', 'pie', 'scatter'];
+    const businessCategories = ['Energy', 'Manufacturing', 'Retail', 'Technology', 'Healthcare', 'Finance'];
 
     const fetchPageData = async (page: number) => {
         try {
-            setLoading(true);
-            const res = await fetch(`${MY_APP_BASE_URL}/api/riskdata?filter=${selectedBusinessCategoryFilter}|${selectedAssetFilter}`);
-            const data: ResponseData = await res.json();
-            if (data && data.Data && data.Data.length > 0) {
-                setData(data);
-
-                setTotalPages(Number(data.totalPages));
-            }
-            setLoading(false);
+          setLoading(true);
+          const res = await fetch(`${MY_APP_BASE_URL}/api/riskdata?filter=${selectedBusinessCategoryFilter}|${selectedAssetFilter}`);
+          const data: ResponseData = await res.json();
+          if (data && data.Data && data.Data.length > 0) {
+            setData(data);
+            setAssetLabels([...data.Data.map(item => item.assetName)].filter((value, index, self) => self.indexOf(value) === index));
+            setTotalPages(Number(data.totalPages));
+          }
+          setLoading(false);
         } catch (error) {
-            console.log(error);
+          console.log(error);
         }
-    };    
-
-    useEffect(() => {         
+      };    
+      
+      useEffect(() => {         
         fetchPageData(paginationModel.page);
-    }, [paginationModel.page, paginationModel.pageSize, selectedAssetFilter, selectedBusinessCategoryFilter]);
-
-    useEffect(() => {         
-        const agg = aggregateData();
+      }, [paginationModel.page, paginationModel.pageSize, selectedAssetFilter, selectedBusinessCategoryFilter]);
+      
+      useEffect(() => {         
+        const agg = aggregateData(data);
         setAggregatedData(agg);
-    }, [data]);
-    // get unique list of countries from data
-    const businessCategories = ['Energy', 'Manufacturing', 'Retail', 'Technology', 'Healthcare', 'Finance'];
-    //const assetNames = [...new Set(data.Data.map(item => item.assetName))];
-    // perform data aggregation for selected country
-    function aggregateData() {
-        if (data && data?.Data && data.Data?.length > 0) {
-            const groupedData = data?.Data?.reduce((acc: { [key: string]: { riskSum: number, count: number } }, item) => {
-              if (!acc[item.year]) {
-                acc[item.year] = {
-                  riskSum: 0,
-                  count: 0
-                };
-              }
-              console.log('data access');
-              acc[item.year].riskSum += item.riskRating;
-              acc[item.year].count++;
-              return acc;
-            }, {});
-          
-            const aggregate = Object.keys(groupedData).map(year => ({
-              x: parseInt(year),
-              y: (groupedData[year].riskSum / groupedData[year].count) * 100
-            }));
-            return aggregate;
-        }
-        return [{
-            x: 0,
-            y: 0
-            }];
-    }
-    
+      }, [data]);
+      
+      
+      function aggregateData(data: ResponseData | null) {
+        if (data && data?.Data && data?.Data?.length > 0) {
+          const groupedData = data?.Data?.reduce((acc: { [key: string]: { riskSum: number, count: number } }, item) => {
+            if (!acc[item.year]) {
+              acc[item.year] = {
+                riskSum: 0,
+                count: 0
+              };
+            }
+            acc[item.year].riskSum += item.riskRating;
+            acc[item.year].count++;
+            return acc;
+          }, {});
+          console.log(groupedData);
 
+          const aggregate = Object.keys(groupedData).map(year => ({
+            x: parseInt(year),
+            y: (groupedData[year].riskSum / groupedData[year].count) * 100
+          }));
+          console.log(aggregate);
+          return aggregate;
+        }
+        return [{x: 0, y: 0  }];
+      }
 
     const options = {
         chart: {
