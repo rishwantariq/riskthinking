@@ -37,7 +37,7 @@ const LineChart = () => {
             const data: ResponseData = await res.json();
             if (data && data.Data && data.Data.length > 0) {
                 setData(data);
-                setAssetLabels([...data.Data.map(item => item.assetName)].filter((value, index, self) => self.indexOf(value) === index));
+
                 setTotalPages(Number(data.totalPages));
             }
             setLoading(false);
@@ -50,16 +50,17 @@ const LineChart = () => {
         fetchPageData(paginationModel.page);
     }, [paginationModel.page, paginationModel.pageSize, selectedAssetFilter, selectedBusinessCategoryFilter]);
 
-    useEffect(() => {   
-        aggregateData();
+    useEffect(() => {         
+        const agg = aggregateData();
+        setAggregatedData(agg);
     }, [data]);
     // get unique list of countries from data
     const businessCategories = ['Energy', 'Manufacturing', 'Retail', 'Technology', 'Healthcare', 'Finance'];
     //const assetNames = [...new Set(data.Data.map(item => item.assetName))];
     // perform data aggregation for selected country
     function aggregateData() {
-        if (data && data?.Data && data.Data.length > 0) {
-            const groupedData = data.Data.reduce((acc: { [key: string]: { riskSum: number, count: number } }, item) => {
+        if (data && data?.Data && data.Data?.length > 0) {
+            const groupedData = data?.Data?.reduce((acc: { [key: string]: { riskSum: number, count: number } }, item) => {
               if (!acc[item.year]) {
                 acc[item.year] = {
                   riskSum: 0,
@@ -76,9 +77,12 @@ const LineChart = () => {
               x: parseInt(year),
               y: (groupedData[year].riskSum / groupedData[year].count) * 100
             }));
-          
-            setAggregatedData(aggregate);
-        }          
+            return aggregate;
+        }
+        return [{
+            x: 0,
+            y: 0
+            }];
     }
     
 
