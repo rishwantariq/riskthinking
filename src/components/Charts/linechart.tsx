@@ -57,6 +57,7 @@ const LineChart = () => {
 
     //calculate aggregated risk factor for all categories and rank them from top 1 to top 3
     function getTopSortedCategories() {
+        console.log(unfilteredData);
         if (!unfilteredData || !unfilteredData.Data || unfilteredData.Data.length === 0) {
             return  [{ assetName: 'Loading...', latitude: 0, longitude: 0, risk: 0 }, { assetName: 'Loading...', latitude: 0, longitude: 0, risk: 0 }, { assetName: 'Loading...', latitude: 0, longitude: 0, risk: 0 }]
         }
@@ -103,7 +104,6 @@ const LineChart = () => {
 
     useEffect(() => {
           fetchPageDataAll();
-          setUnfilteredData(data);
       }, []);
       
       const sortedDataFiltered = getTopSortedCategories();        
