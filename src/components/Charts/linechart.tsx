@@ -20,6 +20,10 @@ const LineChart = () => {
     const [totalPages, setTotalPages] = useState(0);
     const [loading, setLoading] = useState(false);
     const [chartType, setChartType] = useState('line');
+    const [aggregatedData, setAggregatedData] = useState([{
+        x: 0,
+        y: 0
+    }])
     const [paginationModel, setPaginationModel] = useState({
         page: 0,
         pageSize: 300,
@@ -44,26 +48,36 @@ const LineChart = () => {
         fetchPageData(paginationModel.page);
     }, [paginationModel.page, paginationModel.pageSize, selectedAssetFilter, selectedBusinessCategoryFilter]);
 
+    useEffect(() => {         
+        aggregateData();
+    }, [data]);
     // get unique list of countries from data
     const businessCategories = ['Energy', 'Manufacturing', 'Retail', 'Technology', 'Healthcare', 'Finance'];
     //const assetNames = [...new Set(data.Data.map(item => item.assetName))];
     // perform data aggregation for selected country
+    function aggregateData() {
+        if (data && data.Data && data.Data.length > 0) {
 
-    const groupedData: {[key: string]: {riskSum: number, count: number}} = {};
-        data.Data.forEach(item => {
-            if (!groupedData[item.year]) {
-            groupedData[item.year] = {
-                riskSum: 0,
-                count: 0
-            };
-            }
-            groupedData[item.year].riskSum += item.riskRating;
-            groupedData[item.year].count++;
-        });
-    const aggregatedData = Object.keys(groupedData).map(year => ({
-        x: parseInt(year),
-        y: (groupedData[year].riskSum / groupedData[year].count)*100
-    }));
+            const groupedData: { [key: string]: { riskSum: number, count: number } } = {};
+            data.Data.forEach(item => {
+                if (!groupedData[item.year]) {
+                    groupedData[item.year] = {
+                        riskSum: 0,
+                        count: 0
+                    };
+                }
+                groupedData[item.year].riskSum += item.riskRating;
+                groupedData[item.year].count++;
+            });
+            const aggregate = Object.keys(groupedData).map(year => ({
+                x: parseInt(year),
+                y: (groupedData[year].riskSum / groupedData[year].count) * 100
+            }));
+            setAggregatedData(aggregate);
+        }
+    }
+    
+
 
     const options = {
         chart: {
