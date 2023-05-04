@@ -17,6 +17,7 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { useInView } from 'react-intersection-observer';
 import { useSpring, animated } from 'react-spring';
+import Image from 'next/image'
 
 export default function Page() {
     
@@ -74,7 +75,6 @@ export default function Page() {
             <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', background: 'black'}}>
                 <div style={{}}>
                     <DatatableHero targetRef={tablRef} />
-                    <img src="" alt="" />
                 </div>
                 <Divider style={{ width:'100%', marginLeft: 'auto', marginRight: 'auto', background: 'gray', marginBottom: '5%'}}/>
                 <div>
@@ -88,7 +88,7 @@ export default function Page() {
                     </div>
                     </Box>
                 </div>
-                <div style={{ display: "flex", flexDirection: "column", background: "#defde0", marginBottom: "10%", marginTop: '1%' }}>
+                <div style={{ display: "flex", flexDirection: "column", background: "#C7DBDA", marginBottom: "10%", marginTop: '1%' }}>
                     <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "left", position: "relative" }}>
                     <div style={{ display: "flex", flexDirection: "column", width: "100%", maxWidth: "500px", padding: "20px" }}>
                         <Typography align="left" variant="h1" fontWeight={"bold"} color={"black"}>

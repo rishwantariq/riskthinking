@@ -12,6 +12,7 @@ import DateRangeIcon from '@mui/icons-material/DateRange';
 import { useInView } from 'react-intersection-observer';
 import { useSpring, animated } from 'react-spring';
 import TopRiskCategories from '@/components/Charts/TopRiskCategories';
+import Image from 'next/image'
 
 export default function Page() {
     const chartsRef = useRef<HTMLDivElement>(null);
@@ -47,26 +48,26 @@ export default function Page() {
         <>
         <div style={{ background: 'black', width: 'screen' }}>
             <ChartsHero targetRef={chartsRef} />
-                <Box sx={{ background: 'black', marginTop: '4%', textAlign: 'center', maxWidth: 'screen', paddingTop: '5px', heght: 'auto'}}>
+                <Box sx={{ background: 'black', marginTop: '4%', textAlign: 'center', maxWidth: 'screen', paddingTop: '5px', heght: 'auto', overflow: 'none'}}>
                     <div style={{ display: "flex", flexDirection: "column", background: "#ad96af", marginBottom: "5%" }}>
                         <div style={{display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "left", position: "relative" }}>
                             <div style={{ display: "flex", flexDirection: "column", width: "50%", maxWidth: "500px", padding: "20px" }}>
                             <Typography align="left" variant="h1" fontWeight={"bold"} color={"black"}>
-                                Data-Driven. Stochastic. Aggregated. All together.
+                                Data-Driven. Stochastic. Aggregated. For All Categories..
                             </Typography>
                             <Typography align="left" mt={2} variant="h4" fontSize={"1rem"} fontWeight={"medium"} color={"black"}>
-                                All the important data and tools you need, in one chart now.
+                                All the important projections, categorized by their category per for 5+ decades.
                             </Typography>
                             </div>
                             {isSmallScreen ? null : (
                                 <img
-                                src="https://imgtr.ee/images/2023/05/02/Jig6i.png"                               
+                                src="https://imgtr.ee/images/2023/05/04/apmEz.png"                               
                                 alt=""
-                               style={{
+                                style={{
                                  position: "relative",
                                  width: "600px",
                                  height: "auto",
-                                 top: "-200px",
+                                 top: "-70px",
                                  display: "block",
                                  marginLeft: "auto",
                                  marginBottom: '-15%'

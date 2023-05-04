@@ -9,7 +9,7 @@ const palette = {
       white: '#ffffff',
     },
     primary: {
-        main: '#03dac5',
+        main: '#55cbcd',
         black: '#000000',
     },
     secondary: {

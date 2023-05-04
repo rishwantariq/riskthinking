@@ -7,7 +7,7 @@ import ChevronDownIcon from '@mui/icons-material/ArrowDropDown';
 import { styled } from '@mui/material/styles';
 import { highchartsTheme } from './theme';
 import MY_APP_BASE_URL from '../../../config';
-import TopRiskCategories from './TopRiskCategories';
+import Image from 'next/image'
 
 const LineChart = () => {
     const [selectedAssetFilter, setSelectedAssetFilter] = useState('');
@@ -244,7 +244,7 @@ const LineChart = () => {
                         <Chip
                             key={type}
                             label={type.toString()}
-                            style={{ fontWeight: 'bold', marginRight: '2%', marginBottom: '1%' }}
+                            style={{ fontWeight: 'bold', marginRight: '2%', marginBottom: '1%', marginTop: '2%' }}
                             onClick={() => handleChange(type)}
                             color={type === chartType ? 'secondary' : 'default'}
                             variant={type === chartType ? 'filled' : 'outlined'}

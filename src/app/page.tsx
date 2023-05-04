@@ -2,7 +2,6 @@
 import Box from '@mui/material/Box';
 import Banner from '@/components/banner';
 import ShortBanner from '@/components/shortBanner';
-import Ticker from '@/components/Ticker';
 import { Typography, Divider, Button, useMediaQuery, Grid, Skeleton, } from '@mui/material';
 import CategoryIcon from '@mui/icons-material/Category';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
@@ -20,7 +19,7 @@ export default function Home() {
       // Simulate some async operation that loads the carousel data
       setTimeout(() => {
         setIsLoading(false);
-      }, 3000);
+      }, 2000);
     }, []);
   
   const gridData: { icon: JSX.Element, title: string, subtitle: string }[] = [
@@ -41,6 +40,29 @@ export default function Home() {
     },
     // Add more objects for additional grid items
   ];
+  const accordionData = [
+    {
+      title: "Overview",
+      content: "Data points aggregated to provide insights into potential financial impacts due to physical climate risks, between now and 2070."
+    },
+    {
+      title: "Direct/Indirect",
+      content: "Direct and Indirect Analysis of how natural climate risk factors impact business assets"
+    },
+    {
+      title: "Geographic Analysis",
+      content: "Provides insights into the geographic distribution and concentration of a company’s (Assets) exposure to physical climate risks."
+    },
+    {
+      title: "Hazard Analysis",
+      content: "Estimations of the future probability (Risk Rating) and severity of Natural Risk Factors by decade"
+    },
+    {
+      title: "Metric Analysis",
+      content: "Metrics are combined by aggregation techniques represent data in visual form."
+    }
+  ];
+  
   
   return (
     
@@ -50,54 +72,24 @@ export default function Home() {
       <Skeleton variant="rectangular" height={'100vw'} />
     ) : (
       <Box sx={{ background: 'black', textAlign: 'center', maxWidth: '100vw', overflow: 'hidden' }}>
-        
         <div style={{ position: 'relative' }}>
           <Banner />
         </div>
-        <Typography fontWeight='bold' variant="h1" color={'text'} mt={'5%'} mb={'5%'}>How is Climate Risk Measured?</Typography>
-        <Grid container spacing={4} alignItems="start">
-          <Grid item xs={12} md={6}>
-            <img src="https://imgtr.ee/images/2023/05/04/aa4Pz.png" alt="" style={{ width: '80%' }} />
-          </Grid>
-          <Grid color={'white'} item xs={12} md={5}>
-            <Box display="flex" flexDirection="column" justifyContent={'start'} flexWrap={'wrap'} mr={3} ml={3} width={'80%'}>
-              <AccordionComponent title="Overview" content="Millions of data points aggregate to provide insights into potential financial impacts due to physical climate risks, between now and 2070." />
-              <AccordionComponent title="Direct/Indirect" content="Direct and Indirect Analysis of how natural climate risk factors impact business assets" />
-              <AccordionComponent title="Geographic Analysis" content="Provides insights into the geographic distribution and concentration of a company’s (Assets) exposure to physical climate risks." />
-              <AccordionComponent title="Hazard Analysis" content="Estimations of the future probability (Risk Rating) and severity of Natural Risk Factors by decade" />
-              <AccordionComponent title="Metric Analysis" content="Metrics are aggregated to represent data in visual form." />
-              <AccordionComponent title="Facility Analysis" content="Data Categorized by geo-spatial analysis at the individual asset level." />
-            </Box>
-          </Grid>
-        </Grid>
-
-
-
-        <div style={{display: "flex", flexDirection: "column", background: "#fff5ba", marginBottom: "5%", marginTop: '15%' }}>
-          <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "left", position: "relative" }}>
-            <div style={{ display: "flex", flexDirection: "column", width: "50%", maxWidth: "500px", padding: "20px" }}>
-                <Typography align="left" variant="h1" fontWeight={"bold"} color={"black"}>
-                    Predict The Future. Assess Climate Risks Through Visualizations.
-                </Typography>
-                <Typography align="left" mt={2} variant="h4" fontSize={"1rem"} fontWeight={"medium"} color={"black"}>
-                    Identify all the risk areas, at a glance.
-                </Typography>
-              </div>
-              {isSmallScreen ? null : (
-                  <img
-                  src="https://imgtr.ee/images/2023/05/03/a9VkL.png"
-                  alt=""
-                  style={{
-                    position: "relative",
-                    width: "700px",
-                    height: "auto",
-                    top: "-250px",
-                    display: "block",
-                    marginLeft: "auto",
-                    marginBottom: '-15%'
-                  }}
-                  />                            
-                )}
+              
+        <div style={{display: "flex", flexDirection: "column", background: "#cce2cb", marginBottom: "5%", marginTop: '5%' }}>
+          <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginLeft: '5%', marginRight: '5%', position: "relative" }}>
+            <div style={{ display: "flex", flexDirection: "column", width: "50%", maxWidth: "600px", padding: "20px" }}>
+              <Typography align="left" variant="h1" fontWeight={"bold"} color={"black"}>
+               Unlock the Power of Climate Risk: Learn How Its Computed and Utilized.</Typography>
+              <Typography align="left" mt={2} variant="h4" fontSize={"1rem"} fontWeight={"medium"} color={"black"}>
+                Understanding the Process Behind Calculating Climate Risk and Its Impact on Businesses
+              </Typography>
+            </div>
+            <div style={{width: '40%', height: '500px', color: 'white', overflow: 'auto' }}>
+              <Box display="flex" flexDirection="column" mt={'16%'} justifyContent="start" flexWrap="wrap"  width={'100%'}>
+                <AccordionComponent data={accordionData} />
+              </Box>
+            </div>
           </div>
         </div>
         <div  style={{ position: 'relative', background: 'black', marginBottom: '10%' }}>
@@ -119,7 +111,43 @@ export default function Home() {
               View Guidelines
             </Button>
           </Link>
-        </div>
+          </div>
+          <div style={{display: "flex", flexDirection: "column", background: "#f6eac2", marginBottom: "5%", marginTop: '5%' }}>
+            <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginLeft: '5%', marginRight: '5%', position: "relative" }}>
+              <div style={{ display: "flex", flexDirection: "column", width: "50%", maxWidth: "600px", padding: "20px" }}>
+                <Typography align="left" variant="h2" fontWeight={"bold"} color={"black"}>
+                Transforming the Way Businesses Assess Climate Financial Risk. </Typography>
+                <Typography align="left" mt={2} variant="h4" fontSize={"1rem"} fontWeight={"medium"} color={"black"}>
+                  Projecting Data to Over 5+ Decades to Make Your Investments Safe.
+                </Typography>
+              </div>
+              <div style={{width: '40%', height: '100%', color: 'white', overflow: 'auto' }}>
+              <Box mt={'auto'} mb={'auto'} height={'100%'} display="flex" justifyContent="center">
+                <Link href="https://riskthinking.ai" target="_blank" >
+                  <Button
+                    variant="contained"
+                    color='info'
+                    endIcon={<ChevronRightIcon />}
+                    style={{
+                      borderRadius: "50px",
+                      padding: "14px 40px",
+                      width: '100%',
+                      marginBottom: '5%',
+                      color: 'white'
+                    }}>
+                    Learn More
+                  </Button>
+                </Link>
+              </Box>
+
+              </div>
+            </div>
+          </div>
+          <Box>
+            <div>
+              <img src={"https://imgtr.ee/images/2023/05/04/ab7YU.png"} alt="vercel logo" style={{width: 'auto', height: '200px'}} />
+            </div>
+          </Box> 
       </Box>
       )}
    </div>

@@ -11,15 +11,18 @@ import PanToolAltIcon from '@mui/icons-material/PanToolAlt';
 import RoomIcon from '@mui/icons-material/Room';
 import { useInView } from 'react-intersection-observer';
 import { useSpring, animated } from 'react-spring';
+import Image from 'next/image'
 
 
 export default function Page() {
     const mapsRef = useRef<HTMLDivElement>(null);
     const { ref, inView } = useInView();
     const isSmallScreen = useMediaQuery("(max-width:600px)");
+    const isMedScreen = useMediaQuery("(max-width:800px)");
+
     const spring = useSpring({
-      opacity: inView ? 1 : 0,
-      from: { opacity: 0 },
+      opacity: inView ? 1 : 0.5,
+      from: { opacity: 0.5 },
       config: { duration: 800 },
     });
   
@@ -67,21 +70,23 @@ export default function Page() {
                                    Identify all the risk areas, at a glance.
                                 </Typography>
                                 </div>
-                                {isSmallScreen ? null : (
-                               <img
-                               src="https://imgtr.ee/images/2023/05/02/J3fw2.png"
-                               alt=""
-                               style={{
-                                 position: "relative",
-                                 width: "500px",
-                                 height: "auto",
-                                 top: "-200px",
-                                 display: "block",
-                                 marginLeft: "auto",
-                                 marginBottom: '-15%'
-                               }}
-                                />                             
-                                )}
+                                <div>
+                                    {!isSmallScreen && (
+                                        <img
+                                        src="https://imgtr.ee/images/2023/05/02/J3fw2.png"
+                                        alt=""
+                                        style={{
+                                            position: "relative",
+                                            width: isMedScreen ? "400px" : "500px", // use 400px for medium screens and 500px for other screens
+                                            height: "auto",
+                                            top: isMedScreen ? "-200px" : "-100px", // use -200px for medium screens and -100px for other screens
+                                            display: "block",
+                                            marginLeft: "auto",
+                                            marginBottom: "-15%",
+                                        }}
+                                        />
+                                    )}
+                                    </div>
                             </div>
                         </div>
                     </div>

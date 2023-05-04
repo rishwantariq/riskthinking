@@ -93,7 +93,7 @@ export default function Cards({ data, subheading, info }: CardsProps) {
           <InfoIcon />
         <Typography align='center' variant='h4' fontWeight={'regular'}>{info}</Typography>
       </Box>
-      <Box sx={{ display: 'flex', width: '100%', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginBottom: '2%' }}>
+      <Box sx={{ display: 'flex', width: '100%', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginBottom: '2%'  }}>
         {cardData.map((rowData, index) => (
           <Box
             key={index}
@@ -101,8 +101,9 @@ export default function Cards({ data, subheading, info }: CardsProps) {
               display: 'flex',
               flexWrap: 'wrap',
               justifyContent: 'space-between',
-              maxWidth: '1000px',
+              maxWidth: '1100px',
               width: '100%',
+              gap: '30px',
               mt: '20px',
               '@media (max-width: 1000px)': {
                 justifyContent: 'center',
@@ -114,7 +115,7 @@ export default function Cards({ data, subheading, info }: CardsProps) {
                 key={i}
                 sx={{ display: 'flex', width: 'fit-content', borderRadius: '20px', background: '#3D4854', mb: '20px', border: '2px solid #525F6B' }}
               >
-                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', minWidth: '200px' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', minWidth: '200px', margin: '2%' }}>
                   <CardContent sx={{ flex: '1 0 auto', justifyContent: 'center' }}>
                       <Typography
                       align='left'

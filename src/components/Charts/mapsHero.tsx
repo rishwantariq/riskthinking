@@ -37,7 +37,7 @@ const MapsHero = (targetRef: MapsHeroProps) => {
         overflow: "hidden",
       }}
     >
-      <img style={{width: '300px', height: '300px'}} src="https://imgtr.ee/images/2023/05/01/JCbzY.png" alt="" />
+      <img style={{width: '300px', height: '300px'}} src="https://imgtr.ee/images/2023/05/04/abwHc.png" alt="" />
       <Box>
         <Typography
           variant="h1"

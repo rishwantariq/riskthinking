@@ -10,21 +10,21 @@ const items = [
         name: 'Not Sure Climate Can Impact Your Decisions? Get Full Inisghts with ',
         module: 'RiskView',
         description: 'Dive Into Your Data with Our Interactive Data Table',
-        image: 'https://imgtr.ee/images/2023/04/25/8mmWi.png',
+        image: 'https://imgtr.ee/images/2023/05/04/ablOi.png',
         link: '/data/riskview'
       },
     {
         name: 'Concerned About a Specific Category? Find Out With ',
         module: 'SectorWatch',
         description: 'Uncover Trends and Patterns across business categories with our Powerful & Insightful Charting Tool."',
-        image: 'https://imgtr.ee/images/2023/04/25/8mL6c.png',
+        image: 'https://imgtr.ee/images/2023/05/04/abJtJ.png',
         link: '/data/chart'
     },
     {
         name: 'Want to Visualize Risk Areas? Navigate the Map With ',
         module: ' Geo Discoveries',
         description: 'Discover Global Insights: Navigate Your Data with our Interactive Geographical Visualization',
-        image: 'https://imgtr.ee/images/2023/04/25/8ZiPn.png',
+        image: 'https://imgtr.ee/images/2023/05/04/ab0kz.png',
         link: '/data/map'
     }
 ];
