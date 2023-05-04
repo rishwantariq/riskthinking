@@ -57,39 +57,40 @@ const LineChart = () => {
 
     //calculate aggregated risk factor for all categories and rank them from top 1 to top 3
     function getTopSortedCategories() {
+        if (!unfilteredData || unfilteredData.Data.length === 0) {
+            return  [{ assetName: 'Loading...', latitude: 0, longitude: 0, risk: 0 }, { assetName: 'Loading...', latitude: 0, longitude: 0, risk: 0 }, { assetName: 'Loading...', latitude: 0, longitude: 0, risk: 0 }]
+        }
+    
         const groupedUnfilteredData: { [key: string]: { riskSum: number, count: number, lat: number, long: number, businessCategory: string, year: number } } = {};
-        if (unfilteredData && unfilteredData.Data.length > 0)
-        {
-            unfilteredData.Data.forEach(item => {
+        
+        unfilteredData.Data.forEach(item => {
             if (!groupedUnfilteredData[item.businessCategory]) {
                 groupedUnfilteredData[item.businessCategory] = {
-                        riskSum: 0,
-                        lat: item.lat,
-                        long: item.long,
-                        businessCategory: item.businessCategory,
-                        year: item.year,
-                        count: 0
-                    };
+                    riskSum: 0,
+                    lat: item.lat,
+                    long: item.long,
+                    businessCategory: item.businessCategory,
+                    year: item.year,
+                    count: 0
+                };
             }
-                    groupedUnfilteredData[item.businessCategory].riskSum += item.riskRating;
-                    groupedUnfilteredData[item.businessCategory].count++;
-            });
-            
-            const aggregatedUnfilteredData = Object.keys(groupedUnfilteredData).map(item => ({
-                name: item,
-                riskRating: ((groupedUnfilteredData[item].riskSum / groupedUnfilteredData[item].count)*100),
-                businessCategory: groupedUnfilteredData[item].businessCategory,
-                year: groupedUnfilteredData[item].year,
-            }));
+            groupedUnfilteredData[item.businessCategory].riskSum += item.riskRating;
+            groupedUnfilteredData[item.businessCategory].count++;
+        });
     
-            const sortedTopThree = aggregatedUnfilteredData.sort((a, b) => Number(b.riskRating) - Number(a.riskRating))
+        const aggregatedUnfilteredData = Object.keys(groupedUnfilteredData).map(item => ({
+            name: item,
+            riskRating: ((groupedUnfilteredData[item].riskSum / groupedUnfilteredData[item].count)*100),
+            businessCategory: groupedUnfilteredData[item].businessCategory,
+            year: groupedUnfilteredData[item].year,
+        }));
+    
+        const sortedTopThree = aggregatedUnfilteredData.sort((a, b) => Number(b.riskRating) - Number(a.riskRating))
             .splice(0, 3)
             .map(({ businessCategory, riskRating, year, name }) => ({ assetName: businessCategory, latitude: 0, longitude: 0, risk: riskRating }));
-                
-            return sortedTopThree;
-        }
-        return  [{ assetName: 'Loading...', latitude: 0, longitude: 0, risk: 0 }, { assetName: 'Loading...', latitude: 0, longitude: 0, risk: 0 }, { assetName: 'Loading...', latitude: 0, longitude: 0, risk: 0 }]
-    }
+    
+        return sortedTopThree;
+    }    
 
     useEffect(() => {         
         fetchPageData(paginationModel.page);
