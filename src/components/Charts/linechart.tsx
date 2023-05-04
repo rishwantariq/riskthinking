@@ -46,7 +46,6 @@ const LineChart = () => {
 
     useEffect(() => {         
         fetchPageData(paginationModel.page);
-        aggregateData();
     }, [paginationModel.page, paginationModel.pageSize, selectedAssetFilter, selectedBusinessCategoryFilter]);
 
     useEffect(() => {         
@@ -58,25 +57,26 @@ const LineChart = () => {
     // perform data aggregation for selected country
     function aggregateData() {
         if (data && data.Data && data.Data.length > 0) {
-            const groupedData: { [key: string]: { riskSum: number, count: number } } = {};
-            
-            data?.Data?.forEach(item => {
-                if (!groupedData[item.year]) {
-                    groupedData[item.year] = {
-                        riskSum: 0,
-                        count: 0
-                    };
-                }
-                console.log('data access');
-                groupedData[item.year].riskSum += item.riskRating;
-                groupedData[item.year].count++;
-            });
+            const groupedData = data.Data.reduce((acc: { [key: string]: { riskSum: number, count: number } }, item) => {
+              if (!acc[item.year]) {
+                acc[item.year] = {
+                  riskSum: 0,
+                  count: 0
+                };
+              }
+              console.log('data access');
+              acc[item.year].riskSum += item.riskRating;
+              acc[item.year].count++;
+              return acc;
+            }, {});
+          
             const aggregate = Object.keys(groupedData).map(year => ({
-                x: parseInt(year),
-                y: (groupedData[year].riskSum / groupedData[year].count) * 100
+              x: parseInt(year),
+              y: (groupedData[year].riskSum / groupedData[year].count) * 100
             }));
+          
             setAggregatedData(aggregate);
-        }
+        }          
     }
     
 
