@@ -155,9 +155,7 @@ const LineChart = () => {
     return (
     <div>
         <div style={{ display: 'relative', marginBottom: '6%' }}>
-            <div style={{ marginBottom: '20px', display: 'relative'}}>
-                {loading && <CircularProgress />}
-            </div>
+            
         </div>
         <div style={{ background: '#242F39', display: 'flex', borderTopLeftRadius: '20px', borderTopRightRadius: '20px', justifyContent: 'space-between', width: '100%', border: '1px solid #495262', flexWrap: 'wrap', alignItems: 'center' }}>
             <img style={{ width: '250px', height: '120px', marginBottom: '2%' }} src="https://imgtr.ee/images/2023/04/27/JMcWb.png" alt="" />

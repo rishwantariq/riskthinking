@@ -28,11 +28,12 @@ const TopRiskCategories = () => {
 
     //calculate aggregated risk factor for all categories and rank them from top 1 to top 3
     const sortedDataFiltered = useMemo(() => {
-        console.log(unfilteredData);
         if (!unfilteredData || !unfilteredData.Data || unfilteredData.Data.length === 0) {
+            console.log('inside condition');
             return [{ assetName: 'Loading...', latitude: 0, longitude: 0, risk: 0 }, { assetName: 'Loading...', latitude: 0, longitude: 0, risk: 0 }, { assetName: 'Loading...', latitude: 0, longitude: 0, risk: 0 }]
         }
-    
+        console.log(unfilteredData, 'inside actual processing');
+
         const groupedUnfilteredData: { [key: string]: { riskSum: number, count: number, lat: number, long: number, businessCategory: string, year: number } } = {};
         unfilteredData?.Data?.forEach(item => {
             if (!item) {

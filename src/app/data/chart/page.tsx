@@ -88,8 +88,8 @@ export default function Page() {
                     <div ref={ref} style={{ background: 'black', marginBottom: '2%', padding: '1rem'}}>    
                         <Typography mb={'1%'} variant='h1'>Risk Chart</Typography>
                         <Typography mb={'5%'} fontWeight={'regular'} variant='h4'>Powered by Highcharts</Typography>
+                        <TopRiskCategories />   
                         <animated.div ref={chartsRef} style={{ ...spring }}>
-                            <TopRiskCategories />   
                             <LineChart />
                         </animated.div >
                     </div>
