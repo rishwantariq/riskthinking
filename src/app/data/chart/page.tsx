@@ -89,6 +89,7 @@ export default function Page() {
                         <Typography mb={'1%'} variant='h1'>Risk Chart</Typography>
                         <Typography mb={'5%'} fontWeight={'regular'} variant='h4'>Powered by Highcharts</Typography>
                         <animated.div ref={chartsRef} style={{ ...spring }}>
+                            <TopRiskCategories />   
                             <LineChart />
                         </animated.div >
                     </div>

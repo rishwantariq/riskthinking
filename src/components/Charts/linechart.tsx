@@ -40,12 +40,13 @@ const LineChart = () => {
         setTotalPages(Number(data.totalPages));
         setLoading(false);
         } catch (error) {
-        console.log(error);
+            console.log(error);
         }
     };
 
     useEffect(() => {         
         fetchPageData(paginationModel.page);
+        aggregateData();
     }, [paginationModel.page, paginationModel.pageSize, selectedAssetFilter, selectedBusinessCategoryFilter]);
 
     useEffect(() => {         
@@ -57,15 +58,16 @@ const LineChart = () => {
     // perform data aggregation for selected country
     function aggregateData() {
         if (data && data.Data && data.Data.length > 0) {
-
             const groupedData: { [key: string]: { riskSum: number, count: number } } = {};
-            data.Data.forEach(item => {
+            
+            data?.Data?.forEach(item => {
                 if (!groupedData[item.year]) {
                     groupedData[item.year] = {
                         riskSum: 0,
                         count: 0
                     };
                 }
+                console.log('data access');
                 groupedData[item.year].riskSum += item.riskRating;
                 groupedData[item.year].count++;
             });
