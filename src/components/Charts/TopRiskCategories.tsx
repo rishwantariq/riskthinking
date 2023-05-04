@@ -33,28 +33,35 @@ const TopRiskCategories = () => {
     fetchPageDataAll();
     }, []);
 
-    useEffect(() => {
+    useMemo(() => {
+        console.log('outside!1');
+
     if (unfilteredData && unfilteredData.Data && unfilteredData.Data.length > 0) {
         const groupedUnfilteredData: { [key: string]: { riskSum: number, count: number, lat: number, long: number, businessCategory: string, year: number } } = {};
-        unfilteredData?.Data?.forEach(item => {
-        if (!item) {
-            return;
-        }
+        console.log('inside!1');
+        unfilteredData?.Data?.reduce((acc, item) => {
+            if (!item) {
+                console.log(item);
+                return acc;
+            }
 
-        if (!groupedUnfilteredData[item.businessCategory]) {
-            groupedUnfilteredData[item.businessCategory] = {
-            riskSum: 0,
-            lat: item.lat,
-            long: item.long,
-            businessCategory: item.businessCategory,
-            year: item.year,
-            count: 0
-            };
-        }
+            if (!acc[item.businessCategory]) {
+                acc[item.businessCategory] = {
+                    riskSum: 0,
+                    lat: item.lat,
+                    long: item.long,
+                    businessCategory: item.businessCategory,
+                    year: item.year,
+                    count: 0
+                };
+            }
 
-        groupedUnfilteredData[item.businessCategory].riskSum += item.riskRating;
-        groupedUnfilteredData[item.businessCategory].count++;
-        });
+            acc[item.businessCategory].riskSum += item.riskRating;
+            acc[item.businessCategory].count++;
+
+            return acc;
+        }, groupedUnfilteredData);
+
 
         const aggregatedUnfilteredData = Object.keys(groupedUnfilteredData).map(item => ({
         name: item,
