@@ -13,7 +13,7 @@ const LineChart = () => {
     const [selectedAssetFilter, setSelectedAssetFilter] = useState('');
     const [selectedAssetLabel, setSelectedAssetLabel] = useState('none');
     const [selectedBusinessCategoryLabel, setSelectedBusinessCategoryLabel] = useState('Energy');
-    const [selectedBusinessCategoryFilter, setSelectedBusinessCategoryFilter] = useState('');
+    const [selectedBusinessCategoryFilter, setSelectedBusinessCategoryFilter] = useState(encodeURIComponent('Business Category:Energy');
     const [assetLabels, setAssetLabels] = useState(['']);
     const [selectedFilter, setSelectedFilter] = useState('');
     const [data, setData] = useState<ResponseData>({ Data: [], hasNext: false, totalPages: 0, pageSize: 0 });
@@ -36,7 +36,7 @@ const LineChart = () => {
         const res = await fetch(`${MY_APP_BASE_URL}/api/riskdata?filter=${selectedBusinessCategoryFilter}|${selectedAssetFilter}`);
         const data: ResponseData = await res.json();
         setData(data);
-        setAssetLabels([...data.Data.map(item => item.assetName)].filter((value, index, self) => self.indexOf(value) === index)        );
+        setAssetLabels([...data.Data.map(item => item.assetName)].filter((value, index, self) => self.indexOf(value) === index));
         setTotalPages(Number(data.totalPages));
         setLoading(false);
         } catch (error) {
