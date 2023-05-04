@@ -11,6 +11,7 @@ import InsertChartIcon from '@mui/icons-material/InsertChart';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import { useInView } from 'react-intersection-observer';
 import { useSpring, animated } from 'react-spring';
+import TopRiskCategories from '@/components/Charts/TopRiskCategories';
 
 export default function Page() {
     const chartsRef = useRef<HTMLDivElement>(null);
@@ -87,7 +88,8 @@ export default function Page() {
                     <div ref={ref} style={{ background: 'black', marginBottom: '2%', padding: '1rem'}}>    
                         <Typography mb={'1%'} variant='h1'>Risk Chart</Typography>
                         <Typography mb={'5%'} fontWeight={'regular'} variant='h4'>Powered by Highcharts</Typography>
-                        <animated.div ref={chartsRef} style={{...spring }}>
+                        <animated.div ref={chartsRef} style={{ ...spring }}>
+                            <TopRiskCategories />   
                             <LineChart />
                         </animated.div >
                     </div>
