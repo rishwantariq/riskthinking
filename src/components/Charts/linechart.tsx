@@ -62,21 +62,26 @@ const LineChart = () => {
         }
     
         const groupedUnfilteredData: { [key: string]: { riskSum: number, count: number, lat: number, long: number, businessCategory: string, year: number } } = {};
-        
-        unfilteredData.Data.forEach(item => {
-            if (!groupedUnfilteredData[item.businessCategory]) {
-                groupedUnfilteredData[item.businessCategory] = {
-                    riskSum: 0,
-                    lat: item.lat,
-                    long: item.long,
-                    businessCategory: item.businessCategory,
-                    year: item.year,
-                    count: 0
-                };
+        unfilteredData?.Data?.forEach(item => {
+        if (!item) {
+            return;
+        }
+            
+        if (!groupedUnfilteredData[item.businessCategory]) {
+              groupedUnfilteredData[item.businessCategory] = {
+                riskSum: 0,
+                lat: item.lat,
+                long: item.long,
+                businessCategory: item.businessCategory,
+                year: item.year,
+                count: 0
+              };
             }
+            
             groupedUnfilteredData[item.businessCategory].riskSum += item.riskRating;
             groupedUnfilteredData[item.businessCategory].count++;
         });
+          
     
         const aggregatedUnfilteredData = Object.keys(groupedUnfilteredData).map(item => ({
             name: item,
