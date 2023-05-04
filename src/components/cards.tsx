@@ -112,7 +112,7 @@ export default function Cards({ data, subheading, info }: CardsProps) {
             {rowData.map((item, i) => (
               <Card
                 key={i}
-                sx={{ display: 'flex', width: ['100%', '45%', '30%'], borderRadius: '20px', background: '#3D4854', mb: '20px', border: '2px solid #525F6B' }}
+                sx={{ display: 'flex', width: 'fit-content', borderRadius: '20px', background: '#3D4854', mb: '20px', border: '2px solid #525F6B' }}
               >
                 <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', minWidth: '200px' }}>
                   <CardContent sx={{ flex: '1 0 auto', justifyContent: 'center' }}>

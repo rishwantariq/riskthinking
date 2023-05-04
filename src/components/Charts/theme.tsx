@@ -12,6 +12,12 @@ export const highchartsTheme =
     "itemStyle": {
       "color": "#C0C0C0"
     },
+    "labelStyle": {
+      "color": "#FFFFFF", // Change the color of the legend text to black
+    },
+    "marker": {
+      "color": '#ff0000 '// Set the color of the colored indicator
+    },
     "itemHoverStyle": {
       "color": "#C0C0C0"
     },

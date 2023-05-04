@@ -3,19 +3,26 @@ import Box from '@mui/material/Box';
 import Banner from '@/components/banner';
 import ShortBanner from '@/components/shortBanner';
 import Ticker from '@/components/Ticker';
-import { Typography, Divider, Button, useMediaQuery, Accordion, AccordionSummary, AccordionDetails, Grid, } from '@mui/material';
-import { ChevronRight } from '@mui/icons-material';
+import { Typography, Divider, Button, useMediaQuery, Grid, Skeleton, } from '@mui/material';
 import CategoryIcon from '@mui/icons-material/Category';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Link from 'next/link';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AccordionComponent from '@/components/accordion';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
   const isSmallScreen = useMediaQuery("(max-width:600px)");
+  const [isLoading, setIsLoading] = useState(true);
 
+    useEffect(() => {
+      // Simulate some async operation that loads the carousel data
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 3000);
+    }, []);
+  
   const gridData: { icon: JSX.Element, title: string, subtitle: string }[] = [
     {
       icon: <TrendingUpIcon color="primary" style={{ fontSize: '5rem', marginBottom: 5 }} />,
@@ -36,8 +43,14 @@ export default function Home() {
   ];
   
   return (
+    
     <>
-     <Box sx={{ background: 'black', textAlign: 'center', maxWidth: '100vw', overflow: 'hidden' }}>
+    <div>
+    {isLoading ? (
+      <Skeleton variant="rectangular" height={'100vw'} />
+    ) : (
+      <Box sx={{ background: 'black', textAlign: 'center', maxWidth: '100vw', overflow: 'hidden' }}>
+        
         <div style={{ position: 'relative' }}>
           <Banner />
         </div>
@@ -108,6 +121,8 @@ export default function Home() {
           </Link>
         </div>
       </Box>
+      )}
+   </div>
     </>
 );
 }

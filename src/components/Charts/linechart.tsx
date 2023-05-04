@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Highcharts, { setOptions } from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import { ResponseData } from '@/app/api/riskdata/route';
@@ -7,8 +7,7 @@ import ChevronDownIcon from '@mui/icons-material/ArrowDropDown';
 import { styled } from '@mui/material/styles';
 import { highchartsTheme } from './theme';
 import MY_APP_BASE_URL from '../../../config';
-import Cards from '../cards';
-import DarkUnica from 'highcharts'
+import TopRiskCategories from './TopRiskCategories';
 
 const LineChart = () => {
     const [selectedAssetFilter, setSelectedAssetFilter] = useState('');
@@ -18,7 +17,6 @@ const LineChart = () => {
     const [assetLabels, setAssetLabels] = useState(['']);
     const [selectedFilter, setSelectedFilter] = useState('');
     const [data, setData] = useState<ResponseData>({ Data: [], hasNext: false, totalPages: 0, pageSize: 0 });
-    const [unfilteredData, setUnfilteredData] = useState<ResponseData>({ Data: [], hasNext: false, totalPages: 0, pageSize: 0 });
     const [totalPages, setTotalPages] = useState(0);
     const [loading, setLoading] = useState(false);
     const [chartType, setChartType] = useState('line');
@@ -41,73 +39,10 @@ const LineChart = () => {
         console.log(error);
         }
     };
-    const fetchPageDataAll = async () => {
-        try {
-            setLoading(true);
-            const res = await fetch(`${MY_APP_BASE_URL}/api/riskdata?page=1&pagesize=2000`);
-            const items: ResponseData = await res.json();
-            setUnfilteredData(items);      
-            setLoading(false);
-        } catch (error) {
-            console.log(error);
-            throw error; // explicitly throw the error to be caught in the calling function
-        }
-    };
-    
-
-    //calculate aggregated risk factor for all categories and rank them from top 1 to top 3
-    function getTopSortedCategories() {
-        console.log(unfilteredData);
-        if (!unfilteredData || !unfilteredData.Data || unfilteredData.Data.length === 0) {
-            return  [{ assetName: 'Loading...', latitude: 0, longitude: 0, risk: 0 }, { assetName: 'Loading...', latitude: 0, longitude: 0, risk: 0 }, { assetName: 'Loading...', latitude: 0, longitude: 0, risk: 0 }]
-        }
-    
-        const groupedUnfilteredData: { [key: string]: { riskSum: number, count: number, lat: number, long: number, businessCategory: string, year: number } } = {};
-        unfilteredData?.Data?.forEach(item => {
-        if (!item) {
-            return;
-        }
-            
-        if (!groupedUnfilteredData[item.businessCategory]) {
-              groupedUnfilteredData[item.businessCategory] = {
-                riskSum: 0,
-                lat: item.lat,
-                long: item.long,
-                businessCategory: item.businessCategory,
-                year: item.year,
-                count: 0
-              };
-            }
-            
-            groupedUnfilteredData[item.businessCategory].riskSum += item.riskRating;
-            groupedUnfilteredData[item.businessCategory].count++;
-        });
-          
-    
-        const aggregatedUnfilteredData = Object.keys(groupedUnfilteredData).map(item => ({
-            name: item,
-            riskRating: ((groupedUnfilteredData[item].riskSum / groupedUnfilteredData[item].count)*100),
-            businessCategory: groupedUnfilteredData[item].businessCategory,
-            year: groupedUnfilteredData[item].year,
-        }));
-    
-        const sortedTopThree = aggregatedUnfilteredData.sort((a, b) => Number(b.riskRating) - Number(a.riskRating))
-            .splice(0, 3)
-            .map(({ businessCategory, riskRating, year, name }) => ({ assetName: businessCategory, latitude: 0, longitude: 0, risk: riskRating }));
-    
-        return sortedTopThree;
-    }    
 
     useEffect(() => {         
         fetchPageData(paginationModel.page);
     }, [paginationModel.page, paginationModel.pageSize, selectedAssetFilter, selectedBusinessCategoryFilter]);
-
-    useEffect(() => {
-          fetchPageDataAll();
-      }, []);
-      
-      const sortedDataFiltered = getTopSortedCategories();        
-
 
     // get unique list of countries from data
     const businessCategories = ['Energy', 'Manufacturing', 'Retail', 'Technology', 'Healthcare', 'Finance'];
@@ -182,6 +117,7 @@ const LineChart = () => {
             turboThreshold: 2000 // Maximum number of data points to display at a time
         },
     };
+    
     var combinedOptions = options;
     if (typeof Highcharts === 'object') {
         combinedOptions =  Highcharts.merge(options, highchartsTheme);
@@ -223,14 +159,14 @@ const LineChart = () => {
                 {loading && <CircularProgress />}
             </div>
             <div>
-                <Cards data={sortedDataFiltered} subheading={'High Risk Business Categoires'} info={'Data is aggregated from 2000 random entries'} />
+                <TopRiskCategories />   
             </div>
         </div>
         <div style={{ background: '#242F39', display: 'flex', borderTopLeftRadius: '20px', borderTopRightRadius: '20px', justifyContent: 'space-between', width: '100%', border: '1px solid #495262', flexWrap: 'wrap', alignItems: 'center' }}>
             <img style={{ width: '250px', height: '120px', marginBottom: '2%' }} src="https://imgtr.ee/images/2023/04/27/JMcWb.png" alt="" />
                 <div style={{ display: 'flex', flexDirection: 'row', height: 'auto', marginTop: 'auto', flexWrap: 'wrap' }}>
                 <div> 
-                    <Typography fontWeight={'medium'} fontSize={'small'} ml={3} align='left' variant='h4'>Sector</Typography>
+                    <Typography fontWeight={'medium'} fontSize={'small'} ml={3} align='left' variant='h4'>Assets</Typography>
                     <FormControl
                         variant="outlined"
                         color="secondary"
@@ -251,8 +187,8 @@ const LineChart = () => {
                         }}
                         size="small"
                     > 
-                        <Select sx={{borderRadius: '20px'}} color='secondary' id="category" name="category" value={selectedAssetLabel} onChange={handleAssetNameChange} IconComponent={WhiteArrowIcon}>
-                        <MenuItem value="none">No Assets selected</MenuItem>
+                            <Select sx={{ borderRadius: '20px', minWidth: '30px'}} color='secondary' id="category" name="category" value={selectedAssetLabel} onChange={handleAssetNameChange} IconComponent={WhiteArrowIcon}>
+                        <MenuItem value="none" style={{marginRight: 'auto'}}>No Assets selected</MenuItem>
                         {assetLabels.map(asset => (
                             <MenuItem key={asset} value={asset}>{asset}</MenuItem>
                         ))}
@@ -260,7 +196,7 @@ const LineChart = () => {
                     </FormControl>     
                 </div>
                 <div>
-                <Typography fontWeight={'medium'} fontSize={'small'} ml={3} align='left' variant='h4'>Assets</Typography>
+                <Typography fontWeight={'medium'} fontSize={'small'} ml={3} align='left' variant='h4'>Category</Typography>
                     <FormControl
                         variant="outlined"
                         color="secondary"
@@ -281,7 +217,7 @@ const LineChart = () => {
                         }}
                         size="small"
                         > 
-                        <Select sx={{borderRadius: '20px'}} color='secondary' id="category" name="category" value={selectedBusinessCategoryLabel} onChange={handleBusinessCategoryChange} IconComponent={WhiteArrowIcon}>
+                        <Select sx={{borderRadius: '20px', width: 'fit-content'}} color='secondary' id="category" name="category" value={selectedBusinessCategoryLabel} onChange={handleBusinessCategoryChange} IconComponent={WhiteArrowIcon}>
                         <MenuItem value="all">All Categories</MenuItem>
                         {businessCategories.map(category => (
                             <MenuItem key={category} value={category}>{category}</MenuItem>
@@ -290,7 +226,7 @@ const LineChart = () => {
                     </FormControl>     
                 </div>
                 <div>
-                <Typography fontWeight={'medium'} fontSize={'small'} ml={3} mb={3} align='left' variant='h4'>Chart Type</Typography>
+                <Typography fontWeight={'medium'} fontSize={'small'} ml={3} mb={2} align='left' variant='h4'>Chart Type</Typography>
                     <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', overflow: 'auto', gap: '8px', marginTop: '1%', marginBottom: '4%', paddingLeft: '4%' }}>
                         {chartTypes.map(type => (
                         <Chip

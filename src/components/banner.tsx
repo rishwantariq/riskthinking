@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Carousel from 'react-material-ui-carousel';
 import { Paper, Button, ThemeProvider, Typography, Link, useMediaQuery } from '@mui/material';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -30,6 +30,7 @@ const items = [
 ];
 
 function Banner(_props: any) {
+
   return (
     <div style={{ position: 'relative' }}>
       <Carousel

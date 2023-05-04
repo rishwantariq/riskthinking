@@ -144,8 +144,14 @@ const MapChart = () => {
     colorAxis: {
       min: 0,
       max: 100,
+      tickPositions: [0, 25, 50, 75, 100],
       labels: {
-        format: '{value}%'
+        format: '{value}%',
+         style: {
+           color: 'white',
+           fontWeight: 'medium',
+           gridLineWidth: 0,
+        },
       },
       stops: [
         [0, '#BDE7BD'],
@@ -164,7 +170,7 @@ const MapChart = () => {
                   gridSize: 50
               },
               marker: {
-                  fillColor: '#F00'
+                  fillColor: 'black'
               }
           }
       }
@@ -194,12 +200,23 @@ const MapChart = () => {
           lon: Number(area.long),
           riskRating: area.riskRating,
           clusterPointsAmount: area.clusterPointsAmount,
-          isCluster: true
+          isCluster: true,
+          color: area.riskRating
         })),
         marker: {
             lineWidth: 1,
             lineColor: '#fff',
             symbol: 'mapmarker',
+          fillColor: {
+            radialGradient: { x1: 0, y1: 0, x2: 1, y2: 0 },
+            stops: [
+              [0, '#b7e1cd'],
+              [0.25, '#7fcdbb'],
+              [0.5, '#fec44f'],
+              [0.75, '#fc8d59'],
+              [1, '#d73027']
+            ]
+          },
             radius: 8
         },
         dataLabels: {
@@ -212,7 +229,7 @@ const MapChart = () => {
   if (typeof Highcharts === 'object') {
       combinedOptions =  Highcharts.merge(options, highchartsTheme);
   }
-  
+
   const handleChange = (e: String) => {
     if (e === 'all') {
       setSelectedDecadeFilter('');
@@ -241,8 +258,8 @@ const MapChart = () => {
                 <img style={{width: '250px', height: '120px', marginBottom: '2%'}} src="https://imgtr.ee/images/2023/04/27/JMcWb.png" alt="" />
               <div style={{ display: 'flex', flexDirection: 'row', marginLeft: 'auto'}}>
                   <div>
-                    <div style={{ display: 'flex', flexWrap: 'wrap-reverse', justifyContent: 'justify-between', overflow: 'auto', width: 'fit-content', gap: '8px', marginTop: '10%', marginRight: '20px', marginBottom: '4%', marginLeft: '4%' }}>
-                      {years.map(year => (
+                  <Typography fontWeight={'medium'} fontSize={'small'} mt={3} ml={3} mb={1} align='left' variant='h4'>Chart Type</Typography>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex', overflow: 'auto', gap: '8px', marginTop: '1%', marginBottom: '4%', paddingLeft: '4%'}}>                      {years.map(year => (
                         <Chip
                           key={year}
                           label={year.toString()}
