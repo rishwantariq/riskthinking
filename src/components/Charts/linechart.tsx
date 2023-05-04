@@ -13,7 +13,7 @@ const LineChart = () => {
     const [selectedAssetFilter, setSelectedAssetFilter] = useState('');
     const [selectedAssetLabel, setSelectedAssetLabel] = useState('none');
     const [selectedBusinessCategoryLabel, setSelectedBusinessCategoryLabel] = useState('Energy');
-    const [selectedBusinessCategoryFilter, setSelectedBusinessCategoryFilter] = useState(encodeURIComponent('Business Category:Energy');
+    const [selectedBusinessCategoryFilter, setSelectedBusinessCategoryFilter] = useState(encodeURIComponent('Business Category:Energy'));
     const [assetLabels, setAssetLabels] = useState(['']);
     const [selectedFilter, setSelectedFilter] = useState('');
     const [data, setData] = useState<ResponseData>({ Data: [], hasNext: false, totalPages: 0, pageSize: 0 });
