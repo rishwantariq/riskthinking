@@ -32,23 +32,25 @@ const LineChart = () => {
 
     const fetchPageData = async (page: number) => {
         try {
-        setLoading(true);
-        const res = await fetch(`${MY_APP_BASE_URL}/api/riskdata?filter=${selectedBusinessCategoryFilter}|${selectedAssetFilter}`);
-        const data: ResponseData = await res.json();
-        setData(data);
-        setAssetLabels([...data.Data.map(item => item.assetName)].filter((value, index, self) => self.indexOf(value) === index));
-        setTotalPages(Number(data.totalPages));
-        setLoading(false);
+            setLoading(true);
+            const res = await fetch(`${MY_APP_BASE_URL}/api/riskdata?filter=${selectedBusinessCategoryFilter}|${selectedAssetFilter}`);
+            const data: ResponseData = await res.json();
+            if (data && data.Data && data.Data.length > 0) {
+                setData(data);
+                setAssetLabels([...data.Data.map(item => item.assetName)].filter((value, index, self) => self.indexOf(value) === index));
+                setTotalPages(Number(data.totalPages));
+            }
+            setLoading(false);
         } catch (error) {
             console.log(error);
         }
-    };
+    };    
 
     useEffect(() => {         
         fetchPageData(paginationModel.page);
     }, [paginationModel.page, paginationModel.pageSize, selectedAssetFilter, selectedBusinessCategoryFilter]);
 
-    useEffect(() => {         
+    useEffect(() => {   
         aggregateData();
     }, [data]);
     // get unique list of countries from data
