@@ -56,7 +56,7 @@ const LineChart = () => {
     //const assetNames = [...new Set(data.Data.map(item => item.assetName))];
     // perform data aggregation for selected country
     function aggregateData() {
-        if (data && data.Data && data.Data.length > 0) {
+        if (data && data?.Data && data.Data.length > 0) {
             const groupedData = data.Data.reduce((acc: { [key: string]: { riskSum: number, count: number } }, item) => {
               if (!acc[item.year]) {
                 acc[item.year] = {
