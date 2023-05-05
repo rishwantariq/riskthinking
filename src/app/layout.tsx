@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
-        <body>
+        <body style={{background: 'black'}}>
           <DynamicResponsiveAppBar />
           {children}
         </body>

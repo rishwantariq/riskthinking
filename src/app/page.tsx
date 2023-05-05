@@ -10,18 +10,31 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Link from 'next/link';
 import AccordionComponent from '@/components/accordion';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Startup from '@/components/startup';
 
 export default function Home() {
-  const isSmallScreen = useMediaQuery("(max-width:600px)");
-  const [isLoading, setIsLoading] = useState(true);
+    const isSmallScreen = useMediaQuery("(max-width:600px)");
+    const [isLoading, setIsLoading] = useState(true);
+    const [showLogo, setShowLogo] = useState(true);
 
     useEffect(() => {
-      // Simulate some async operation that loads the carousel data
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 2000);
+      const isShownBefore = localStorage.getItem('isShownBefore');
+      if (isShownBefore == 'true') {
+        setShowLogo(false);
+      } else {
+        localStorage.setItem('isShownBefore', 'true');
+      }
     }, []);
   
+    useEffect(() => {
+      const timeout = setTimeout(() => {
+        setShowLogo(false);
+      }, 2000);
+  
+      return () => clearTimeout(timeout);
+    }, []);
+   
   const gridData: { icon: JSX.Element, title: string, subtitle: string }[] = [
     {
       icon: <TrendingUpIcon color="primary" style={{ fontSize: '5rem', marginBottom: 5 }} />,
@@ -67,19 +80,16 @@ export default function Home() {
   return (
     
     <>
+    {showLogo ? (
+        <Startup />
+     ) : (
     <div>
-    {isLoading ? (
-      <Skeleton variant="rectangular" height={'100vw'} />
-    ) : (
       <Box sx={{ background: 'black', textAlign: 'center', maxWidth: '100vw', overflow: 'hidden' }}>
-        <div style={{ position: 'relative' }}>
-          <Banner />
-        </div>
-              
+          <Banner />              
         <div style={{display: "flex", flexDirection: "column", background: "#cce2cb", marginBottom: "5%" }}>
                 <div style={{display: "flex", flexDirection: isSmallScreen ? "column" : "row", alignItems: "center", justifyContent: "space-between", marginLeft: '5%', marginRight: '5%', position: "relative" }}>
             <div style={{ display: "flex", flexDirection: "column", width: isSmallScreen ? "100%": "50%", maxWidth: "600px", padding: "20px" }}>
-              <Typography align="left" variant="h1" fontSize={isSmallScreen ? '3rem' : 'large'} fontWeight={"bold"} color={"black"}>
+              <Typography align="left" variant="h1" fontSize={isSmallScreen ? '3rem' : '4rem'} fontWeight={"bold"} color={"black"}>
                Unlock the Power of Climate Risk: Learn How Its Computed and Utilized.</Typography>
               <Typography align="left" mt={2} variant="h4" fontSize={"1rem"} fontWeight={"medium"} color={"black"}>
                 Understanding the Process Behind Calculating Climate Risk and Its Impact on Businesses
@@ -149,8 +159,8 @@ export default function Home() {
             </div>
           </Box> 
       </Box>
-      )}
-   </div>
+    </div>
+    )}
     </>
 );
 }

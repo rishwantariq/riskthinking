@@ -47,8 +47,8 @@ function ResponsiveAppBar() {
 
   return (
     <AppBar position="sticky" style={{ 
-      backgroundColor: 'rgba(0, 0, 0, 1)', 
-      backdropFilter: 'blur(20px)' }}>
+      backgroundColor: 'rgba(0, 0, 0, 0.5)', 
+      backdropFilter: 'blur(30px)' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon color='secondary' sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />

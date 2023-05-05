@@ -85,8 +85,8 @@ export default function Page() {
                             <ShortBanner gridData={gridData} />
                         </div>   
                     </div>
-                    <Divider style={{ width: 'auto', marginLeft: 'auto', marginRight: 'auto', background: 'gray', marginTop: '2%', marginBottom: '4%' }} />
-                    <div ref={ref} style={{ background: 'black', marginBottom: '2%', padding: '1rem'}}>    
+                    <Divider style={{ width: 'auto', marginLeft: 'auto', marginRight: 'auto', background: 'gray', marginTop: '2%' }} />
+                    <div ref={ref} style={{ background: 'black', padding: '1rem'}}>    
                         <Typography color={"white"} mb={'1%'} variant='h1'>Risk Chart</Typography>
                         <Typography color={'white'} mb={'5%'} fontWeight={'regular'} variant='h4'>Powered by Highcharts</Typography>
                         <animated.div ref={chartsRef} style={{ ...spring }}>
