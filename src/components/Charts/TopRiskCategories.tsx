@@ -34,11 +34,9 @@ const TopRiskCategories = () => {
     }, []);
 
     useMemo(() => {
-        console.log('outside!1');
 
     if (unfilteredData && unfilteredData.Data && unfilteredData.Data.length > 0) {
         const groupedUnfilteredData: { [key: string]: { riskSum: number, count: number, lat: number, long: number, businessCategory: string, year: number } } = {};
-        console.log('inside!1');
         unfilteredData?.Data?.reduce((acc, item) => {
             if (!item) {
                 console.log(item);

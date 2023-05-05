@@ -63,7 +63,7 @@ function Item(props: { item: {
 }) {
     const isSmallScreen = useMediaQuery("(max-width:600px)");
   return (
-    <Paper style={{ height: '90vh', position: 'relative', display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center' }}>
+    <Paper style={{ height: '100vh', position: 'relative', display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center' }}>
       <div style={{ width: '100%', height: '50%', display: 'flex', flexDirection: 'column', justifyContent: 'start', alignItems: 'center', marginLeft: '5%' }}>
         <div>
         <Typography fontSize={{ xs: "3rem", sm: "4rem" }} align='left' variant='h1' color='text.primary' sx={{ fontWeight: 'bold', marginBottom: '16px', textAlign: 'left' }}>

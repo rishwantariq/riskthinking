@@ -70,13 +70,11 @@ const LineChart = () => {
             acc[item.year].count++;
             return acc;
           }, {});
-          console.log(groupedData);
 
           const aggregate = Object.keys(groupedData).map(year => ({
             x: parseInt(year),
             y: (groupedData[year].riskSum / groupedData[year].count) * 100
           }));
-          console.log(aggregate);
           return aggregate;
         }
         return [{x: 0, y: 0  }];
@@ -178,7 +176,7 @@ const LineChart = () => {
             <img style={{ width: '250px', height: '120px', marginBottom: '2%' }} src="https://imgtr.ee/images/2023/04/27/JMcWb.png" alt="" />
                 <div style={{ display: 'flex', flexDirection: 'row', height: 'auto', marginTop: 'auto', flexWrap: 'wrap' }}>
                 <div> 
-                    <Typography fontWeight={'medium'} fontSize={'small'} ml={3} align='left' variant='h4'>Assets</Typography>
+                    <Typography fontWeight={'medium'} color={'text'} fontSize={'small'} ml={3} align='left' variant='h4'>Assets</Typography>
                     <FormControl
                         variant="outlined"
                         color="secondary"
@@ -208,7 +206,7 @@ const LineChart = () => {
                     </FormControl>     
                 </div>
                 <div>
-                <Typography fontWeight={'medium'} fontSize={'small'} ml={3} align='left' variant='h4'>Category</Typography>
+                <Typography fontWeight={'medium'} color={'text'} fontSize={'small'} ml={3} align='left' variant='h4'>Category</Typography>
                     <FormControl
                         variant="outlined"
                         color="secondary"
@@ -238,7 +236,7 @@ const LineChart = () => {
                     </FormControl>     
                 </div>
                 <div>
-                <Typography fontWeight={'medium'} fontSize={'small'} ml={3} mb={2} align='left' variant='h4'>Chart Type</Typography>
+                <Typography fontWeight={'medium'} color={'text'} fontSize={'small'} ml={3} mb={2} align='left' variant='h4'>Chart Type</Typography>
                     <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', overflow: 'auto', gap: '8px', marginTop: '1%', marginBottom: '4%', paddingLeft: '4%' }}>
                         {chartTypes.map(type => (
                         <Chip

@@ -112,7 +112,8 @@ export default function Home() {
             </Button>
           </Link>
           </div>
-          <div style={{display: "flex", flexDirection: "column", background: "#f6eac2", marginBottom: "5%", marginTop: '5%' }}>
+          <div style
+          ={{display: "flex", flexDirection: "column", background: "#f6eac2", marginBottom: "5%", marginTop: '5%' }}>
             <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginLeft: '5%', marginRight: '5%', position: "relative" }}>
               <div style={{ display: "flex", flexDirection: "column", width: "50%", maxWidth: "600px", padding: "20px" }}>
                 <Typography align="left" variant="h2" fontWeight={"bold"} color={"black"}>

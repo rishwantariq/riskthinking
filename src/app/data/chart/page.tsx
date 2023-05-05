@@ -47,7 +47,7 @@ export default function Page() {
     return (
         <>
         <div style={{ background: 'black', width: 'screen' }}>
-            <ChartsHero targetRef={chartsRef} />
+                <ChartsHero targetRef={chartsRef} />
                 <Box sx={{ background: 'black', marginTop: '4%', textAlign: 'center', maxWidth: 'screen', paddingTop: '5px', heght: 'auto', overflow: 'none'}}>
                     <div style={{ display: "flex", flexDirection: "column", background: "#ad96af", marginBottom: "5%" }}>
                         <div style={{display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "left", position: "relative" }}>
@@ -77,7 +77,7 @@ export default function Page() {
                         </div>
                     </div>
                     <div>
-                        <Typography variant='h1'>Usage</Typography>
+                        <Typography color={'text'} variant='h1'>Usage</Typography>
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '5%', gap: '20px' }}>
                             <div style={{ marginTop: '0%', marginBottom: '5%' }}>
                                 <ColorPalette />
@@ -87,8 +87,8 @@ export default function Page() {
                     </div>
                     <Divider style={{ width: 'auto', marginLeft: 'auto', marginRight: 'auto', background: 'gray', marginTop: '2%', marginBottom: '4%' }} />
                     <div ref={ref} style={{ background: 'black', marginBottom: '2%', padding: '1rem'}}>    
-                        <Typography mb={'1%'} variant='h1'>Risk Chart</Typography>
-                        <Typography mb={'5%'} fontWeight={'regular'} variant='h4'>Powered by Highcharts</Typography>
+                        <Typography color={'text'} mb={'1%'} variant='h1'>Risk Chart</Typography>
+                        <Typography color={'white'} mb={'5%'} fontWeight={'regular'} variant='h4'>Powered by Highcharts</Typography>
                         <animated.div ref={chartsRef} style={{ ...spring }}>
                             <TopRiskCategories />   
                             <LineChart />

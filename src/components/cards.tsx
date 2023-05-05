@@ -91,7 +91,7 @@ export default function Cards({ data, subheading, info }: CardsProps) {
       </Typography>
       <Box  mt={{ xs: '0', sm: '30px', md: '20px' }} sx={{ display: 'flex', gap: '4px', justifyContent: 'center', alignItems: 'center', alignContent: 'center', marginBottom: '5%', marginTop: '-3%'}}>
           <InfoIcon />
-        <Typography align='center' variant='h4' fontWeight={'regular'}>{info}</Typography>
+        <Typography color={'text'} align='center' variant='h4' fontWeight={'regular'}>{info}</Typography>
       </Box>
       <Box sx={{ display: 'flex', width: '100%', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginBottom: '2%'  }}>
         {cardData.map((rowData, index) => (

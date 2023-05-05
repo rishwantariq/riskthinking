@@ -38,10 +38,10 @@ export default function HorizontalProgress() {
             Data Aggregation
           </Typography>
         </Box>
-        <ArrowRightAltOutlinedIcon color='inherit' style={{fontSize: '4rem'}} />
+        <ArrowRightAltOutlinedIcon color='info' style={{fontSize: '4rem'}} />
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <WorkspacesIcon color='primary' style={{fontSize: '4rem'}}/>
-          <Typography mt={2} fontWeight={'regular'} variant="h4" align="center">
+          <Typography color={'text'} mt={2} fontWeight={'regular'} variant="h4" align="center">
             Display Result
           </Typography>
         </Box>

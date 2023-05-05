@@ -53,7 +53,7 @@ export default function Page() {
                     <div>
                         <MapsHero targetRef={mapsRef} />
                         <Divider style={{ width:'auto', marginLeft: 'auto', marginRight: 'auto', background: 'gray', marginTop: '2%', marginBottom: '2%'}}/>
-                        <Typography variant='h1'>Usage</Typography>
+                        <Typography color={'text'} variant='h1'>Usage</Typography>
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '5%', gap: '20px' }}>
                             <div style={{ marginTop: '0%', marginBottom: '5%' }}>
                                 <ColorPalette />
@@ -89,8 +89,8 @@ export default function Page() {
                         </div>
                     </div>
                     <div ref={mapsRef} style={{ background: 'black', marginBottom: '2%' }}> 
-                        <Typography mb={'1%'} variant='h1'>Risk Map</Typography>
-                        <Typography mb={'5%'} fontWeight={'regular'} variant='h4'>Powered by Highcharts</Typography>
+                        <Typography mb={'1%'} color={'text'} variant='h1'>Risk Map</Typography>
+                        <Typography mb={'5%'} color={'text'} fontWeight={'regular'} variant='h4'>Powered by Highcharts</Typography>
                             <animated.div ref={ref} style={{ background: 'black', paddingLeft: '20px', paddingRight: '20px', borderRadius: '20px', ...spring}}>
                             <MapChart />
                         </animated.div >

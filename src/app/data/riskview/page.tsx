@@ -98,7 +98,7 @@ export default function Page() {
                             Identify all the risk factors, with indicators, a glance.
                             </Typography>
                         </div>
-                    {isSmallScreen ? null : (
+                        {isSmallScreen ? null : (
                         <img
                         src="https://imgtr.ee/images/2023/05/03/ao7fL.png"
                         alt=""
@@ -133,7 +133,7 @@ export default function Page() {
                             </Button>
                         </Link>
                         <animated.div ref={ref} style={{ ...spring}}>
-                            <div style={{ background: 'black', height:'600px', marginTop: '-1%', marginBottom: '1%' }} ref={tablRef}>
+                            <div style={{ background: 'black', height:'600px', marginTop: '-1%', marginBottom: '2%' }} ref={tablRef}>
                                 <Datatable />
                             </div>
                         </animated.div>
