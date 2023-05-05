@@ -1,5 +1,5 @@
 'use client';
-import { Datatable } from '@/components/DataTable/datatable';
+import { Datatable } from '@/components/data-table/Datatable';
 import { Typography } from '@mui/material';
 import { useRef } from 'react';
 import { useSpring, animated } from 'react-spring';

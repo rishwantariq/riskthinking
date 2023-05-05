@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Typography } from '@mui/material';
 import { BorderLinearProgress, StyledDataGrid } from '@/app/theme/theme';
 import MY_APP_BASE_URL from '../../../config';
-import Cards from '../cards';
+import Cards from '../interactive-items/Cards';
 import InfoIcon from '@mui/icons-material/Info';
 
 export function Datatable() {

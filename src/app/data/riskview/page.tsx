@@ -1,6 +1,6 @@
 'use client';
-import { Datatable } from '@/components/DataTable/datatable';
-import DatatableHero from '@/components/DataTable/datatableHero';
+import { Datatable } from '@/components/data-table/Datatable';
+import DatatableHero from '@/components/data-table/DatatableHero';
 import Box from '@mui/material/Box';
 import SortIcon from '@mui/icons-material/Sort';
 import FilterListIcon from '@mui/icons-material/FilterList';
@@ -10,7 +10,7 @@ import PercentIcon from '@mui/icons-material/Percent';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import InfoIcon from '@mui/icons-material/Info';
-import ShortBanner from '@/components/shortBanner';
+import ShortBanner from '@/components/banners/ShortBanner';
 import { Divider, Button, Typography, useMediaQuery } from '@mui/material';
 import { useRef } from 'react';
 import Link from 'next/link';

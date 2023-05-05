@@ -5,7 +5,7 @@ import { ThemeProvider, CssBaseline } from "@mui/material";
 import dynamic from 'next/dynamic';
 
 const DynamicResponsiveAppBar = dynamic(
-  () => import('@/components/ResponsiveAppBar'),
+  () => import('@/components/banners/ResponsiveAppBar'),
   { ssr: false }
 );
 

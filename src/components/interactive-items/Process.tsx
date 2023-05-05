@@ -6,7 +6,6 @@ import DatasetIcon from '@mui/icons-material/Dataset';
 import FunctionsIcon from '@mui/icons-material/Functions';
 import WorkspacesIcon from '@mui/icons-material/Workspaces';
 import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined';
-import { Grid } from '@mui/material';
 
 export default function HorizontalProgress() {
   const theme = useTheme();

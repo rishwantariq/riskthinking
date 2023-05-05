@@ -2,10 +2,10 @@
 import Box from '@mui/material/Box';
 import { useRef } from 'react';
 import { Divider, Typography, useMediaQuery } from '@mui/material';
-import MapChart from '@/components/Charts/maps/map';
-import MapsHero from '@/components/Charts/mapsHero';
-import ColorPalette from '@/components/pallette';
-import ShortBanner from '@/components/shortBanner';
+import MapChart from '@/components/charts/maps/Map';
+import MapsHero from '@/components/charts/maps/MapsHero';
+import Process from '@/components/interactive-items/Process';
+import ShortBanner from '@/components/banners/ShortBanner';
 import LegendToggleIcon from '@mui/icons-material/LegendToggle';
 import PanToolAltIcon from '@mui/icons-material/PanToolAlt';
 import RoomIcon from '@mui/icons-material/Room';
@@ -56,7 +56,7 @@ export default function Page() {
                         <Typography color={'white'} variant='h1'>Usage</Typography>
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '5%', gap: '20px' }}>
                             <div style={{ marginTop: '0%', marginBottom: '5%' }}>
-                                <ColorPalette />
+                                <Process />
                             </div>
                             <ShortBanner gridData={gridData} />
                         </div>

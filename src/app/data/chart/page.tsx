@@ -1,17 +1,17 @@
 'use client';
 import Box from '@mui/material/Box';
-import LineChart from '@/components/Charts/linechart';
-import ChartsHero from '@/components/Charts/chartshero';
+import LineChart from '@/components/charts/line-chart/LineChart';
+import ChartsHero from '@/components/charts/line-chart/ChartsHero';
 import { useRef } from 'react';
 import { Divider, Typography, useMediaQuery } from '@mui/material';
-import ShortBanner from '@/components/shortBanner';
-import ColorPalette from '@/components/pallette';
+import ShortBanner from '@/components/banners/ShortBanner';
+import Process from '@/components/interactive-items/Process';
 import LegendToggleIcon from '@mui/icons-material/LegendToggle';
 import InsertChartIcon from '@mui/icons-material/InsertChart';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import { useInView } from 'react-intersection-observer';
 import { useSpring, animated } from 'react-spring';
-import TopRiskCategories from '@/components/Charts/TopRiskCategories';
+import TopRiskCategories from '@/components/charts/line-chart/TopRiskCategories';
 import Image from 'next/image'
 
 export default function Page() {
@@ -80,7 +80,7 @@ export default function Page() {
                         <Typography color={"white"} variant='h1'>Usage</Typography>
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '5%', gap: '20px' }}>
                             <div style={{ marginTop: '0%', marginBottom: '5%' }}>
-                                <ColorPalette />
+                                <Process />
                             </div>
                             <ShortBanner gridData={gridData} />
                         </div>   

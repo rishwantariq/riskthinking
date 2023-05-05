@@ -1,16 +1,15 @@
 'use client';
 import Box from '@mui/material/Box';
-import Banner from '@/components/banner';
-import ShortBanner from '@/components/shortBanner';
+import Banner from '@/components/banners/Banner';
+import ShortBanner from '@/components/banners/ShortBanner';
 import { Typography, Divider, Button, useMediaQuery, Grid, Skeleton, } from '@mui/material';
 import CategoryIcon from '@mui/icons-material/Category';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Link from 'next/link';
-import AccordionComponent from '@/components/accordion';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import CustomizedAccordions from '@/components/interactive-items/Accordion';
+
 
 export default function Home() {
     const isSmallScreen = useMediaQuery("(max-width:600px)");
@@ -74,7 +73,7 @@ export default function Home() {
             </div>
             <div style={{width: isSmallScreen ? "100%" : '40%', height: '500px', color: 'white', overflow: 'auto' }}>
               <Box display="flex" flexDirection="column" mt={'16%'} justifyContent="start" flexWrap="wrap"  width={'100%'}>
-                <AccordionComponent data={accordionData} />
+                <CustomizedAccordions data={accordionData} />
               </Box>
             </div>
           </div>
