@@ -23,13 +23,13 @@ export default function Home() {
     },
     {
       icon: <AnalyticsIcon color="primary" style={{ fontSize: '5rem', marginBottom: 5 }} />,
-      title: 'Data Visualization',
-      subtitle: 'Visualize and explore historical climate data for any location in the world.',
+      title: 'Regional Risk Ratings',
+      subtitle: 'Visualize and explore historical climate data for any location or asset in the world.',
     },
     {
       icon: <CategoryIcon color="primary" style={{ fontSize: '5rem', marginBottom: 5 }} />,
-      title: 'Data Filtering',
-      subtitle: 'Filter and Categorize Data on what matters to you the most.',
+      title: 'Category-Specific Risk Ratings',
+      subtitle: 'Risk Ratings of how a given cateogry is effected by natural climate risk factors.',
     },
     // Add more objects for additional grid items
   ];
@@ -52,7 +52,7 @@ export default function Home() {
     },
     {
       title: "Metric Analysis",
-      content: "Metrics are combined by aggregation techniques represent data in visual form."
+      content: "Metrics are combined by aggregation techniques to represent data in visual form."
     }
   ];
   
