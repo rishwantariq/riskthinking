@@ -27,21 +27,21 @@ export default function HorizontalProgress() {
       >
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <DatasetIcon color='primary' style={{fontSize: '4rem'}} />
-          <Typography mt={2} fontWeight={'regular'} variant="h4" align="center">
+          <Typography mt={2} color={'white'} fontWeight={'regular'} variant="h4" align="center">
             Raw Data
           </Typography>
         </Box>
-        <ArrowRightAltOutlinedIcon color='inherit' style={{fontSize: '4rem'}} />
+        <ArrowRightAltOutlinedIcon color='inherit' style={{fontSize: '4rem', fill: "white"}} />
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <FunctionsIcon color='primary' style={{fontSize: '4rem'}}/>
-          <Typography mt={2} fontWeight={'regular'} variant="h4" align="center">
+          <Typography mt={2} color={'white'} fontWeight={'regular'} variant="h4" align="center">
             Data Aggregation
           </Typography>
         </Box>
-        <ArrowRightAltOutlinedIcon color="primary" style={{fontSize: '4rem'}} />
+        <ArrowRightAltOutlinedIcon color="primary" style={{fontSize: '4rem', fill: "white"}} />
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <WorkspacesIcon color='primary' style={{fontSize: '4rem', background: "white", fill: "white"}}/>
-          <Typography color={'text'} mt={2} fontWeight={'regular'} variant="h4" align="center">
+          <WorkspacesIcon color='primary' style={{fontSize: '4rem'}}/>
+          <Typography color={'white'} mt={2} fontWeight={'regular'} variant="h4" align="center">
             Display Result
           </Typography>
         </Box>

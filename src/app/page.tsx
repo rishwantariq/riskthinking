@@ -93,7 +93,7 @@ export default function Home() {
           </div>
         </div>
         <div  style={{ position: 'relative', background: 'black', marginBottom: '10%' }}>
-          <Typography fontWeight='bold' variant="h1" color={'text'} mb={2}>Top Metrics</Typography>
+          <Typography fontWeight='bold' variant="h1" color={'white'} mb={2}>Top Metrics</Typography>
           <ShortBanner gridData={gridData} />
         </div>
         <div style={{ background: 'black', display: 'flex', flexDirection: 'column', alignItems: 'center', placeItems: 'center', marginBottom: '5%' }}>

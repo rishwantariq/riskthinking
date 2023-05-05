@@ -90,7 +90,7 @@ export default function Cards({ data, subheading, info }: CardsProps) {
         {subheading}
       </Typography>
       <Box  mt={{ xs: '0', sm: '30px', md: '20px' }} sx={{ display: 'flex', gap: '4px', justifyContent: 'center', alignItems: 'center', alignContent: 'center', marginBottom: '5%', marginTop: '-3%'}}>
-          <InfoIcon  color='info' sx={{background: "white", fill: "white"}}/>
+          <InfoIcon  color='info' sx={{ fill: "white"}}/>
         <Typography color={"white"} align='center' variant='h4' fontWeight={'regular'}>{info}</Typography>
       </Box>
       <Box sx={{ display: 'flex', width: '100%', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginBottom: '2%'  }}>
