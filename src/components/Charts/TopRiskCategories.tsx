@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
-import MY_APP_BASE_URL from '../../../../config';
+import MY_APP_BASE_URL from '../../../config';
 import { ResponseData } from "@/app/api/riskdata/route";
-import Cards from "../../interactive-items/Cards";
+import Cards from "../interactive-items/Cards";
 
 const TopRiskCategories = () => {
     interface SortData {

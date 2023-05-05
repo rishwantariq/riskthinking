@@ -1,7 +1,7 @@
 'use client';
 import Box from '@mui/material/Box';
-import LineChart from '@/components/charts/line-chart/LineChart';
-import ChartsHero from '@/components/charts/line-chart/ChartsHero';
+import LineChart from '@/components/charts/LineChart';
+import ChartsHero from '@/components/charts/ChartsHero';
 import { useRef } from 'react';
 import { Divider, Typography, useMediaQuery } from '@mui/material';
 import ShortBanner from '@/components/banners/ShortBanner';
@@ -11,7 +11,7 @@ import InsertChartIcon from '@mui/icons-material/InsertChart';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import { useInView } from 'react-intersection-observer';
 import { useSpring, animated } from 'react-spring';
-import TopRiskCategories from '@/components/charts/line-chart/TopRiskCategories';
+import TopRiskCategories from '@/components/charts/TopRiskCategories';
 import Image from 'next/image'
 
 export default function Page() {
