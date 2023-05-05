@@ -7,7 +7,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 const items = [
 
     {
-        name: 'Not Sure Climate Can Impact Your Decisions? Get Full Inisghts with ',
+        name: 'Not Sure How Climate Can Impact Your Decisions? Get Full Inisghts with ',
         module: 'RiskView',
         description: 'Dive Into Your Data with Our Interactive Data Table',
         image: 'https://imgtr.ee/images/2023/05/04/ablOi.png',
