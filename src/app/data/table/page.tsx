@@ -17,7 +17,7 @@ export default function Page() {
       <>
         <animated.div style={{ background: 'black', height: 'fitcontent', ...spring }}>
           <div style={{ marginBottom: '2%', background: 'black'}}>
-            s
+              <span></span>
               </div>
               <div style={{height: 'fit-content'}} ref={tablRef}>
                 <Datatable />

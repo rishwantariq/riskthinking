@@ -219,7 +219,7 @@ export function Datatable() {
           onPaginationModelChange={setPaginationModel}
           loading={isLoading}
           components={{ Toolbar: CustomToolbar }}
-          style={{ minWidth: '100%', minHeight: '60vh', maxHeight: '90vh' }}
+          style={{ minWidth: '100%', minHeight: '60vh', maxHeight: '90vh', height: '100%' }}
         />
       </div>
     </div>

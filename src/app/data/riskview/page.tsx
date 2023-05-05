@@ -133,7 +133,7 @@ export default function Page() {
                             </Button>
                         </Link>
                         <animated.div ref={ref} style={{ ...spring}}>
-                            <div style={{ background: 'black', height:'600px', marginTop: '-1%', marginBottom: '2%' }} ref={tablRef}>
+                            <div style={{ background: 'black', height:'500px', marginTop: '-1%', marginBottom: '2%' }} ref={tablRef}>
                                 <Datatable />
                             </div>
                         </animated.div>

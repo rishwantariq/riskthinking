@@ -71,21 +71,21 @@ export default function Home() {
     {isLoading ? (
       <Skeleton variant="rectangular" height={'100vw'} />
     ) : (
-      <Box sx={{ background: 'black', textAlign: 'center', height: '100vw', maxWidth: '100vw', overflow: 'hidden' }}>
+      <Box sx={{ background: 'black', textAlign: 'center', maxWidth: '100vw', overflow: 'hidden' }}>
         <div style={{ position: 'relative' }}>
           <Banner />
         </div>
               
-        <div style={{display: "flex", flexDirection: "column", background: "#cce2cb", marginBottom: "5%", marginTop: '5%' }}>
-          <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginLeft: '5%', marginRight: '5%', position: "relative" }}>
-            <div style={{ display: "flex", flexDirection: "column", width: "50%", maxWidth: "600px", padding: "20px" }}>
-              <Typography align="left" variant="h1" fontWeight={"bold"} color={"black"}>
+        <div style={{display: "flex", flexDirection: "column", background: "#cce2cb", marginBottom: "5%" }}>
+                <div style={{display: "flex", flexDirection: isSmallScreen ? "column" : "row", alignItems: "center", justifyContent: "space-between", marginLeft: '5%', marginRight: '5%', position: "relative" }}>
+            <div style={{ display: "flex", flexDirection: "column", width: isSmallScreen ? "100%": "50%", maxWidth: "600px", padding: "20px" }}>
+              <Typography align="left" variant="h1" fontSize={isSmallScreen ? '3rem' : 'large'} fontWeight={"bold"} color={"black"}>
                Unlock the Power of Climate Risk: Learn How Its Computed and Utilized.</Typography>
               <Typography align="left" mt={2} variant="h4" fontSize={"1rem"} fontWeight={"medium"} color={"black"}>
                 Understanding the Process Behind Calculating Climate Risk and Its Impact on Businesses
               </Typography>
             </div>
-            <div style={{width: '40%', height: '500px', color: 'black', overflow: 'auto' }}>
+            <div style={{width: isSmallScreen ? "100%" : '40%', height: '500px', color: 'white', overflow: 'auto' }}>
               <Box display="flex" flexDirection="column" mt={'16%'} justifyContent="start" flexWrap="wrap"  width={'100%'}>
                 <AccordionComponent data={accordionData} />
               </Box>
@@ -93,7 +93,7 @@ export default function Home() {
           </div>
         </div>
         <div  style={{ position: 'relative', background: 'black', marginBottom: '10%' }}>
-          <Typography fontWeight='bold' variant="h1" color={"white"} mb={2}>Top Metrics</Typography>
+          <Typography fontWeight='bold' variant="h1" color={'white'} mb={2}>Top Metrics</Typography>
           <ShortBanner gridData={gridData} />
         </div>
         <div style={{ background: 'black', display: 'flex', flexDirection: 'column', alignItems: 'center', placeItems: 'center', marginBottom: '5%' }}>
@@ -112,17 +112,16 @@ export default function Home() {
             </Button>
           </Link>
           </div>
-          <div style
-          ={{display: "flex", flexDirection: "column", background: "#f6eac2", marginBottom: "5%", marginTop: '5%' }}>
-            <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginLeft: '5%', marginRight: '5%', position: "relative" }}>
-              <div style={{ display: "flex", flexDirection: "column", width: "50%", maxWidth: "600px", padding: "20px" }}>
+          <div style={{display: "flex", flexDirection: "column", background: "#f6eac2", marginBottom: "5%", marginTop: '5%' }}>
+            <div style={{display: "flex", flexDirection: isSmallScreen ? "column" : "row", alignItems: "center", justifyContent: isSmallScreen ? "start": "space-between", marginLeft: '5%', marginRight: '5%', position: "relative" }}>
+              <div style={{ display: "flex", flexDirection: "column", width: isSmallScreen ? "100%" : "50%", maxWidth: "600px", padding: "20px" }}>
                 <Typography align="left" variant="h2" fontWeight={"bold"} color={"black"}>
                 Transforming the Way Businesses Assess Climate Financial Risk. </Typography>
                 <Typography align="left" mt={2} variant="h4" fontSize={"1rem"} fontWeight={"medium"} color={"black"}>
                   Projecting Data to Over 5+ Decades to Make Your Investments Safe.
                 </Typography>
               </div>
-              <div style={{width: '40%', height: '100%', color: 'white', overflow: 'auto' }}>
+                  <div style={{ width: isSmallScreen ? "100%" : '40%', height: '100%', color: 'white', overflow: 'auto' }}>
               <Box mt={'auto'} mb={'auto'} height={'100%'} display="flex" justifyContent="center">
                 <Link href="https://riskthinking.ai" target="_blank" >
                   <Button
@@ -146,7 +145,7 @@ export default function Home() {
           </div>
           <Box>
             <div>
-              <img src={"https://imgtr.ee/images/2023/05/04/ab7YU.png"} alt="vercel logo" style={{width: 'auto', height: '200px'}} />
+              <img src={"https://imgtr.ee/images/2023/05/04/ab7YU.png"} alt="vercel logo" style={{width: 'auto', height: isSmallScreen ? '100px' : '200px'}} />
             </div>
           </Box> 
       </Box>
