@@ -25,8 +25,8 @@ export default function Page() {
     const isSmallScreen = useMediaQuery("(max-width:600px)");
     const { ref, inView } = useInView();
     const spring = useSpring({
-      opacity: inView ? 1 : 0,
-      from: { opacity: 0 },
+      opacity: inView ? 1 : 0.5,
+      from: { opacity: 0.5 },
       config: { duration: 800 },
     });
     const DynamicButtonBase = dynamic(() => import('@mui/material/ButtonBase'), {
