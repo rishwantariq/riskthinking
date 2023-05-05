@@ -9,9 +9,9 @@ import InsertChartIcon from '@mui/icons-material/InsertChart';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import { useInView } from 'react-intersection-observer';
 import { useSpring, animated } from 'react-spring';
-import TopRiskCategories from '@/components/charts/TopRiskCategories';
-import LineChart from '@/components/charts/LineChart';
-import ChartsHero from '@/components/charts/ChartsHero';
+import TopRiskCategories from '@/components/chart/TopRiskCategories';
+import LineChart from '@/components/chart/LineChart';
+import ChartsHero from '@/components/chart/ChartsHero';
 import Image from 'next/image'
 
 export default function Page() {
