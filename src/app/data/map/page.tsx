@@ -2,14 +2,14 @@
 import Box from '@mui/material/Box';
 import { useRef } from 'react';
 import { Divider, Typography, useMediaQuery } from '@mui/material';
-import MapChart from '@/components/charts/Map';
-import MapsHero from '@/components/charts/MapsHero';
 import Process from '@/components/interactive-items/Process';
 import ShortBanner from '@/components/banners/ShortBanner';
 import LegendToggleIcon from '@mui/icons-material/LegendToggle';
 import PanToolAltIcon from '@mui/icons-material/PanToolAlt';
 import RoomIcon from '@mui/icons-material/Room';
 import { useInView } from 'react-intersection-observer';
+import MapChart from '@/components/map/Map';
+import MapsHero from '@/components/map/MapsHero';
 import { useSpring, animated } from 'react-spring';
 import Image from 'next/image'
 

@@ -5,7 +5,7 @@ import { ResponseData } from '@/app/api/riskdata/route';
 import { FormControl, Select, MenuItem, SelectChangeEvent, InputLabel, Typography, CircularProgress, Chip } from '@mui/material';
 import ChevronDownIcon from '@mui/icons-material/ArrowDropDown';
 import { styled } from '@mui/material/styles';
-import { highchartsTheme } from './theme'
+import { highchartsTheme } from '../theme'
 import MY_APP_BASE_URL from '../../../config';
 import Image from 'next/image'
 
