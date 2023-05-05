@@ -90,14 +90,14 @@ export default function Page() {
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", background: "#C7DBDA", marginBottom: "10%", marginTop: '1%' }}>
                     <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "left", position: "relative" }}>
-                    <div style={{ display: "flex", flexDirection: "column", width: "100%", maxWidth: "500px", padding: "20px" }}>
-                        <Typography align="left" variant="h1" fontWeight={"bold"} color={"black"}>
-                        Interactive. Visual. Custom. Fully Climate-Ready.
-                        </Typography>
-                        <Typography align="left" mt={2} variant="h4" fontSize={"1rem"} fontWeight={"medium"} color={"black"}>
-                        Identify all the risk factors, with indicators, a glance.
-                        </Typography>
-                    </div>
+                        <div style={{ display: "flex", flexDirection: "column", width: "100%", maxWidth: "500px", padding: "20px" }}>
+                            <Typography align="left" variant="h1" fontWeight={"bold"} color={"black"}>
+                            Interactive. Visual. Custom. Fully Climate-Ready.
+                            </Typography>
+                            <Typography align="left" mt={2} variant="h4" fontSize={"1rem"} fontWeight={"medium"} color={"black"}>
+                            Identify all the risk factors, with indicators, a glance.
+                            </Typography>
+                        </div>
                     {isSmallScreen ? null : (
                         <img
                         src="https://imgtr.ee/images/2023/05/03/ao7fL.png"

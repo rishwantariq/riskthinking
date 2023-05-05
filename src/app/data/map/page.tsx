@@ -18,7 +18,7 @@ export default function Page() {
     const mapsRef = useRef<HTMLDivElement>(null);
     const { ref, inView } = useInView();
     const isSmallScreen = useMediaQuery("(max-width:600px)");
-    const isMedScreen = useMediaQuery("(max-width:800px)");
+    const isMedScreen = useMediaQuery("(max-width:820px)");
 
     const spring = useSpring({
       opacity: inView ? 1 : 0.5,
@@ -63,30 +63,28 @@ export default function Page() {
                         <div style={{ display: "flex", flexDirection: "column", background: "#ffb092", marginBottom: "5%", marginTop: '15%' }}>
                             <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "left", position: "relative" }}>
                                 <div style={{ display: "flex", flexDirection: "column", width: "50%", maxWidth: "500px", padding: "20px" }}>
-                                <Typography align="left" variant="h1" fontWeight={"bold"} color={"black"}>
-                                    Interactive. Detailed. Featureful. Personal.
-                                </Typography>
-                                <Typography align="left" mt={2} variant="h4" fontSize={"1rem"} fontWeight={"medium"} color={"black"}>
-                                   Identify all the risk areas, at a glance.
-                                </Typography>
+                                    <Typography align="left" variant="h1" fontWeight={"bold"} color={"black"}>
+                                        Interactive. Detailed. Featureful. Personal.
+                                    </Typography>
+                                    <Typography align="left" mt={2} variant="h4" fontSize={"1rem"} fontWeight={"medium"} color={"black"}>
+                                    Identify all the risk areas, at a glance.
+                                    </Typography>
                                 </div>
-                                <div>
                                     {!isSmallScreen && (
                                         <img
                                         src="https://imgtr.ee/images/2023/05/02/J3fw2.png"
                                         alt=""
                                         style={{
                                             position: "relative",
-                                            width: isMedScreen ? "400px" : "500px", // use 400px for medium screens and 500px for other screens
+                                            width: isMedScreen ? "400px" : "500px", 
                                             height: "auto",
-                                            top: isMedScreen ? "-200px" : "-100px", // use -200px for medium screens and -100px for other screens
+                                            top: isMedScreen ? "-200px" : "-200px",
                                             display: "block",
                                             marginLeft: "auto",
                                             marginBottom: "-15%",
                                         }}
-                                        />
+                                    />   
                                     )}
-                                    </div>
                             </div>
                         </div>
                     </div>

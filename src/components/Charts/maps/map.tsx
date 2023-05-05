@@ -112,6 +112,10 @@ const MapChart = () => {
   }, [selectedDecadeFilter]);
 
 
+  useEffect(() => {
+    aggregatedData();
+  }, [data]);
+
   // Define the options
   const options = {
     chart: {
