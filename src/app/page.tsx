@@ -27,7 +27,7 @@ export default function Home() {
     },
     {
       icon: <CategoryIcon color="primary" style={{ fontSize: '5rem', marginBottom: 5 }} />,
-      title: 'Category-Specific Risk Ratings',
+      title: 'Category Risk Ratings',
       subtitle: 'Risk Ratings of how a given cateogry is effected by natural climate risk factors.',
     },
     // Add more objects for additional grid items
