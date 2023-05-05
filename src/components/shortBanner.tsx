@@ -20,10 +20,10 @@ function ShortBanner({ gridData }: ShortBannerProps) {
           {gridData.map((item, index) => (
           <Grid key={index} item xs={12} md={4} alignItems="center">
             {item.icon}
-            <Typography fontWeight='bold' color={'text'} variant="h3" mb={2}>
+            <Typography fontWeight='bold' color={"white"} variant="h3" mb={2}>
               {item.title}
             </Typography>
-            <Typography  fontWeight='regular' color={'text'} variant="h4">
+            <Typography  fontWeight='regular' color={"white"} variant="h4">
               {item.subtitle}
             </Typography>
           </Grid>

@@ -278,8 +278,9 @@ const MapChart = () => {
                 <img style={{width: '250px', height: '120px', marginBottom: '2%'}} src="https://imgtr.ee/images/2023/04/27/JMcWb.png" alt="" />
               <div style={{ display: 'flex', flexDirection: 'row', marginLeft: 'auto'}}>
                   <div>
-                  <Typography fontWeight={'medium'} fontSize={'small'} mt={3} ml={3} mb={1} align='left' variant='h4'>Year</Typography>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex', overflow: 'auto', gap: '8px', marginTop: '1%', marginBottom: '4%', paddingLeft: '4%'}}>                      {years.map(year => (
+                  <Typography fontWeight={'medium'} color={'white'} fontSize={'small'} mt={3} ml={3} mb={1} align='left' variant='h4'>Year</Typography>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex', overflow: 'auto', gap: '8px', marginTop: '1%', marginBottom: '4%', paddingLeft: '4%' }}>
+                    {years.map(year => (
                         <Chip
                           key={year}
                           label={year.toString()}
