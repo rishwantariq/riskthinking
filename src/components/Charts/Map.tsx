@@ -2,16 +2,15 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import HighchartsReact from 'highcharts-react-official';
 import Highcharts from 'highcharts';
-import topology from '@/components/charts/maps/topology.json';
+import topology from '@/components/charts/topology.json';
 import highchartsMap from 'highcharts/modules/map';
 import { ResponseData } from '@/app/api/riskdata/route';
 import { Chip, Typography, styled } from '@mui/material';
 import { FormControl, Select, MenuItem } from '@mui/material';
 import ChevronDownIcon from '@mui/icons-material/ArrowDropDown';
-import MY_APP_BASE_URL from '../../../../config';
+import MY_APP_BASE_URL from '../../../config';
 import Cards from '@/components/interactive-items/Cards';
-import Image from 'next/image'
-import { highchartsTheme } from '../theme'
+import { highchartsTheme } from './theme'
 
 
 if (typeof Highcharts === 'object') {
