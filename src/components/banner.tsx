@@ -47,6 +47,7 @@ function Banner(_props: any) {
           style: {
             borderRadius: '50px',
             height: "full",
+            opacity: 0.5
           },
         }}
         navButtonsAlwaysVisible={true}

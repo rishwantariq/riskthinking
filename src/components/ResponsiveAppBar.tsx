@@ -13,6 +13,8 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import Link from 'next/link';
+import Image from 'next/image'
+
 
 type PageLinks = {
   [key: string]: string;
@@ -51,17 +53,16 @@ function ResponsiveAppBar() {
       backdropFilter: 'blur(30px)' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon color='secondary' sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <img src="https://imgtr.ee/images/2023/05/05/aNQPM.png" alt='logo' width={70} height={70} />
           <Typography
             variant="h6"
             noWrap
             component="a"
-            color='secondary'
+            color='primary'
             href="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
               textDecoration: 'none',
@@ -69,7 +70,6 @@ function ResponsiveAppBar() {
           >
             CLIMATERISK
           </Typography>
-
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -106,7 +106,6 @@ function ResponsiveAppBar() {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
