@@ -53,7 +53,7 @@ export default function Page() {
                     <div>
                         <MapsHero targetRef={mapsRef} />
                         <Divider style={{ width:'auto', marginLeft: 'auto', marginRight: 'auto', background: 'gray', marginTop: '2%', marginBottom: '2%'}}/>
-                        <Typography color={'text'} variant='h1'>Usage</Typography>
+                        <Typography color={'white'} variant='h1'>Usage</Typography>
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '5%', gap: '20px' }}>
                             <div style={{ marginTop: '0%', marginBottom: '5%' }}>
                                 <ColorPalette />

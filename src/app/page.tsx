@@ -85,7 +85,7 @@ export default function Home() {
                 Understanding the Process Behind Calculating Climate Risk and Its Impact on Businesses
               </Typography>
             </div>
-            <div style={{width: '40%', height: '500px', color: 'white', overflow: 'auto' }}>
+            <div style={{width: '40%', height: '500px', color: 'black', overflow: 'auto' }}>
               <Box display="flex" flexDirection="column" mt={'16%'} justifyContent="start" flexWrap="wrap"  width={'100%'}>
                 <AccordionComponent data={accordionData} />
               </Box>
@@ -93,7 +93,7 @@ export default function Home() {
           </div>
         </div>
         <div  style={{ position: 'relative', background: 'black', marginBottom: '10%' }}>
-          <Typography fontWeight='bold' variant="h1" color={'white'} mb={2}>Top Metrics</Typography>
+          <Typography fontWeight='bold' variant="h1" color={"white"} mb={2}>Top Metrics</Typography>
           <ShortBanner gridData={gridData} />
         </div>
         <div style={{ background: 'black', display: 'flex', flexDirection: 'column', alignItems: 'center', placeItems: 'center', marginBottom: '5%' }}>
