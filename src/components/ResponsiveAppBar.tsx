@@ -11,9 +11,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import Link from 'next/link';
-import Image from 'next/image'
 
 
 type PageLinks = {
@@ -21,7 +19,7 @@ type PageLinks = {
 };
 
 const pages = ['Data Table', 'Graphic', 'Geographical'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Profile'];
 const pageLinks : PageLinks = {
   'Data Table': '/data/table',
   'Graphic': '/data/chart',
@@ -77,7 +75,7 @@ function ResponsiveAppBar() {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="inherit"
+              sx={{ fill: 'white', color: 'white'}}
             >
               <MenuIcon />
             </IconButton>
@@ -101,7 +99,9 @@ function ResponsiveAppBar() {
             >
               {pages.map((page : string) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
+                  <Link style={{color: 'primary'}} key={page} href={pageLinks[page]}>
+                    <Typography fontWeight={'medium'} color={'text.primary'} textAlign="center">{page}</Typography>
+                  </Link>
                 </MenuItem>
               ))}
             </Menu>
@@ -115,14 +115,14 @@ function ResponsiveAppBar() {
               mr: 2,
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
-              fontFamily: 'monospace',
+              fontFamily: '',
               fontWeight: 700,
               letterSpacing: '.3rem',
-              color: 'inherit',
+              color: 'text.primary',
               textDecoration: 'none',
             }}
           >
-            LOGO
+            CLIMATERISK
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (

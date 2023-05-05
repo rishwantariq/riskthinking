@@ -30,6 +30,7 @@ export function Datatable() {
   type Factor = {
     [factor: string]: number;
   };
+
   function CustomToolbar() {
     return (
       <div style={{ borderColor: '#949494', borderBottom: '2px solid #949494' }}>

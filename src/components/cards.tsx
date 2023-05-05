@@ -76,7 +76,7 @@ export default function Cards({ data, subheading, info }: CardsProps) {
         ml={{ xs: '0', sm: '8px', md: '8px' }}
         variant="h2"
         fontWeight="bold"
-        fontSize={{ xs: '2rem', sm: '2rem', md: '3rem' }}
+        fontSize={{ xs: '2rem', sm: '2rem', md: '2.5rem' }}
         color="#F5F5F5"
         sx={{
           textWrap: 'none',
