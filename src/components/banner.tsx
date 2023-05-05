@@ -16,7 +16,7 @@ const items = [
     {
         name: 'Concerned About a Specific Category? Find Out With ',
         module: 'SectorWatch',
-        description: 'Uncover Trends and Patterns across business categories with our Powerful & Insightful Charting Tool."',
+        description: 'Uncover Trends and Patterns across business categories with our Powerful & Insightful Charting Tool.',
         image: 'https://imgtr.ee/images/2023/05/04/abJtJ.png',
         link: '/data/chart'
     },

@@ -53,10 +53,10 @@ export default function Page() {
                         <div style={{display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "left", position: "relative" }}>
                             <div style={{ display: "flex", flexDirection: "column", width: "50%", maxWidth: "500px", padding: "20px" }}>
                             <Typography align="left" variant="h1" fontWeight={"bold"} color={"black"}>
-                                Data-Driven. Stochastic. Aggregated. For All Categories..
+                                Data-Driven. Stochastic. Aggregated. For All Categories.
                             </Typography>
                             <Typography align="left" mt={2} variant="h4" fontSize={"1rem"} fontWeight={"medium"} color={"black"}>
-                                All the important projections, categorized by their category per for 5+ decades.
+                                All the important projections, organized by their category for 5+ decades.
                             </Typography>
                             </div>
                             {isSmallScreen ? null : (

@@ -28,8 +28,8 @@ export default function Home() {
     },
     {
       icon: <CategoryIcon color="primary" style={{ fontSize: '5rem', marginBottom: 5 }} />,
-      title: 'Data Visualization',
-      subtitle: 'Visualize and explore historical climate data for any location in the world.',
+      title: 'Data Filtering',
+      subtitle: 'Filter and Categorize Data on what matters to you the most.',
     },
     // Add more objects for additional grid items
   ];
