@@ -207,7 +207,7 @@ export function Datatable() {
       <div style={{ display: 'flex', justifyContent: 'center', gap: '8%', marginBottom: '4%', flexWrap: 'wrap' }}>
         <Cards data={sortedData.splice(0, 3)} subheading='High Risk Factors' info='Data is aggregated for the given page' />
       </div>    
-      <div style={{ background: '#242F39', marginLeft: '16px', marginRight: '16px', alignItems: 'center', height: '100%', width: '100%' }}>
+      <div style={{ background: '#242F39', marginLeft: '16px', marginRight: '16px', alignItems: 'center', height: '100%', width: '' }}>
         <StyledDataGrid
           getRowId={getRowId}
           rows={data.Data}
