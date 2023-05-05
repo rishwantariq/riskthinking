@@ -11,29 +11,9 @@ import Link from 'next/link';
 import AccordionComponent from '@/components/accordion';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Startup from '@/components/startup';
 
 export default function Home() {
     const isSmallScreen = useMediaQuery("(max-width:600px)");
-    const [isLoading, setIsLoading] = useState(true);
-    const [showLogo, setShowLogo] = useState(true);
-
-    useEffect(() => {
-      const isShownBefore = localStorage.getItem('isShownBefore');
-      if (isShownBefore == 'true') {
-        setShowLogo(false);
-      } else {
-        localStorage.setItem('isShownBefore', 'true');
-      }
-    }, []);
-  
-    useEffect(() => {
-      const timeout = setTimeout(() => {
-        setShowLogo(false);
-      }, 2000);
-  
-      return () => clearTimeout(timeout);
-    }, []);
    
   const gridData: { icon: JSX.Element, title: string, subtitle: string }[] = [
     {
@@ -80,9 +60,6 @@ export default function Home() {
   return (
     
     <>
-    {showLogo ? (
-        <Startup />
-     ) : (
     <div>
       <Box sx={{ background: 'black', textAlign: 'center', maxWidth: '100vw', overflow: 'hidden' }}>
           <Banner />              
@@ -160,7 +137,6 @@ export default function Home() {
           </Box> 
       </Box>
     </div>
-    )}
     </>
 );
 }
