@@ -47,7 +47,7 @@ function ResponsiveAppBar() {
 
   return (
     <AppBar position="sticky" style={{ 
-      backgroundColor: 'rgba(0, 0, 0, 0.9)', 
+      backgroundColor: 'rgba(0, 0, 0, 1)', 
       backdropFilter: 'blur(20px)' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>

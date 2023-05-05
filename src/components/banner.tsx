@@ -38,8 +38,8 @@ function Banner(_props: any) {
         animation="slide"
         navButtonsProps={{
           style: {
-            backgroundColor: 'transparent',
-            color: 'white',
+            backgroundColor: 'black',
+            color: 'black',
             borderRadius: 0,
             margin: 0
           }

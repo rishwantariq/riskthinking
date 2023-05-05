@@ -71,7 +71,7 @@ export default function Home() {
     {isLoading ? (
       <Skeleton variant="rectangular" height={'100vw'} />
     ) : (
-      <Box sx={{ background: 'black', textAlign: 'center', maxWidth: '100vw', overflow: 'hidden' }}>
+      <Box sx={{ background: 'black', textAlign: 'center', height: '100vw', maxWidth: '100vw', overflow: 'hidden' }}>
         <div style={{ position: 'relative' }}>
           <Banner />
         </div>
