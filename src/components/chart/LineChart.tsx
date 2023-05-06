@@ -253,11 +253,7 @@ const LineChart = () => {
             </div>
         </div>
         <div>
-        {loading ? (
-            <div>Loading ..</div>
-        ) : (
             <HighchartsReact highcharts={Highcharts} options={combinedOptions} theme={highchartsTheme} />
-        )}
         </div>
     </div>
   );
