@@ -89,10 +89,10 @@ export default function Page() {
                     <div ref={ref} style={{ background: 'black', padding: '1rem'}}>    
                         <Typography color={"white"} mb={'1%'} variant='h1'>Risk Chart</Typography>
                         <Typography color={'white'} mb={'5%'} fontWeight={'regular'} variant='h4'>Powered by Highcharts</Typography>
-                        <animated.div ref={chartsRef} style={{ ...spring }}>
+                        <div>
                             <TopRiskCategories />   
                             <LineChart />
-                        </animated.div >
+                        </div >
                     </div>
             </Box>
         </div>

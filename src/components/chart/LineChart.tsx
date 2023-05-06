@@ -10,7 +10,7 @@ import MY_APP_BASE_URL from '../../../config';
 import Image from 'next/image'
 
 const LineChart = () => {
-    const [selectedAssetFilter, setSelectedAssetFilter] = useState('');
+    const [selectedAssetFilter, setSelectedAssetFilter] = useState('none');
     const [selectedAssetLabel, setSelectedAssetLabel] = useState('none');
     const [selectedBusinessCategoryLabel, setSelectedBusinessCategoryLabel] = useState('Energy');
     const [selectedBusinessCategoryFilter, setSelectedBusinessCategoryFilter] = useState(encodeURIComponent('Business Category:Energy'));
@@ -34,7 +34,7 @@ const LineChart = () => {
     const fetchPageData = async (page: number) => {
         try {
             setLoading(true);
-            const res = await fetch(`${MY_APP_BASE_URL}/api/riskdata?filter=${selectedBusinessCategoryFilter}+${selectedAssetFilter}`);
+            const res = await fetch(`${MY_APP_BASE_URL}/api/riskdata?filter=${selectedBusinessCategoryFilter}|${selectedAssetFilter}`);
             const data: ResponseData = await res.json();
             setData(data);
             setLoading(false);
@@ -117,6 +117,7 @@ const LineChart = () => {
         series: [
         {
             name: 'Risk',
+            data: []
         }
         ]
     };

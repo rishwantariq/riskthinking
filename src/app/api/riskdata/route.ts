@@ -42,7 +42,7 @@ function getFilters(request: NextRequest) {
   const query = request.nextUrl.searchParams.getAll('filter');
 
   if (query) {
-    const filterParams = query.flatMap((param: string) => param.split('+'));
+    const filterParams = query.flatMap((param: string) => param.split('|'));
     filterParams.forEach((param) => {
       const [key, value] = param.split(':');
       const decodedValue = decodeURIComponent(value);
