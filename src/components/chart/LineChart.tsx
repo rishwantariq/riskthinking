@@ -243,7 +243,7 @@ const LineChart = () => {
             </div>
         </div>
         <div>
-            <HighchartsReact key={chartType} highcharts={Highcharts} options={options} />
+            <HighchartsReact immutable={true} highcharts={Highcharts} options={options} />
         </div>
     </div>
   );
