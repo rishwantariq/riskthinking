@@ -82,16 +82,7 @@ const LineChart = () => {
 
     const options = {
         chart: {
-            type: `${chartType}`,
-            events: {
-                load(this: Highcharts.Chart): void {
-                  if (loading) {
-                    this.showLoading();
-                  } else {
-                    this.hideLoading();
-                  }
-                }
-            },
+            type: `${chartType}`
         },
         title: {
             text: 'Climate Risk Rating vs Year',
@@ -135,7 +126,7 @@ const LineChart = () => {
     
     var combinedOptions = options;
     if (typeof Highcharts === 'object') {
-        combinedOptions =  Highcharts.merge(options, highchartsTheme);
+        combinedOptions = Highcharts.merge(options, highchartsTheme);
     }
     
     const handleBusinessCategoryChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
@@ -253,7 +244,7 @@ const LineChart = () => {
             </div>
         </div>
         <div>
-            <HighchartsReact highcharts={Highcharts} options={combinedOptions} theme={highchartsTheme} />
+            <HighchartsReact immutable={true} highcharts={Highcharts} options={combinedOptions} theme={highchartsTheme} />
         </div>
     </div>
   );
