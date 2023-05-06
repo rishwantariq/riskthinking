@@ -29,12 +29,12 @@ export default function Page() {
         {
           icon: <InsertChartIcon color="primary" style={{ fontSize: '5rem', marginBottom: 5 }} />,
           title: 'Multiple Charts',
-          subtitle: 'The SectorWatch chart allows you to take a glance at 2 maps.',
+          subtitle: 'Want to visualize data in the way you want? Choose from upto 5 chart types.',
         },
         {
           icon: <DateRangeIcon color="primary" style={{ fontSize: '5rem', marginBottom: 5 }} />,
-          title: 'Change Decades',
-          subtitle: 'Show data for different decades, made to visualize easier.',
+          title: 'Change Catgories',
+          subtitle: 'Show data for different categories, and their assets, for 5+ decades.',
         },
         {
           icon: <LegendToggleIcon color="primary" style={{ fontSize: '5rem', marginBottom: 5 }} />,
@@ -89,10 +89,10 @@ export default function Page() {
                     <div ref={ref} style={{ background: 'black', padding: '1rem'}}>    
                         <Typography color={"white"} mb={'1%'} variant='h1'>Risk Chart</Typography>
                         <Typography color={'white'} mb={'5%'} fontWeight={'regular'} variant='h4'>Powered by Highcharts</Typography>
-                        <div>
+                        <animated.div ref={chartsRef} style={{ ...spring }}>
                             <TopRiskCategories />   
                             <LineChart />
-                        </div >
+                        </animated.div >
                     </div>
             </Box>
         </div>
