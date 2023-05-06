@@ -83,7 +83,6 @@ export default function Page() {
                                 <Process />
                             </div>
                             <ShortBanner gridData={gridData} />
-
                         </div>   
                     </div>
                     <Divider style={{ width: 'auto', marginLeft: 'auto', marginRight: 'auto', background: 'gray', marginTop: '2%' }} />
@@ -91,6 +90,7 @@ export default function Page() {
                         <Typography color={"white"} mb={'1%'} variant='h1'>Risk Chart</Typography>
                         <Typography color={'white'} mb={'5%'} fontWeight={'regular'} variant='h4'>Powered by Highcharts</Typography>
                         <animated.div ref={chartsRef} style={{ ...spring }}>
+                            <TopRiskCategories />   
                             <LineChart />
                         </animated.div >
                     </div>
