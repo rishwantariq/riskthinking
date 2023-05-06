@@ -34,15 +34,21 @@ const LineChart = () => {
     const fetchPageData = async (page: number) => {
         try {
           setLoading(true);
-          const res = await fetch(`${MY_APP_BASE_URL}/api/riskdata?filter=${selectedBusinessCategoryFilter}|${selectedAssetFilter}`);
-          const data: ResponseData = await res.json();
-          if (data && data.Data && data.Data.length > 0) {
-            setData(data);
-            setAssetLabels([...data.Data.map(item => item.assetName)].filter((value, index, self) => self.indexOf(value) === index));
-            setTotalPages(Number(data.totalPages));
-            const agg = aggregateData(data);
-            setAggregatedData(agg);
-          }
+            const res = await fetch(`${MY_APP_BASE_URL}/api/riskdata?filter=${selectedBusinessCategoryFilter}|${selectedAssetFilter}`)
+            .then((res) => res.json())
+            .then((res) => {
+                const data: ResponseData = res;
+                // Do something with the data
+                console.log(data);
+                setData(data);
+                setAssetLabels([...data.Data.map(item => item.assetName)].filter((value, index, self) => self.indexOf(value) === index));
+                setTotalPages(Number(data.totalPages));
+                const agg = aggregateData(data);
+                setAggregatedData(agg);
+            })
+            .catch((error) => {
+              console.error(error);
+            });
           setLoading(false);
         } catch (error) {
         console.log(error);
@@ -244,10 +250,11 @@ const LineChart = () => {
                             variant={type === chartType ? 'filled' : 'outlined'}
                         />
                         ))}
-                    </div>    
-                </div>
+                        </div>    
+                </div> 
             </div>
-        </div>
+         </div>
+            <HighchartsReact highcharts={Highcharts} options={combinedOptions} theme={highchartsTheme} />
     </div>
   );
 };
