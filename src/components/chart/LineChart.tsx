@@ -5,12 +5,12 @@ import { ResponseData } from '@/app/api/riskdata/route';
 import { FormControl, Select, MenuItem, SelectChangeEvent, InputLabel, Typography, CircularProgress, Chip } from '@mui/material';
 import ChevronDownIcon from '@mui/icons-material/ArrowDropDown';
 import { styled } from '@mui/material/styles';
-import { highchartsTheme } from '../theme'
+import { highchartsTheme } from '../theme';
 import MY_APP_BASE_URL from '../../../config';
 import Image from 'next/image'
 
 const LineChart = () => {
-    const [selectedAssetFilter, setSelectedAssetFilter] = useState('none');
+    const [selectedAssetFilter, setSelectedAssetFilter] = useState('');
     const [selectedAssetLabel, setSelectedAssetLabel] = useState('none');
     const [selectedBusinessCategoryLabel, setSelectedBusinessCategoryLabel] = useState('Energy');
     const [selectedBusinessCategoryFilter, setSelectedBusinessCategoryFilter] = useState(encodeURIComponent('Business Category:Energy'));
@@ -33,23 +33,29 @@ const LineChart = () => {
 
     const fetchPageData = async (page: number) => {
         try {
-            setLoading(true);
-            const res = await fetch(`${MY_APP_BASE_URL}/api/riskdata?filter=${selectedBusinessCategoryFilter}|${selectedAssetFilter}`);
-            const data: ResponseData = await res.json();
+          setLoading(true);
+          const res = await fetch(`${MY_APP_BASE_URL}/api/riskdata?filter=${selectedBusinessCategoryFilter}|${selectedAssetFilter}`);
+          const data: ResponseData = await res.json();
+          if (data && data.Data && data.Data.length > 0) {
             setData(data);
-            setLoading(false);
             setAssetLabels([...data.Data.map(item => item.assetName)].filter((value, index, self) => self.indexOf(value) === index));
             setTotalPages(Number(data.totalPages));
-            const agg = aggregateData(data);
-            setAggregatedData(agg);
+          }
+          setLoading(false);
         } catch (error) {
-            console.log(error);
+        console.log(error);
         }
       };    
       
       useEffect(() => {         
-          fetchPageData(paginationModel.page);
-      }, [selectedAssetFilter, selectedBusinessCategoryFilter]);
+        fetchPageData(paginationModel.page);
+      }, [paginationModel.page, paginationModel.pageSize, selectedAssetFilter, selectedBusinessCategoryFilter]);
+      
+      useEffect(() => {         
+        const agg = aggregateData(data);
+        setAggregatedData(agg);
+      }, [data]);
+      
       
       function aggregateData(data: ResponseData | null) {
         if (data && data?.Data && data?.Data?.length > 0) {
@@ -117,9 +123,14 @@ const LineChart = () => {
         series: [
         {
             name: 'Risk',
-            data: []
+            data: aggregatedData
         }
-        ]
+        ],
+        dataGrouping: {
+            approximation: 'average',
+            enabled: true,
+            turboThreshold: 2000 // Maximum number of data points to display at a time
+        },
     };
     
     var combinedOptions = options;
@@ -128,7 +139,7 @@ const LineChart = () => {
     }
     
     const handleBusinessCategoryChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
-        setSelectedAssetFilter('none');
+        setSelectedAssetFilter('');
         setSelectedAssetLabel('none');
         setSelectedBusinessCategoryFilter(encodeURIComponent(`Business Category:${e.target.value}`));
         setSelectedBusinessCategoryLabel(e.target.value);
@@ -142,7 +153,7 @@ const LineChart = () => {
       setSelectedAssetLabel(e.target.value); 
 
       if (e.target.value === 'none') {
-          setSelectedAssetFilter('none');
+          setSelectedAssetFilter('');
           setSelectedBusinessCategoryFilter(selectedBusinessCategoryFilter);
         }
     }
@@ -237,11 +248,17 @@ const LineChart = () => {
                             variant={type === chartType ? 'filled' : 'outlined'}
                         />
                         ))}
-                        </div>    
-                </div> 
+                    </div>    
+                </div>
             </div>
-         </div>
+        </div>
+        <div>
+        {loading ? (
+            <div>Loading ..</div>
+        ) : (
             <HighchartsReact highcharts={Highcharts} options={combinedOptions} theme={highchartsTheme} />
+        )}
+        </div>
     </div>
   );
 };
