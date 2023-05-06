@@ -9,6 +9,9 @@ import { highchartsTheme } from '../theme';
 import MY_APP_BASE_URL from '../../../config';
 import Image from 'next/image'
 
+if (typeof Highcharts === 'object') {
+     Highcharts.setOptions(highchartsTheme);
+}
 const LineChart = () => {
     const [selectedAssetFilter, setSelectedAssetFilter] = useState('');
     const [selectedAssetLabel, setSelectedAssetLabel] = useState('none');
@@ -124,10 +127,6 @@ const LineChart = () => {
         },
     };
     
-    var combinedOptions = options;
-    if (typeof Highcharts === 'object') {
-        combinedOptions = Highcharts.merge(options, highchartsTheme);
-    }
     
     const handleBusinessCategoryChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
         setSelectedAssetFilter('');
@@ -244,7 +243,7 @@ const LineChart = () => {
             </div>
         </div>
         <div>
-            <HighchartsReact immutable={true} highcharts={Highcharts} options={combinedOptions} theme={highchartsTheme} />
+            <HighchartsReact key={chartType} highcharts={Highcharts} options={options} />
         </div>
     </div>
   );
