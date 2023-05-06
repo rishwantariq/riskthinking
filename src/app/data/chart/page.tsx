@@ -83,9 +83,6 @@ export default function Page() {
                                 <Process />
                             </div>
                             <ShortBanner gridData={gridData} />
-                            <div style={{marginTop: '6%'}}>
-                                <TopRiskCategories />   
-                            </div>
 
                         </div>   
                     </div>
