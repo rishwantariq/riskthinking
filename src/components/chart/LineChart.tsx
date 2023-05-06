@@ -31,31 +31,27 @@ const LineChart = () => {
     const chartTypes = ['line', 'area', 'column', 'bar', 'pie', 'scatter'];
     const businessCategories = ['Energy', 'Manufacturing', 'Retail', 'Technology', 'Healthcare', 'Finance'];
 
-    
-      const fetchPageData = async () => {
+    const fetchPageData = async (page: number) => {
         try {
             setLoading(true);
-            const res = await fetch(`${MY_APP_BASE_URL}/api/riskdata?filter=${selectedBusinessCategoryFilter}|${selectedAssetFilter}`)
+            const res = await fetch(`${MY_APP_BASE_URL}/api/riskdata?filter=${selectedBusinessCategoryFilter}|${selectedAssetFilter}`);
             const data: ResponseData = await res.json();
             setData(data);
             setLoading(false);
+            setAssetLabels([...data.Data.map(item => item.assetName)].filter((value, index, self) => self.indexOf(value) === index));
+            setTotalPages(Number(data.totalPages));
+            const agg = aggregateData(data);
+            setAggregatedData(agg);
         } catch (error) {
             console.log(error);
         }
-      };
+      };    
       
-      
-      useEffect(() => {
-        fetchPageData();
-        aggregateData();
+      useEffect(() => {         
+          fetchPageData(paginationModel.page);
       }, [selectedAssetFilter, selectedBusinessCategoryFilter]);
-    
-    
-      useEffect(() => {
-        aggregateData();
-      }, [data]);
-    
-      function aggregateData() {
+      
+      function aggregateData(data: ResponseData | null) {
         if (data && data?.Data && data?.Data?.length > 0) {
           const groupedData = data?.Data?.reduce((acc: { [key: string]: { riskSum: number, count: number } }, item) => {
             if (!acc[item.year]) {
@@ -121,7 +117,7 @@ const LineChart = () => {
         series: [
         {
             name: 'Risk',
-            data: aggregatedData
+            data: aggregatedData || []
         }
         ],
         dataGrouping: {
@@ -250,6 +246,7 @@ const LineChart = () => {
                 </div> 
             </div>
          </div>
+            <HighchartsReact highcharts={Highcharts} options={combinedOptions} theme={highchartsTheme} />
     </div>
   );
 };
