@@ -10,7 +10,7 @@ import MY_APP_BASE_URL from '../../../config';
 import Image from 'next/image'
 
 const LineChart = () => {
-    const [selectedAssetFilter, setSelectedAssetFilter] = useState('');
+    const [selectedAssetFilter, setSelectedAssetFilter] = useState('none');
     const [selectedAssetLabel, setSelectedAssetLabel] = useState('none');
     const [selectedBusinessCategoryLabel, setSelectedBusinessCategoryLabel] = useState('Energy');
     const [selectedBusinessCategoryFilter, setSelectedBusinessCategoryFilter] = useState(encodeURIComponent('Business Category:Energy'));
@@ -98,7 +98,7 @@ const LineChart = () => {
         allowDecimals: false,
         labels: {
             formatter: function (this: { value: number }) {
-                return this.value;
+                return this.value ? this.value : 0;
             }
         }
         },
@@ -117,14 +117,12 @@ const LineChart = () => {
         series: [
         {
             name: 'Risk',
-            data: aggregatedData || []
+            data: aggregatedData ? aggregatedData : [{
+                x: 0,
+                y: 0
+            }]
         }
-        ],
-        dataGrouping: {
-            approximation: 'average',
-            enabled: true,
-            turboThreshold: 2000 // Maximum number of data points to display at a time
-        },
+        ]
     };
     
     var combinedOptions = options;
