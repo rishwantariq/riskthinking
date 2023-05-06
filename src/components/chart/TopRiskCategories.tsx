@@ -3,14 +3,14 @@ import MY_APP_BASE_URL from '../../../config';
 import { ResponseData } from "@/app/api/riskdata/route";
 import Cards from "../interactive-items/Cards";
 
+export interface SortData {
+    assetName: string;
+    latitude: number;
+    longitude: number;
+    risk: number;
+}
+
 const TopRiskCategories = () => {
-    interface SortData {
-        assetName: string;
-        latitude: number;
-        longitude: number;
-        risk: number;
-    }
-      
     const [unfilteredData, setUnfilteredData] = useState<ResponseData>();
     const [loading, setLoading] = useState(false);
     const [sortedDataFiltered, setSortedDataFiltered] = useState<SortData[]>([]);
@@ -75,14 +75,6 @@ const TopRiskCategories = () => {
         setSortedDataFiltered(sortedTopThree);
     }
     }, [unfilteredData]);
-
-    if (loading || error) {
-    return (
-        <div>
-        {loading ? <div>Loading...</div> : <div>Error loading data</div>}
-        </div>
-    );
-    }
 
     return (
     <div>

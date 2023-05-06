@@ -9,7 +9,6 @@ import InsertChartIcon from '@mui/icons-material/InsertChart';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import { useInView } from 'react-intersection-observer';
 import { useSpring, animated } from 'react-spring';
-import TopRiskCategories from '@/components/chart/TopRiskCategories';
 import LineChart from '@/components/chart/LineChart';
 import ChartsHero from '@/components/chart/ChartsHero';
 import Image from 'next/image'
@@ -90,7 +89,6 @@ export default function Page() {
                         <Typography color={"white"} mb={'1%'} variant='h1'>Risk Chart</Typography>
                         <Typography color={'white'} mb={'5%'} fontWeight={'regular'} variant='h4'>Powered by Highcharts</Typography>
                         <animated.div ref={chartsRef} style={{ ...spring }}>
-                            <TopRiskCategories />   
                             <LineChart />
                         </animated.div >
                     </div>

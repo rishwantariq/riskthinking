@@ -7,7 +7,11 @@ import ChevronDownIcon from '@mui/icons-material/ArrowDropDown';
 import { styled } from '@mui/material/styles';
 import { highchartsTheme } from '../theme';
 import MY_APP_BASE_URL from '../../../config';
-import Image from 'next/image'
+import Cards from '../interactive-items/Cards';
+import { riskFactorRating } from '../data-table/Datatable';
+import { SortData } from '../chart/TopRiskCategories';
+import TopRiskCategories from '../chart/TopRiskCategories';
+import Carousel from 'react-material-ui-carousel';
 
 if (typeof Highcharts === 'object') {
      Highcharts.setOptions(highchartsTheme);
@@ -21,6 +25,7 @@ const LineChart = () => {
     const [selectedFilter, setSelectedFilter] = useState('');
     const [data, setData] = useState<ResponseData>({ Data: [], hasNext: false, totalPages: 0, pageSize: 0 });
     const [totalPages, setTotalPages] = useState(0);
+    const [sortedData, setSortedData] = useState<SortData[]>([]);
     const [loading, setLoading] = useState(false);
     const [chartType, setChartType] = useState('line');
     const [aggregatedData, setAggregatedData] = useState([{
@@ -46,7 +51,7 @@ const LineChart = () => {
           }
           setLoading(false);
         } catch (error) {
-        console.log(error);
+            console.log(error);
         }
       };    
       
@@ -57,9 +62,11 @@ const LineChart = () => {
       useEffect(() => {         
         const agg = aggregateData(data);
         setAggregatedData(agg);
+        const riskRating = riskFactorRating(data.Data);
+        setSortedData(riskRating);
       }, [data]);
       
-      
+    
       function aggregateData(data: ResponseData | null) {
         if (data && data?.Data && data?.Data?.length > 0) {
           const groupedData = data?.Data?.reduce((acc: { [key: string]: { riskSum: number, count: number } }, item) => {
@@ -156,12 +163,42 @@ const LineChart = () => {
         fill: 'white'
     });
     
-
     return (
     <div>
         <div style={{ display: 'relative', marginBottom: '6%' }}>
-            
-        </div>
+            <Carousel
+                indicators
+                indicatorContainerProps={{
+                style: {
+                    position: 'absolute',
+                    top: '20',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                }
+                }}
+                animation="fade"
+                navButtonsProps={{
+                style: {
+                    borderRadius: '50px',
+                    height: "full",
+                    opacity: 0.5
+                },
+                }}
+                navButtonsAlwaysVisible={true}
+                fullHeightHover={false}
+                autoPlay={true}
+                duration={1000}
+                interval={8000}
+        
+                >
+                <div>
+                    <Cards data={sortedData} subheading='Top Risk Factors' info='The top Risk Factors for the selected category.' />
+                </div>
+                <div>
+                    <TopRiskCategories />   
+                </div>    
+            </Carousel>     
+        </div>  
         <div style={{ background: '#242F39', display: 'flex', borderTopLeftRadius: '20px', borderTopRightRadius: '20px', justifyContent: 'space-between', width: '100%', border: '1px solid #495262', flexWrap: 'wrap', alignItems: 'center' }}>
             <img style={{ width: '250px', height: '120px', marginBottom: '2%' }} src="https://imgtr.ee/images/2023/04/27/JMcWb.png" alt="" />
                 <div style={{ display: 'flex', flexDirection: 'row', height: 'auto', marginTop: 'auto', flexWrap: 'wrap' }}>
@@ -187,9 +224,9 @@ const LineChart = () => {
                         }}
                         size="small"
                     > 
-                            <Select sx={{ borderRadius: '20px', minWidth: '30px'}} color='secondary' id="category" name="category" value={selectedAssetLabel} onChange={handleAssetNameChange} IconComponent={WhiteArrowIcon}>
-                        <MenuItem value="none" style={{marginRight: 'auto'}}>No Assets selected</MenuItem>
-                        {assetLabels.map(asset => (
+                        <Select sx={{ borderRadius: '20px', minWidth: '30px'}} color='secondary' id="category" name="category" value={selectedAssetLabel} onChange={handleAssetNameChange} IconComponent={WhiteArrowIcon}>
+                            <MenuItem value="none" style={{marginRight: 'auto'}}>No Assets selected</MenuItem>
+                                {assetLabels.map(asset => (
                             <MenuItem key={asset} value={asset}>{asset}</MenuItem>
                         ))}
                         </Select>
@@ -218,10 +255,10 @@ const LineChart = () => {
                         size="small"
                         > 
                         <Select sx={{borderRadius: '20px', width: 'fit-content'}} color='secondary' id="category" name="category" value={selectedBusinessCategoryLabel} onChange={handleBusinessCategoryChange} IconComponent={WhiteArrowIcon}>
-                        <MenuItem value="all">All Categories</MenuItem>
-                        {businessCategories.map(category => (
-                            <MenuItem key={category} value={category}>{category}</MenuItem>
-                        ))}
+                            <MenuItem value="all">All Categories</MenuItem>
+                            {businessCategories.map(category => (
+                                <MenuItem key={category} value={category}>{category}</MenuItem>
+                            ))}
                         </Select> 
                     </FormControl>     
                 </div>

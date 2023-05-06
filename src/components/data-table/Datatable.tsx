@@ -6,11 +6,45 @@ import { BorderLinearProgress, StyledDataGrid } from '@/app/theme/theme';
 import MY_APP_BASE_URL from '../../../config';
 import Cards from '../interactive-items/Cards';
 import InfoIcon from '@mui/icons-material/Info';
+import { SortData } from '../chart/TopRiskCategories';
+
+type Factor = {
+  [factor: string]: number;
+};
+
+export function riskFactorRating(data : RiskFactor[]) {
+  let factorCounts: Factor = {};
+  let factorSums: Factor = {};
+
+  data.forEach(item => {
+    Object.keys(item.riskFactors).forEach(riskFactor => {
+      if (!factorCounts[riskFactor]) {
+        factorCounts[riskFactor] = 0;
+        factorSums[riskFactor] = 0;
+      }
+      factorCounts[riskFactor]++;
+      factorSums[riskFactor] += item.riskFactors[riskFactor];
+    });
+  });
+  
+  let factorAve: Factor = {};
+  
+  Object.keys(factorCounts).forEach(riskFactor => {
+    factorAve[riskFactor] = factorSums[riskFactor] / factorCounts[riskFactor];
+  });
+
+  const sortedData = Object.entries(factorAve)
+    .sort((a, b) => b[1] - a[1])
+    .map(([riskFactorName, avg]) => ({ assetName: riskFactorName, latitude: 0, longitude: 0, risk: Number(Number(avg * 100).toFixed(0)) })).splice(0,3);
+  
+  return sortedData;
+}
 
 export function Datatable() {
   const [data, setData] = useState<ResponseData>({ Data: [], hasNext: false, totalPages: 0, pageSize: 0 });
   const [totalPages, setTotalPages] = useState(0);
   const [isLoading, setLoading] = useState(false);
+  const [sortedDataFiltered, setSortedDataFiltered] = useState<SortData[]>([]);
   const [paginationModel, setPaginationModel] = useState({
     page: 0,
     pageSize: 50,
@@ -27,9 +61,6 @@ export function Datatable() {
   'flooding',
   'volcano'
   ];
-  type Factor = {
-    [factor: string]: number;
-  };
 
   function CustomToolbar() {
     return (
@@ -62,35 +93,15 @@ export function Datatable() {
     }
   };
   
-
-  let factorCounts: Factor = {};
-  let factorSums: Factor = {};
-
-  data.Data.forEach(item => {
-    Object.keys(item.riskFactors).forEach(riskFactor => {
-      if (!factorCounts[riskFactor]) {
-        factorCounts[riskFactor] = 0;
-        factorSums[riskFactor] = 0;
-      }
-      factorCounts[riskFactor]++;
-      factorSums[riskFactor] += item.riskFactors[riskFactor];
-    });
-  });
-  
-  let factorAve: Factor = {};
-  
-  Object.keys(factorCounts).forEach(riskFactor => {
-    factorAve[riskFactor] = factorSums[riskFactor] / factorCounts[riskFactor];
-  });
-
-  const sortedData = Object.entries(factorAve)
-    .sort((a, b) => b[1] - a[1])
-    .map(([riskFactorName, avg]) => ({ assetName: riskFactorName, latitude: 0, longitude: 0, risk: Number(Number(avg*100).toFixed(0))}));
-      
-  
   useEffect(() => {
     fetchPageData(paginationModel.page);
   }, [paginationModel.page, paginationModel.pageSize]);
+  
+  useEffect(() => {
+    const riskFactorRatings = riskFactorRating(data.Data);
+    setSortedDataFiltered(riskFactorRatings);
+  }, [data]);
+
 
   const columns: GridColDef[] = [
     {
@@ -206,7 +217,7 @@ export function Datatable() {
   return (
     <div style={{ background: 'black', height: 'fit-content'}}>
       <div style={{ background: 'black', display: 'flex', justifyContent: 'center', gap: '8%', marginBottom: '4%', flexWrap: 'wrap' }}>
-        <Cards data={sortedData.splice(0, 3)} subheading='High Risk Factors' info='Data is aggregated for the given page' />
+        <Cards data={sortedDataFiltered} subheading='High Risk Factors' info='Data is aggregated for the given page' />
       </div>    
       <div style={{ background: '#242F39', alignItems: 'center', height: '100%', width: '' }}>
         <StyledDataGrid
