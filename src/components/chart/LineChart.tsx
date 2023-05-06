@@ -40,6 +40,8 @@ const LineChart = () => {
             setData(data);
             setAssetLabels([...data.Data.map(item => item.assetName)].filter((value, index, self) => self.indexOf(value) === index));
             setTotalPages(Number(data.totalPages));
+            const agg = aggregateData(data);
+            setAggregatedData(agg);
           }
           setLoading(false);
         } catch (error) {
@@ -48,14 +50,8 @@ const LineChart = () => {
       };    
       
       useEffect(() => {         
-        fetchPageData(paginationModel.page);
+          fetchPageData(paginationModel.page);
       }, [paginationModel.page, paginationModel.pageSize, selectedAssetFilter, selectedBusinessCategoryFilter]);
-      
-      useEffect(() => {         
-        const agg = aggregateData(data);
-        setAggregatedData(agg);
-      }, [data]);
-      
       
       function aggregateData(data: ResponseData | null) {
         if (data && data?.Data && data?.Data?.length > 0) {
