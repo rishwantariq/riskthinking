@@ -250,7 +250,6 @@ const LineChart = () => {
                 </div> 
             </div>
          </div>
-            <HighchartsReact highcharts={Highcharts} options={combinedOptions} theme={highchartsTheme} />
     </div>
   );
 };
