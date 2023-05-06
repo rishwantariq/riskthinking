@@ -98,7 +98,7 @@ const LineChart = () => {
         allowDecimals: false,
         labels: {
             formatter: function (this: { value: number }) {
-                return this.value ? this.value : 0;
+                return this.value;
             }
         }
         },
@@ -117,10 +117,6 @@ const LineChart = () => {
         series: [
         {
             name: 'Risk',
-            data: aggregatedData ? aggregatedData : [{
-                x: 0,
-                y: 0
-            }]
         }
         ]
     };
@@ -131,7 +127,7 @@ const LineChart = () => {
     }
     
     const handleBusinessCategoryChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
-        setSelectedAssetFilter('');
+        setSelectedAssetFilter('none');
         setSelectedAssetLabel('none');
         setSelectedBusinessCategoryFilter(encodeURIComponent(`Business Category:${e.target.value}`));
         setSelectedBusinessCategoryLabel(e.target.value);
@@ -145,7 +141,7 @@ const LineChart = () => {
       setSelectedAssetLabel(e.target.value); 
 
       if (e.target.value === 'none') {
-          setSelectedAssetFilter('');
+          setSelectedAssetFilter('none');
           setSelectedBusinessCategoryFilter(selectedBusinessCategoryFilter);
         }
     }
