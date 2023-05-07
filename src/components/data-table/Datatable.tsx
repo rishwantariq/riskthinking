@@ -43,7 +43,7 @@ export function riskFactorRating(data : RiskFactor[]) {
 
   const sortedData = Object.entries(factorAve)
     .sort(([, a], [, b]) => b.sum - a.sum)
-    .map(([riskFactorName, { avg, year }]) => ({ assetName: riskFactorName, latitude: 0, longitude: 0, risk: Number(Number(avg * 100).toFixed(0)), year: year }));
+    .map(([riskFactorName, { avg, year }]) => ({ assetName: riskFactorName, latitude: 0, longitude: 0, risk: Number(Number(avg * 100).toFixed(0)), year: year })).splice(0,3);
   
   return sortedData;
 }

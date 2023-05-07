@@ -163,39 +163,13 @@ const LineChart = () => {
     
     return (
     <div>
-        <div style={{ display: 'relative', marginBottom: '6%' }}>
-            <Carousel
-                indicators
-                indicatorContainerProps={{
-                style: {
-                    position: 'absolute',
-                    top: '20',
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                }
-                }}
-                animation="fade"
-                navButtonsProps={{
-                style: {
-                    borderRadius: '50px',
-                    height: "full",
-                    opacity: 0.5
-                },
-                }}
-                navButtonsAlwaysVisible={true}
-                fullHeightHover={false}
-                autoPlay={true}
-                duration={1000}
-                interval={8000}
-        
-                >
-                <div>
-                    <Cards data={sortedData.splice(0, 3)} subheading='Top Risk Factors' info='The top Risk Factors for the selected category.' />
+            <div style={{ display: 'flex', gap: '60px', flexDirection: 'column', marginBottom: '6%' }}>
+                <div style={{marginBottom: ''}}>
+                    <Cards data={sortedData} subheading='Top Risk Factors' info='The top Risk Factors for the selected category.' />
                 </div>
                 <div>
                     <TopRiskCategories />   
                 </div>    
-            </Carousel>     
         </div>  
         <div style={{ background: '#242F39', display: 'flex', borderTopLeftRadius: '20px', borderTopRightRadius: '20px', justifyContent: 'space-between', width: '100%', border: '1px solid #495262', flexWrap: 'wrap', alignItems: 'center' }}>
             <img style={{ width: '250px', height: '120px', marginBottom: '2%' }} src="https://imgtr.ee/images/2023/04/27/JMcWb.png" alt="" />

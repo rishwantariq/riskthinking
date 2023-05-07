@@ -55,14 +55,14 @@ export default function Cards({ data, subheading, info }: CardsProps) {
   }
 
   return (
-    <animated.div
-      style={{
-        ...spring,
+    <Box
+      sx={{
         position: 'relative',
         background: '#242F39',
         borderRadius: '20px',
         marginBottom: '5%',
         width: '100%',
+        height: '100%',
         margin: '0 auto',
         border: '1px solid #495262',
         maxWidth: '1200px',
@@ -163,6 +163,6 @@ export default function Cards({ data, subheading, info }: CardsProps) {
           </Box>
         ))}
       </Box>
-    </animated.div>
+    </Box>
   );
 }

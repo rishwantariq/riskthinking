@@ -18,11 +18,7 @@ export default function Page() {
     const isSmallScreen = useMediaQuery("(max-width:600px)");
     const { ref, inView } = useInView();
 
-    const spring = useSpring({
-      opacity: inView ? 1 : 0,
-      from: { opacity: 0 },
-      config: { duration: 1000 },
-    });
+
 
     const gridData = [
         {
@@ -85,10 +81,10 @@ export default function Page() {
                         </div>   
                     </div>
                     <Divider style={{ width: 'auto', marginLeft: 'auto', marginRight: 'auto', background: 'gray', marginTop: '2%' }} />
-                    <div ref={ref} style={{ background: 'black', padding: '1rem'}}>    
+                    <div style={{ background: 'black', padding: '1rem'}}>    
                         <Typography color={"white"} mb={'1%'} variant='h1'>Risk Chart</Typography>
                         <Typography color={'white'} mb={'5%'} fontWeight={'regular'} variant='h4'>Powered by Highcharts</Typography>
-                        <animated.div ref={chartsRef} style={{ ...spring }}>
+                        <animated.div ref={chartsRef} style={{ }}>
                             <LineChart />
                         </animated.div >
                     </div>
