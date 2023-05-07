@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Highcharts, { setOptions } from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import { ResponseData } from '@/app/api/riskdata/route';
+import { ResponseData, RiskFactor } from '@/app/api/riskdata/route';
 import { FormControl, Select, MenuItem, SelectChangeEvent, InputLabel, Typography, CircularProgress, Chip } from '@mui/material';
 import ChevronDownIcon from '@mui/icons-material/ArrowDropDown';
 import { styled } from '@mui/material/styles';
@@ -22,7 +22,6 @@ const LineChart = () => {
     const [selectedBusinessCategoryLabel, setSelectedBusinessCategoryLabel] = useState('Energy');
     const [selectedBusinessCategoryFilter, setSelectedBusinessCategoryFilter] = useState(encodeURIComponent('Business Category:Energy'));
     const [assetLabels, setAssetLabels] = useState(['']);
-    const [selectedFilter, setSelectedFilter] = useState('');
     const [data, setData] = useState<ResponseData>({ Data: [], hasNext: false, totalPages: 0, pageSize: 0 });
     const [totalPages, setTotalPages] = useState(0);
     const [sortedData, setSortedData] = useState<SortData[]>([]);
@@ -60,16 +59,15 @@ const LineChart = () => {
       }, [paginationModel.page, paginationModel.pageSize, selectedAssetFilter, selectedBusinessCategoryFilter]);
       
       useEffect(() => {         
-        const agg = aggregateData(data);
+        const agg = aggregateData(data.Data);
         setAggregatedData(agg);
         const riskRating = riskFactorRating(data.Data);
         setSortedData(riskRating);
       }, [data]);
-      
     
-      function aggregateData(data: ResponseData | null) {
-        if (data && data?.Data && data?.Data?.length > 0) {
-          const groupedData = data?.Data?.reduce((acc: { [key: string]: { riskSum: number, count: number } }, item) => {
+      function aggregateData(data: RiskFactor[] | null) {
+        if (data && data?.length > 0) {
+          const groupedData = data?.reduce((acc: { [key: string]: { riskSum: number, count: number } }, item) => {
             if (!acc[item.year]) {
               acc[item.year] = {
                 riskSum: 0,
@@ -192,7 +190,7 @@ const LineChart = () => {
         
                 >
                 <div>
-                    <Cards data={sortedData} subheading='Top Risk Factors' info='The top Risk Factors for the selected category.' />
+                    <Cards data={sortedData.splice(0, 3)} subheading='Top Risk Factors' info='The top Risk Factors for the selected category.' />
                 </div>
                 <div>
                     <TopRiskCategories />   

@@ -69,11 +69,11 @@ export default function Cards({ data, subheading, info }: CardsProps) {
       }}
     >
       <Typography
-        align='center'
+        align='left'
         component="div"
-        mt={{ xs: '30px', sm: '30px', md: '20px' }}
-        mb={{ xs: '10px', sm: '20px', md: '20px' }}
-        ml={{ xs: '0', sm: '8px', md: '8px' }}
+        mt={{ xs: '30px', sm: '30px', md: '30px' }}
+        mb={{ xs: '10px', sm: '20px', md: '-10px' }}
+        ml={{ xs: '10px', sm: '8px', md: '30px' }}
         variant="h2"
         fontWeight="bold"
         fontSize={{ xs: '2rem', sm: '2rem', md: '2.5rem' }}
@@ -89,9 +89,9 @@ export default function Cards({ data, subheading, info }: CardsProps) {
       >
         {subheading}
       </Typography>
-      <Box  mt={{ xs: '0', sm: '30px', md: '20px' }} sx={{ display: 'flex', gap: '4px', justifyContent: 'center', alignItems: 'center', alignContent: 'center', marginBottom: '5%', marginTop: '-3%'}}>
-          <InfoIcon  color='info' sx={{ fill: "white"}}/>
-        <Typography color={"white"} align='center' variant='h4' fontWeight={'regular'}>{info}</Typography>
+      <Box  mt={{ xs: '0', sm: '30px', md: '20px' }} ml={{ xs: '0', sm: '30px', md: '30px' }} sx={{ display: 'flex', gap: '4px', justifyContent: 'start', alignItems: 'center', alignContent: 'center', marginBottom: '5%', marginTop: '-3%'}}>
+          <InfoIcon color='info' sx={{ fill: "white", fontSize: { xs: "16px", md: "24px" }, marginLeft: { xs: '10px', sm: '30px', md: '0px' }}}/>
+        <Typography color={"white"} align='left' variant='h4' fontWeight={'regular'}>{info}</Typography>
       </Box>
       <Box sx={{ display: 'flex', width: '100%', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginBottom: '2%'  }}>
         {cardData.map((rowData, index) => (
