@@ -1,8 +1,9 @@
-"use client";
+"use client"
 import { darkTheme } from './theme/theme';
 import './globals.css'
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import dynamic from 'next/dynamic';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const DynamicResponsiveAppBar = dynamic(
   () => import('@/components/banners/ResponsiveAppBar'),
@@ -20,9 +21,9 @@ export default function RootLayout({
         <CssBaseline />
         <body style={{background: 'black'}}>
           <DynamicResponsiveAppBar />
-          {children}
+              {children}
         </body>
       </ThemeProvider>
     </html>
-  )
+  );
 }

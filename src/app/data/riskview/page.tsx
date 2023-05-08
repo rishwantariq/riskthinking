@@ -17,18 +17,14 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { useInView } from 'react-intersection-observer';
 import { useSpring, animated } from 'react-spring';
-import Image from 'next/image'
+import { PageWrapper } from '@/components/PageWrapper';
 
 export default function Page() {
     
     const tablRef = useRef<HTMLDivElement>(null);
     const isSmallScreen = useMediaQuery("(max-width:600px)");
     const { ref, inView } = useInView();
-    const spring = useSpring({
-      opacity: inView ? 1 : 0.5,
-      from: { opacity: 0.5 },
-      config: { duration: 800 },
-    });
+
     const DynamicButtonBase = dynamic(() => import('@mui/material/ButtonBase'), {
         ssr: false
       });
@@ -71,6 +67,7 @@ export default function Page() {
     ];
     return (
         <>
+        <PageWrapper>
             <div></div>
             <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', background: 'black'}}>
                 <div style={{}}>
@@ -132,14 +129,15 @@ export default function Page() {
                             Show fullscreen
                             </Button>
                         </Link>
-                        <animated.div ref={ref} style={{ ...spring}}>
+                        <div ref={ref}>
                             <div style={{ background: 'black', height:'500px', marginTop: '-1%', marginBottom: '2%' }} ref={tablRef}>
                                 <Datatable />
                             </div>
-                        </animated.div>
+                        </div>
                     </Box>
                 </div>
             </div>
-        </>
+        </PageWrapper>
+    </>
     );
 }

@@ -11,7 +11,8 @@ import { useInView } from 'react-intersection-observer';
 import { useSpring, animated } from 'react-spring';
 import LineChart from '@/components/chart/LineChart';
 import ChartsHero from '@/components/chart/ChartsHero';
-import Image from 'next/image'
+import { PageWrapper } from '@/components/PageWrapper';
+import { motion } from "framer-motion";
 
 export default function Page() {
     const chartsRef = useRef<HTMLDivElement>(null);
@@ -41,7 +42,8 @@ export default function Page() {
 
     return (
         <>
-        <div style={{ background: 'black', width: 'screen' }}>
+        <PageWrapper>
+            <div style={{ background: 'black', width: 'screen' }}>
                 <ChartsHero targetRef={chartsRef} />
                 <Box sx={{ background: 'black', marginTop: '4%', textAlign: 'center', maxWidth: 'screen', paddingTop: '5px', heght: 'auto', overflow: 'none'}}>
                     <div style={{ display: "flex", flexDirection: "column", background: "#ad96af", marginBottom: "5%" }}>
@@ -81,15 +83,28 @@ export default function Page() {
                         </div>   
                     </div>
                     <Divider style={{ width: 'auto', marginLeft: 'auto', marginRight: 'auto', background: 'gray', marginTop: '2%' }} />
-                    <div style={{ background: 'black', padding: '1rem'}}>    
-                        <Typography color={"white"} mb={'1%'} variant='h1'>Risk Chart</Typography>
-                        <Typography color={'white'} mb={'5%'} fontWeight={'regular'} variant='h4'>Powered by Highcharts</Typography>
-                        <animated.div ref={chartsRef} style={{ }}>
+                    <div ref={chartsRef}>
+                        <motion.div
+                            ref={ref}
+                            style={{ background: 'black', padding: '1rem' }}
+                            initial={{ y: "200px" }}
+                            animate={{ y: inView ? 0 : "200px", opacity: inView ? 1 : 0 }}
+                            exit={{ y: "200px", opacity: 0 }}
+                            transition={{
+                                type: "spring",
+                                stiffness: 80,
+                                damping: 20,
+                                duration: 0.5,
+                            }}
+                            >    
+                            <Typography color={"white"} mb={'1%'} variant='h1'>Risk Chart</Typography>
+                            <Typography color={'white'} mb={'5%'} fontWeight={'regular'} variant='h4'>Powered by Highcharts</Typography>
                             <LineChart />
-                        </animated.div >
-                    </div>
-            </Box>
-        </div>
+                        </motion.div>
+                    </div>    
+                </Box>
+            </div>
+        </PageWrapper>
         </>
     );
 }

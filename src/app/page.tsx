@@ -9,7 +9,7 @@ import AnalyticsIcon from '@mui/icons-material/Analytics';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Link from 'next/link';
 import CustomizedAccordions from '@/components/interactive-items/Accordion';
-
+import { PageWrapper } from '@/components/PageWrapper';
 
 export default function Home() {
     const isSmallScreen = useMediaQuery("(max-width:600px)");
@@ -58,7 +58,8 @@ export default function Home() {
   
   return (
     
-    <>
+ <>
+  <PageWrapper>
     <div>
       <Box sx={{ background: 'black', textAlign: 'center', maxWidth: '100vw', overflow: 'hidden' }}>
           <Banner />              
@@ -136,7 +137,8 @@ export default function Home() {
           </Box> 
       </Box>
     </div>
-    </>
+  </PageWrapper>
+</>
 );
 }
 

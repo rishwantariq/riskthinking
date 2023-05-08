@@ -11,8 +11,8 @@ import { useInView } from 'react-intersection-observer';
 import MapChart from '@/components/map/Map';
 import MapsHero from '@/components/map/MapsHero';
 import { useSpring, animated } from 'react-spring';
-import Image from 'next/image'
-
+import { PageWrapper } from '@/components/PageWrapper';
+import { motion } from "framer-motion";
 
 export default function Page() {
     const mapsRef = useRef<HTMLDivElement>(null);
@@ -20,11 +20,6 @@ export default function Page() {
     const isSmallScreen = useMediaQuery("(max-width:600px)");
     const isMedScreen = useMediaQuery("(max-width:820px)");
 
-    const spring = useSpring({
-      opacity: inView ? 1 : 0.5,
-      from: { opacity: 0.5 },
-      config: { duration: 800 },
-    });
   
     const gridData = [
         {
@@ -47,7 +42,8 @@ export default function Page() {
 
     return (
         <>
-        <div style={{ background: 'black', width: '100%', height: '100vw'}}> 
+    <PageWrapper>
+        <div style={{ background: 'black', width: '100%', height: '100vw' }}> 
             <Box sx={{ background: 'black', textAlign: 'center', maxWidth: 'screen', height: 'screen',  paddingTop: '5px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <div>
@@ -91,13 +87,24 @@ export default function Page() {
                     <div ref={mapsRef} style={{ background: 'black', marginBottom: '2%' }}> 
                         <Typography mb={'1%'} color={'white'} variant='h1'>Risk Map</Typography>
                         <Typography mb={'5%'} color={'white'} fontWeight={'regular'} variant='h4'>Powered by Highcharts</Typography>
-                            <animated.div ref={ref} style={{ background: 'black', paddingLeft: '20px', paddingRight: '20px', borderRadius: '20px', ...spring}}>
+                        <motion.div ref={ref} style={{background: 'black', paddingLeft: '20px', paddingRight: '20px', borderRadius: '20px'}}
+                        initial={{ y: "200px" }}
+                        animate={{ y: inView ? 0 : "200px", opacity: inView ? 1 : 0 }}
+                        exit={{ y: "200px", opacity: 0 }}
+                        transition={{
+                            type: "spring",
+                            stiffness: 80,
+                            damping: 20,
+                            duration: 0.5,
+                        }}
+                        >    
                             <MapChart />
-                        </animated.div >
+                        </motion.div >
                     </div>
                 </div>
             </Box>`
         </div>
-        </>
+    </PageWrapper>
+   </>
     );
 }
