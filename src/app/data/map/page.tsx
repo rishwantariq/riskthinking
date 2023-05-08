@@ -87,19 +87,9 @@ export default function Page() {
                     <div ref={mapsRef} style={{ background: 'black', marginBottom: '2%' }}> 
                         <Typography mb={'1%'} color={'white'} variant='h1'>Risk Map</Typography>
                         <Typography mb={'5%'} color={'white'} fontWeight={'regular'} variant='h4'>Powered by Highcharts</Typography>
-                        <motion.div ref={ref} style={{background: 'black', paddingLeft: '20px', paddingRight: '20px', borderRadius: '20px'}}
-                        initial={{ y: "200px" }}
-                        animate={{ y: inView ? 0 : "200px", opacity: inView ? 1 : 0 }}
-                        exit={{ y: "200px", opacity: 0 }}
-                        transition={{
-                            type: "spring",
-                            stiffness: 80,
-                            damping: 20,
-                            duration: 0.5,
-                        }}
-                        >    
+                        <div style={{background: 'black', paddingLeft: '20px', paddingRight: '20px', borderRadius: '20px'}}>   
                             <MapChart />
-                        </motion.div >
+                        </div >
                     </div>
                 </div>
             </Box>`

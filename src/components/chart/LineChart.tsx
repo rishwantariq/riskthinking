@@ -163,11 +163,11 @@ const LineChart = () => {
     
     return (
     <div>
-            <div style={{ display: 'flex', gap: '60px', flexDirection: 'column', marginBottom: '6%' }}>
-                <div style={{marginBottom: ''}}>
+            <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '6%' }}>
+                <div style={{marginBottom: '6%'}}>
                     <Cards data={sortedData} subheading='Top Risk Factors' info='The top Risk Factors for the selected category.' />
                 </div>
-                <div>
+                <div style={{marginBottom: ''}}>
                     <TopRiskCategories />   
                 </div>    
         </div>  
