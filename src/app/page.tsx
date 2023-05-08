@@ -101,7 +101,7 @@ export default function Home() {
           </div>
           <div style={{display: "flex", flexDirection: "column", background: "#f6eac2", marginBottom: "5%", marginTop: '5%' }}>
             <div style={{display: "flex", flexDirection: isSmallScreen ? "column" : "row", alignItems: "center", justifyContent: isSmallScreen ? "start": "space-between", marginLeft: '5%', marginRight: '5%', position: "relative" }}>
-              <div style={{ display: "flex", flexDirection: "column", width: isSmallScreen ? "100%" : "50%", maxWidth: "600px", padding: "20px" }}>
+                <div style={{ display: "flex", flexDirection: "column", width: isSmallScreen ? "100%" : "50%", maxWidth: "600px", padding: "20px", marginBottom: '2%' }}>
                 <Typography align="left" variant="h2" fontWeight={"bold"} color={"black"}>
                 Transforming the Way Businesses Assess Climate Financial Risk. </Typography>
                 <Typography align="left" mt={2} variant="h4" fontSize={"1rem"} fontWeight={"medium"} color={"black"}>
