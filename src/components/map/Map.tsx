@@ -107,9 +107,7 @@ const MapChart = () => {
 
   useEffect(() => {
     fetchPageData();
-    aggregatedData();
   }, [selectedDecadeFilter]);
-
 
   useEffect(() => {
     aggregatedData();
