@@ -15,6 +15,7 @@ import { highchartsTheme } from '../theme'
 
 if (typeof Highcharts === 'object') {
   highchartsMap(Highcharts); // initialize the highchartsMap module
+  Highcharts.setOptions(highchartsTheme);
 }
 interface SortData {
   assetName: string;
@@ -245,10 +246,6 @@ const MapChart = () => {
   };
   }, [mappedData]);
 
-  var combinedOptions = options;
-  if (typeof Highcharts === 'object') {
-      combinedOptions =  Highcharts.merge(options, highchartsTheme);
-  }
 
   const handleChange = (e: String) => {
     if (e === 'all') {
@@ -302,7 +299,7 @@ const MapChart = () => {
                   </div>
               </div>
             </div>
-            <HighchartsReact immutable={true} highcharts={Highcharts} options={combinedOptions} constructorType={'mapChart'}  />
+            <HighchartsReact immutable={true} highcharts={Highcharts} options={options} constructorType={'mapChart'}  />
           </div>
         </div>
       </div>
