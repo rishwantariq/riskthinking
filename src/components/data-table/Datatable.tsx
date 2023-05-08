@@ -225,7 +225,7 @@ export function Datatable() {
   return (
     <div style={{ background: 'black', height: 'fit-content'}}>
       <div style={{ background: 'black', display: 'flex', justifyContent: 'center', gap: '8%', marginBottom: '4%', flexWrap: 'wrap' }}>
-        <Cards data={sortedDataFiltered.splice(0, 3)} subheading='High Risk Factors' info='Data is aggregated for the given page' />
+        <Cards data={sortedDataFiltered} subheading='High Risk Factors' info='Data is aggregated for the given page' />
       </div>    
       <div style={{ background: '#242F39', alignItems: 'center', height: '100%', width: '' }}>
         <StyledDataGrid
