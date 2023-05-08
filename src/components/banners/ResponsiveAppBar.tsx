@@ -18,12 +18,12 @@ type PageLinks = {
   [key: string]: string;
 };
 
-const pages = ['Data Table', 'Graphic', 'Geographical'];
+const pages = ['DataTable', 'Chart', 'Map'];
 const settings = ['Profile'];
 const pageLinks : PageLinks = {
-  'Data Table': '/data/table',
-  'Graphic': '/data/chart',
-  'Geographical': '/data/map'
+  'DataTable': '/data/table',
+  'Chart': '/data/chart',
+  'Map': '/data/map'
 };
 
 function ResponsiveAppBar() {

@@ -79,8 +79,8 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div  style={{ position: 'relative', background: 'black', marginBottom: '10%' }}>
-          <Typography fontWeight='bold' variant="h1" color={'white'} mb={2}>Top Metrics</Typography>
+        <div  style={{ position: 'relative', background: 'black', marginBottom: '5%' }}>
+          <Typography fontWeight='bold' variant="h1" color={'white'} mb={15}>Top Metrics</Typography>
           <ShortBanner gridData={gridData} />
         </div>
         <div style={{ background: 'black', display: 'flex', flexDirection: 'column', alignItems: 'center', placeItems: 'center', marginBottom: '5%' }}>
@@ -132,6 +132,7 @@ export default function Home() {
           </div>
           <Box>
             <div>
+              <Typography align="center" mt={2} variant="h4" fontSize={"2rem"} fontWeight={"regular"} color={"text.primary"}>Powered by</Typography>
               <img src={"https://imgtr.ee/images/2023/05/04/ab7YU.png"} alt="vercel logo" style={{width: 'auto', height: isSmallScreen ? '100px' : '200px'}} />
             </div>
           </Box> 

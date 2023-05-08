@@ -19,7 +19,7 @@ if (typeof Highcharts === 'object') {
 const LineChart = () => {
     const [selectedAssetFilter, setSelectedAssetFilter] = useState('');
     const [selectedAssetLabel, setSelectedAssetLabel] = useState('none');
-    const [selectedBusinessCategoryLabel, setSelectedBusinessCategoryLabel] = useState('Energy');
+    const [selectedBusinessCategoryLabel, setSelectedBusinessCategoryLabel] = useState('all');
     const [selectedBusinessCategoryFilter, setSelectedBusinessCategoryFilter] = useState(encodeURIComponent('Business Category:Energy'));
     const [assetLabels, setAssetLabels] = useState(['']);
     const [data, setData] = useState<ResponseData>({ Data: [], hasNext: false, totalPages: 0, pageSize: 0 });
@@ -35,7 +35,6 @@ const LineChart = () => {
         page: 0,
         pageSize: 300,
     });
-    const chartRef = useRef<HighchartsReact.Props>(null); // Specify type
     const chartTypes = ['line', 'area', 'column', 'bar', 'pie', 'scatter'];
     const businessCategories = ['Energy', 'Manufacturing', 'Retail', 'Technology', 'Healthcare', 'Finance'];
 
@@ -46,7 +45,11 @@ const LineChart = () => {
           const data: ResponseData = await res.json();
           if (data && data.Data && data.Data.length > 0) {
             setData(data);
-            setAssetLabels([...data.Data.map(item => item.assetName)].filter((value, index, self) => self.indexOf(value) === index));
+            if (selectedAssetLabel == 'none' && selectedBusinessCategoryLabel == 'all')
+            {
+                //retain asset labels if we send an API call for asset
+                setAssetLabels([...data.Data.map(item => item.assetName)].filter((value, index, self) => self.indexOf(value) === index));
+            }
             setTotalPages(Number(data.totalPages));
           }
           setLoading(false);
@@ -56,14 +59,7 @@ const LineChart = () => {
     };    
     
         useEffect(() => {   
-        const chart = chartRef.current?.chart;
-    
-        if (chart && loading) {
-            chart.showLoading();
-        }
-        fetchPageData(paginationModel.page);
-          chart.hideLoading();
-            
+        fetchPageData(paginationModel.page);            
       }, [paginationModel.page, paginationModel.pageSize, selectedAssetFilter, selectedBusinessCategoryFilter]);
       
       useEffect(() => {         
@@ -159,7 +155,6 @@ const LineChart = () => {
     const handleAssetNameChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
       setSelectedAssetFilter(encodeURIComponent(`Asset Name:${e.target.value}`));
       setSelectedAssetLabel(e.target.value); 
-
       if (e.target.value === 'none') {
           setSelectedAssetFilter('');
           setSelectedBusinessCategoryFilter(selectedBusinessCategoryFilter);
@@ -265,7 +260,7 @@ const LineChart = () => {
             </div>
         </div>
         <div>
-            <HighchartsReact ref={chartRef} immutable={true} highcharts={Highcharts} options={options} />
+            <HighchartsReact immutable={true} highcharts={Highcharts} options={options} />
         </div>
     </div>
   );

@@ -13,7 +13,7 @@ const palette = {
         black: '#000000',
     },
     secondary: {
-        main: '#bb86fc', // a cyan shade
+        main: '#b28dff', // a cyan shade
     },
     error: {
       main: '#e74c3c',
@@ -76,7 +76,7 @@ const palette = {
 export const darkTheme = createTheme({
     palette,
     typography: {
-        fontFamily: 'Roboto, sans-serif',
+        fontFamily: 'Circular Std, Helvetica, Arial, sans-serif',
         fontWeightLight: 100,
         fontWeightRegular: 300,
         fontWeightMedium: 500,

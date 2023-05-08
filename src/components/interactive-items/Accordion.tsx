@@ -89,7 +89,7 @@ export default function CustomizedAccordions({ data }: CustomizedAccordionsProps
             <Typography variant='h4' fontWeight={'bold'}>{item.title}</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography variant='h4' fontWeight={'medium'}>{item.content}</Typography>
+            <Typography variant='h4' align='left' fontWeight={'medium'}>{item.content}</Typography>
           </AccordionDetails>
         </Accordion>
       ))}
