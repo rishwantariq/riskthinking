@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import Highcharts, { setOptions } from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import { ResponseData, RiskFactor } from '@/app/api/riskdata/route';
@@ -35,6 +35,7 @@ const LineChart = () => {
         page: 0,
         pageSize: 300,
     });
+    const chartRef = useRef<HighchartsReact.Props>(null); // Specify type
     const chartTypes = ['line', 'area', 'column', 'bar', 'pie', 'scatter'];
     const businessCategories = ['Energy', 'Manufacturing', 'Retail', 'Technology', 'Healthcare', 'Finance'];
 
@@ -52,10 +53,17 @@ const LineChart = () => {
         } catch (error) {
             console.log(error);
         }
-      };    
-      
-      useEffect(() => {         
+    };    
+    
+        useEffect(() => {   
+        const chart = chartRef.current?.chart;
+    
+        if (chart && loading) {
+            chart.showLoading();
+        }
         fetchPageData(paginationModel.page);
+          chart.hideLoading();
+            
       }, [paginationModel.page, paginationModel.pageSize, selectedAssetFilter, selectedBusinessCategoryFilter]);
       
       useEffect(() => {         
@@ -87,50 +95,55 @@ const LineChart = () => {
         }
         return [{x: 0, y: 0  }];
       }
-
-    const options = {
-        chart: {
+    if (typeof Highcharts === 'object') {
+        Highcharts.Chart;
+        
+    }
+    const options = useMemo(() => {
+        return {
+          chart: {
             type: `${chartType}`
-        },
-        title: {
+          },
+          title: {
             text: 'Climate Risk Rating vs Year',
-
-        },
-        xAxis: {
-        title: {
-            text: 'Year',
-        },
-        allowDecimals: false,
-        labels: {
-            formatter: function (this: { value: number }) {
+          },
+          xAxis: {
+            title: {
+              text: 'Year',
+            },
+            allowDecimals: false,
+            labels: {
+              formatter: function (this: { value: number }) {
                 return this.value;
+              }
             }
-        }
-        },
-        yAxis: {
-        title: {
-            text: 'Risk %',
-        },
-        allowDecimals: false,
-        min: 0,
-        labels: {
-            formatter: function (this: { value: number }) {
+          },
+          yAxis: {
+            title: {
+              text: 'Risk %',
+            },
+            allowDecimals: false,
+            min: 0,
+            labels: {
+              formatter: function (this: { value: number }) {
                 return this.value;
+              }
             }
-        }
-        },
-        series: [
-        {
-            name: 'Risk',
-            data: aggregatedData
-        }
-        ],
-        dataGrouping: {
+          },
+          series: [
+            {
+              name: 'Risk',
+              data: aggregatedData
+            }
+          ],
+          dataGrouping: {
             approximation: 'average',
             enabled: true,
             turboThreshold: 2000 // Maximum number of data points to display at a time
-        },
-    };
+          }
+        };
+      }, [aggregatedData, chartType]);
+
     
     
     const handleBusinessCategoryChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
@@ -252,7 +265,7 @@ const LineChart = () => {
             </div>
         </div>
         <div>
-            <HighchartsReact immutable={true} highcharts={Highcharts} options={options} />
+            <HighchartsReact ref={chartRef} immutable={true} highcharts={Highcharts} options={options} />
         </div>
     </div>
   );

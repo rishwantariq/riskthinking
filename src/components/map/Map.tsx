@@ -114,8 +114,9 @@ const MapChart = () => {
   }, [data]);
 
   // Define the options
-  const options = {
-    chart: {
+  const options = useMemo(() => {
+    return {
+      chart: {
       map: topology,
       height: 600, // set the height to 600 pixels
       events: {
@@ -242,6 +243,8 @@ const MapChart = () => {
       },
     ],
   };
+  }, [mappedData]);
+
   var combinedOptions = options;
   if (typeof Highcharts === 'object') {
       combinedOptions =  Highcharts.merge(options, highchartsTheme);
