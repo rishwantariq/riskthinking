@@ -1,7 +1,7 @@
 "use client";
 import { createTheme, styled } from "@mui/material/styles";
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, gridClasses } from '@mui/x-data-grid';
 
 const palette = {
     common: {
@@ -13,7 +13,7 @@ const palette = {
         black: '#000000',
     },
     secondary: {
-        main: '#b28dff', // a cyan shade
+        main: '#b28dff',
     },
     error: {
       main: '#e74c3c',
@@ -64,14 +64,26 @@ const palette = {
       '& .MuiDataGrid-sortIcon': {
         color: '#fff'
       },
-      '&.MuiDataGrid-iconSeparator': {
-        color: '#fff'
-      },
       '&.MuiDataGrid-columnHeaderMenuIcon': {
         color: '#fff'
-      }
+      },
+      border: 'none' // Remove border
+
     },
+    '& .MuiDataGrid-columnsContainer, .MuiDataGrid-cell': {
+      border: '1px solid #303030'
+    },
+    '& .MuiDataGrid-columnHeader, .MuiDataGrid-cell': {
+      borderRight: '1px solid #303030',
+    },
+    [`& .${gridClasses.row}.even`]: {
+      backgroundColor: '#1f1f1f' // Light grey background for even rows
+    },
+    [`& .${gridClasses.row}.odd`]: {
+      backgroundColor: '#121212' // White background for odd rows
+    }
   }));
+  
 
 export const darkTheme = createTheme({
     palette,

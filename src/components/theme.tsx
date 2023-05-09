@@ -2,7 +2,7 @@ export const highchartsTheme =
 {
   "colors": ["#A9CF54", "#C23C2A", "#FFFFFF", "#979797", "#FBB829"],
   "chart": {
-    "backgroundColor": "#242F39",
+    "backgroundColor": "#222222",
     "style": {
       "color": "white"
     }

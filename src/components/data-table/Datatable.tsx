@@ -116,6 +116,7 @@ export function Datatable() {
       field: 'assetName', headerName: 'Asset Name', width: 300,
       align: 'left',
       headerAlign: 'left',
+      headerClassName: 'super-app-theme--header',
       valueGetter: (params: GridValueGetterParams) => params.value,
         renderCell: (params: GridCellParams) => {
         const Name : String = String(params.value);
@@ -227,7 +228,7 @@ export function Datatable() {
       <div style={{ background: 'black', display: 'flex', justifyContent: 'center', gap: '8%', marginBottom: '4%', flexWrap: 'wrap' }}>
         <Cards data={sortedDataFiltered} subheading='High Risk Factors' info='Data is aggregated for the given page' />
       </div>    
-      <div style={{ background: '#242F39', alignItems: 'center', height: '100%', width: '' }}>
+      <div style={{ background: '#222222', alignItems: 'center', height: '100%', width: '' }}>
         <StyledDataGrid
           getRowId={getRowId}
           rows={data.Data}
@@ -239,7 +240,10 @@ export function Datatable() {
           onPaginationModelChange={setPaginationModel}
           loading={isLoading}
           components={{ Toolbar: CustomToolbar }}
-          style={{ minWidth: '100%', minHeight: '60vh', maxHeight: '90vh', height: '100%' }}
+          style={{ minWidth: '100%', minHeight: '60vh', maxHeight: '90vh', height: '100%', border: '1px solid #404040'}}
+          getRowClassName={(params) =>
+            params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
+          }
         />
       </div>
     </div>

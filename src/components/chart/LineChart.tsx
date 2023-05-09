@@ -176,7 +176,7 @@ const LineChart = () => {
                     <Cards data={sortedData} subheading='Top Risk Factors' info='The top Risk Factors for the selected category.' />
                 </div>    
         </div>  
-        <div style={{ background: '#242F39', display: 'flex', borderTopLeftRadius: '20px', borderTopRightRadius: '20px', justifyContent: 'space-between', width: '100%', border: '1px solid #495262', flexWrap: 'wrap', alignItems: 'center' }}>
+        <div style={{ background: '#222222', display: 'flex', borderTopLeftRadius: '20px', borderTopRightRadius: '20px', justifyContent: 'space-between', width: '100%', border: '1px solid #404040', flexWrap: 'wrap', alignItems: 'center' }}>
             <img style={{ width: '250px', height: '120px', marginBottom: '2%' }} src="https://imgtr.ee/images/2023/04/27/JMcWb.png" alt="" />
                 <div style={{ display: 'flex', flexDirection: 'row', height: 'auto', marginTop: 'auto', flexWrap: 'wrap' }}>
                 <div> 
@@ -201,7 +201,7 @@ const LineChart = () => {
                         }}
                         size="small"
                     > 
-                        <Select sx={{ borderRadius: '20px', minWidth: '30px'}} color='secondary' id="category" name="category" value={selectedAssetLabel} onChange={handleAssetNameChange} IconComponent={WhiteArrowIcon}>
+                        <Select sx={{ borderRadius: '20px', minWidth: '30px'}} color={"info"} id="category" name="category" value={selectedAssetLabel} onChange={handleAssetNameChange} IconComponent={WhiteArrowIcon}>
                             <MenuItem value="none" style={{marginRight: 'auto'}}>No Assets selected</MenuItem>
                                 {assetLabels.map(asset => (
                             <MenuItem key={asset} value={asset}>{asset}</MenuItem>
@@ -246,7 +246,7 @@ const LineChart = () => {
                         <Chip
                             key={type}
                             label={type.toString()}
-                            style={{ fontWeight: 'bold', marginRight: '2%', marginBottom: '1%', marginTop: '2%' }}
+                            style={{ fontWeight: 'bold', marginRight: '2%', marginBottom: '1%', marginTop: '2%', textTransform: 'capitalize' }}
                             onClick={() => handleChange(type)}
                             color={type === chartType ? 'secondary' : 'default'}
                             variant={type === chartType ? 'filled' : 'outlined'}

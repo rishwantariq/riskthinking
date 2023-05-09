@@ -268,14 +268,14 @@ const MapChart = () => {
         <div style={{ display: 'flex' , justifyContent: 'center', gap: '8%', marginBottom: '4%', flexWrap: 'wrap' }}>
           <Cards data={sortedDataFiltered} subheading='High Risk Assets' info='Data is aggregated for a given decade'/>
         </div>    
-      <div style={{ background: 'black', display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '100%', border: '1px solid #495262', borderRadius: '20px'}}>
+      <div style={{ background: 'black', display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '100%', border: '1px solid #404040', borderRadius: '20px'}}>
         <div style={{ width: '100%' }}>
             <div>
-              <div style={{ background: '#242F39', display: 'flex', borderTopLeftRadius: '20px', borderTopRightRadius: '20px', justifyContent: 'space-between', width: '100%', border: '1px solid #495262', flexWrap: 'wrap' }}>
+              <div style={{ background: '#222222', display: 'flex', borderTopLeftRadius: '20px', borderTopRightRadius: '20px', justifyContent: 'space-between', width: '100%', border: '1px solid #404040', flexWrap: 'wrap' }}>
                 <img style={{width: '250px', height: '120px', marginBottom: '2%'}} src="https://imgtr.ee/images/2023/04/27/JMcWb.png" alt="" />
               <div style={{ display: 'flex', flexDirection: 'row', marginLeft: 'auto'}}>
                   <div>
-                  <Typography fontWeight={'medium'} color={'white'} fontSize={'small'} mt={3} ml={3} mb={1} align='left' variant='h4'>Select Year</Typography>
+                  <Typography fontWeight={'bold'} color={'white'} fontSize={'small'} mt={3} ml={3} mb={1} align='left' variant='h4'>Select Year</Typography>
                   <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex', overflow: 'auto', gap: '8px', marginTop: '1%', marginBottom: '4%', paddingLeft: '4%' }}>
                     {years.map(year => (
                         <Chip

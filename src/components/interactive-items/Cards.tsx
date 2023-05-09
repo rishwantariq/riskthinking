@@ -58,13 +58,13 @@ export default function Cards({ data, subheading, info }: CardsProps) {
     <Box
       sx={{
         position: 'relative',
-        background: '#242F39',
+        background: '#222222',
         borderRadius: '20px',
         marginBottom: '5%',
         width: '100%',
         height: '100%',
         margin: '0 auto',
-        border: '1px solid #495262',
+        border: '1px solid #404040',
         maxWidth: '1200px',
       }}
     >
@@ -113,7 +113,7 @@ export default function Cards({ data, subheading, info }: CardsProps) {
             {rowData.map((item, i) => (
               <Card
                 key={i}
-                sx={{ display: 'flex', width: 'fit-content', borderRadius: '20px', background: '#3D4854', mb: '20px', border: '2px solid #525F6B' }}
+                sx={{ display: 'flex', width: 'fit-content', borderRadius: '20px', background: '#363636', mb: '20px', border: '2px solid #404040' }}
               >
                 <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', minWidth: '200px', margin: '2%' }}>
                   <CardContent sx={{ flex: '1 0 auto', justifyContent: 'center' }}>
@@ -154,7 +154,7 @@ export default function Cards({ data, subheading, info }: CardsProps) {
                   </CardContent>
                     </Box>
                     <div style={{marginTop: 'auto', marginBottom: 'auto', margin: 'auto'}}>
-                    <Typography variant="h2" align='left' mr={4} color="white" component="div">
+                    <Typography variant="h2" align='left' mr={4} color={"text.primary"}component="div">
                         {item.risk.toFixed(0)}%
                     </Typography>  
                     </div>

@@ -74,15 +74,18 @@ export default function Page() {
                         </div>
                     </div>
                     <div>
-                        <Typography color={"white"} variant='h1'>Usage</Typography>
-                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '5%', gap: '20px' }}>
-                            <div style={{ marginTop: '0%', marginBottom: '5%' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '1%', gap: '20px' }}>
+                            <Typography mb={5} color={"white"} variant='h1'>Usage</Typography>
+
+                            <div style={{ marginTop: '1%', marginBottom: '2%'}}>
                                 <Process />
                             </div>
-                            <ShortBanner gridData={gridData} />
+                            <div style={{ marginTop: '1%', marginBottom: '2%'}}>
+                                <ShortBanner gridData={gridData} />       
+                            </div>
                         </div>   
                     </div>
-                    <Divider style={{ width: 'auto', marginLeft: 'auto', marginRight: 'auto', background: 'gray', marginTop: '2%' }} />
+                    <Divider style={{ width: 'auto', marginLeft: 'auto', marginRight: 'auto', background: '#404040', marginTop: '5%', marginBottom: '5%' }} />
                     <div ref={chartsRef}>
                         <motion.div
                             ref={ref}
