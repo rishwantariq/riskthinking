@@ -91,10 +91,7 @@ const LineChart = () => {
         }
         return [{x: 0, y: 0  }];
       }
-    if (typeof Highcharts === 'object') {
-        Highcharts.Chart;
-        
-    }
+
     const options = useMemo(() => {
         return {
           chart: {
@@ -172,11 +169,11 @@ const LineChart = () => {
     return (
     <div>
             <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '6%' }}>
-                <div style={{marginBottom: '6%'}}>
-                    <Cards data={sortedData} subheading='Top Risk Factors' info='The top Risk Factors for the selected category.' />
-                </div>
-                <div style={{marginBottom: ''}}>
+                <div style={{ marginBottom: '6%' }}>
                     <TopRiskCategories />   
+                </div>
+                <div style={{ marginBottom: '' }}>
+                    <Cards data={sortedData} subheading='Top Risk Factors' info='The top Risk Factors for the selected category.' />
                 </div>    
         </div>  
         <div style={{ background: '#242F39', display: 'flex', borderTopLeftRadius: '20px', borderTopRightRadius: '20px', justifyContent: 'space-between', width: '100%', border: '1px solid #495262', flexWrap: 'wrap', alignItems: 'center' }}>
