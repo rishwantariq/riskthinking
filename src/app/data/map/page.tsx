@@ -23,17 +23,17 @@ export default function Page() {
   
     const gridData = [
         {
-          icon: <PanToolAltIcon color="primary" style={{ fontSize: '5rem', marginBottom: 5 }} />,
+          icon: <PanToolAltIcon color="info" style={{ fontSize: '5rem', marginBottom: 5 }} />,
           title: 'Zoom & Pan',
           subtitle: 'The RiskView map allows you to freely move and pan across the areas.',
         },
         {
-          icon: <RoomIcon color="primary" style={{ fontSize: '5rem', marginBottom: 5 }} />,
+          icon: <RoomIcon color="info" style={{ fontSize: '5rem', marginBottom: 5}} />,
           title: 'Risk Markers',
           subtitle: 'Identify the areas using risk markers. Double tap marker to zoom and show details.',
         },
         {
-          icon: <LegendToggleIcon color="primary" style={{ fontSize: '5rem', marginBottom: 5 }} />,
+          icon: <RoomIcon color="info" style={{ fontSize: '5rem', marginBottom: 5}} />,
           title: 'Visual Indicator',
           subtitle: 'Color coded Legend. Each marker will correspond to the risk value in the legend.',
         },
@@ -43,7 +43,7 @@ export default function Page() {
     return (
         <>
     <PageWrapper>
-        <div style={{ background: 'black', width: '100%', height: '100vw' }}> 
+        <div style={{ background: 'black', width: '100%' }}> 
             <Box sx={{ background: 'black', textAlign: 'center', maxWidth: 'screen', height: 'screen',  paddingTop: '5px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <div>
@@ -87,12 +87,12 @@ export default function Page() {
                     <div ref={mapsRef} style={{ background: 'black', marginBottom: '2%' }}> 
                         <Typography mb={'1%'} color={'white'} variant='h1'>Risk Map</Typography>
                         <Typography mb={'5%'} color={'white'} fontWeight={'regular'} variant='h4'>Powered by Highcharts</Typography>
-                        <div style={{background: 'black', paddingLeft: '20px', paddingRight: '20px', borderRadius: '20px'}}>   
+                        <div style={{background: 'black', paddingLeft: '20px', paddingRight: '20px'}}>   
                             <MapChart />
                         </div >
                     </div>
                 </div>
-            </Box>`
+            </Box>
         </div>
     </PageWrapper>
    </>

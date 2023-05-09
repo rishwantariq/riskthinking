@@ -21,7 +21,7 @@ export default function HorizontalProgress() {
           alignItems: 'center',
           justifyContent: 'center',
           flexDirection: 'column',
-          gap: theme.spacing(20),
+          gap: theme.spacing(10),
           [theme.breakpoints.up('sm')]: {
             flexDirection: 'row',
             gap: theme.spacing(15),

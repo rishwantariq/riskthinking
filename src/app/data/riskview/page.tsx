@@ -31,17 +31,17 @@ export default function Page() {
 
     const gridData = [
         {
-          icon: <SortIcon color="primary" style={{ fontSize: '5rem', marginBottom: 5 }} />,
+          icon: <SortIcon color="info" style={{ fontSize: '5rem', marginBottom: 5 }} />,
           title: 'Sorting',
           subtitle: 'Interested in how certain metrics stand out? Sorting has you covered.',
         },
         {
-          icon: <FilterListIcon color="primary" style={{ fontSize: '5rem', marginBottom: 5 }} />,
+          icon: <FilterListIcon color="info" style={{ fontSize: '5rem', marginBottom: 5 }} />,
           title: 'Filtering',
           subtitle: 'Clear the clutter with filtering. Filter out data specified data.',
         },
         {
-          icon: <SearchIcon color="primary" style={{ fontSize: '5rem', marginBottom: 5 }} />,
+          icon: <SearchIcon color="info" style={{ fontSize: '5rem', marginBottom: 5 }} />,
           title: 'Search',
           subtitle: 'Want to something, from a certain column? Use column-based search',
         },
@@ -49,17 +49,17 @@ export default function Page() {
     ];
     const gridDataDup = [
         {
-          icon: <TableRowsIcon color="primary" style={{ fontSize: '5rem', marginBottom: 5 }} />,
+          icon: <TableRowsIcon color="info" style={{ fontSize: '5rem', marginBottom: 5 }} />,
           title: 'Customize Columns',
           subtitle: 'Personalize your table by selecting columns you want to see.',
         },
         {
-          icon: <PercentIcon color="primary" style={{ fontSize: '5rem', marginBottom: 5 }} />,
+          icon: <PercentIcon color="info" style={{ fontSize: '5rem', marginBottom: 5 }} />,
           title: 'Stochastic Risk Ranking',
           subtitle: 'Visualize Risk Ranking relative to Risk-Factors, with our probabilistic values.',
         },
         {
-          icon: <FormatListNumberedIcon color="primary" style={{ fontSize: '5rem', marginBottom: 5 }} />,
+          icon: <FormatListNumberedIcon color="info" style={{ fontSize: '5rem', marginBottom: 5 }} />,
           title: 'Rows per Page',
           subtitle: 'Select the number of rows you want to see per page to your liking.',
         },
@@ -68,7 +68,6 @@ export default function Page() {
     return (
         <>
         <PageWrapper>
-            <div></div>
             <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', background: 'black'}}>
                 <div style={{}}>
                     <DatatableHero targetRef={tablRef} />
@@ -97,16 +96,16 @@ export default function Page() {
                         </div>
                         {isSmallScreen ? null : (
                         <img
-                        src="https://imgtr.ee/images/2023/05/03/ao7fL.png"
+                        src="https://s11.gifyu.com/images/Charts-bro.png"
                         alt=""
                         style={{
                             position: "relative",
-                            width: "500px",
+                            width: "600px",
                             height: "auto",
                             top: "0px",
                             display: "block",
                             marginLeft: "auto",
-                            marginBottom: '-15%'
+                            marginTop: '-15%'
                         }}
                         />                             
                     )}   
@@ -130,7 +129,7 @@ export default function Page() {
                             </Button>
                         </Link>
                         <div ref={ref}>
-                            <div style={{ background: 'black', height:'500px', marginTop: '-1%', marginBottom: '2%' }} ref={tablRef}>
+                            <div style={{ background: 'black', height:'100%', marginTop: '-1%', margin: '1%'}} ref={tablRef}>
                                 <Datatable />
                             </div>
                         </div>

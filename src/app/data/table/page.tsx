@@ -20,7 +20,7 @@ export default function Page() {
           <div style={{ marginBottom: '2%', background: 'black'}}>
               <span></span>
               </div>
-              <div style={{height: 'fit-content'}} ref={tablRef}>
+              <div style={{height: 'fit-content', margin: '0.5%'}} ref={tablRef}>
                 <Datatable />
               </div>
         </animated.div>

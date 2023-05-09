@@ -36,7 +36,7 @@ const DatatableHero = (targetRef : DatatableHeroProps) => {
         overflow: "hidden",
       }}
       >
-      <img style={{width: '300px', height: '300px'}} src="https://imgtr.ee/images/2023/05/03/ao5vV.png" alt="" />
+      <img style={{width: '300px', height: '300px'}} src="https://s12.gifyu.com/images/Dark-analytics-cuate-4.png" alt="" />
 
       <Box>
           <Typography

@@ -3,10 +3,13 @@ import { darkTheme } from './theme/theme';
 import './globals.css'
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import dynamic from 'next/dynamic';
-import { AnimatePresence, motion } from 'framer-motion';
 
 const DynamicResponsiveAppBar = dynamic(
   () => import('@/components/banners/ResponsiveAppBar'),
+  { ssr: false }
+);
+const DynamicFooter = dynamic(
+  () => import('@/components/interactive-items/Footer'),
   { ssr: false }
 );
 
@@ -21,7 +24,9 @@ export default function RootLayout({
         <CssBaseline />
         <body style={{background: 'black'}}>
           <DynamicResponsiveAppBar />
-              {children}
+          {children}
+          <DynamicFooter />
+
         </body>
       </ThemeProvider>
     </html>

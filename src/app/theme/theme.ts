@@ -4,13 +4,8 @@ import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgr
 import { DataGrid, gridClasses } from '@mui/x-data-grid';
 
 const palette = {
-    common: {
-      black: '#000000',
-      white: '#ffffff',
-    },
     primary: {
         main: '#55cbcd',
-        black: '#000000',
     },
     secondary: {
         main: '#b28dff',
@@ -22,10 +17,10 @@ const palette = {
       main: '#f1c40f',
     },
     info: {
-      main: '#000000',
+      main: '#8fcaca',
     },
     success: {
-      main: '#2ecc71',
+      main: '#000000',
     },
     text: {
       primary: '#ffffff',
@@ -35,9 +30,6 @@ const palette = {
       default: '#000000',
       paper: '#000000',
       table: '#536878'
-    },
-    bar: {
-      main: '#000000',
     },
   };
 
