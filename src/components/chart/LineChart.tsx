@@ -35,7 +35,7 @@ export function aggregateData(data: RiskFactor[] | null) {
 
       const aggregate = Object.keys(groupedData).map(year => ({
         x: parseInt(year),
-        y: (groupedData[year].riskSum / groupedData[year].count) * 100
+        y: Number(Number((groupedData[year].riskSum / groupedData[year].count) * 100).toFixed(2)),
       }));
       return aggregate;
     }
