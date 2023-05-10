@@ -72,8 +72,8 @@ export default function Home() {
                 Understanding the Process Behind Calculating Climate Risk and Its Impact on Businesses
               </Typography>
             </div>
-            <div style={{width: isSmallScreen ? "100%" : '40%', height: '500px', color: 'white', overflow: 'auto' }}>
-              <Box display="flex" flexDirection="column" mt={'16%'} justifyContent="start" flexWrap="wrap"  width={'100%'}>
+            <div style={{width: isSmallScreen ? "100%" : '40%', height: 'fit-content', color: 'white', overflow: 'auto' }}>
+              <Box display="flex" height={'100%'} flexDirection="column" mt={'4%'} justifyContent="start" flexWrap="wrap"  width={'100%'}>
                 <CustomizedAccordions data={accordionData} />
               </Box>
             </div>
@@ -101,7 +101,7 @@ export default function Home() {
           </div>
           <div style={{display: "flex", flexDirection: "column", background: "#f6eac2", marginBottom: "5%", marginTop: '5%' }}>
             <div style={{display: "flex", flexDirection: isSmallScreen ? "column" : "row", alignItems: "center", justifyContent: isSmallScreen ? "start": "space-between", marginLeft: '5%', marginRight: '5%', position: "relative" }}>
-                <div style={{ display: "flex", flexDirection: "column", width: isSmallScreen ? "100%" : "50%", maxWidth: "600px", padding: "20px", marginBottom: '2%' }}>
+                <div style={{ display: "flex", flexDirection: "column", width: isSmallScreen ? "100%" : "50%", maxWidth: "600px", padding: "20px", justifyContent: 'center', marginTop: 'auto', marginBottom: 'auto' }}>
                 <Typography align="left" variant="h2" fontWeight={"bold"} color={"black"}>
                 Transforming the Way Businesses Assess Climate Financial Risk. </Typography>
                 <Typography align="left" mt={2} variant="h4" fontSize={"1rem"} fontWeight={"medium"} color={"black"}>

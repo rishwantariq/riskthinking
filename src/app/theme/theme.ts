@@ -2,6 +2,33 @@
 import { createTheme, styled } from "@mui/material/styles";
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 import { DataGrid, gridClasses } from '@mui/x-data-grid';
+import localFont from "next/font/local";
+
+
+const spotify = localFont({
+  src: [
+    {
+      path: './fonts/CircularSpotifyTxT-Light.ttf',
+      weight: '300',
+      style: 'light',
+    },
+    {
+      path: './fonts/CircularSpotifyTxT-Book.ttf',
+      weight: '300',
+      style: 'regular',
+    },
+    {
+      path: './fonts/CircularSpotifyTxT-Med.ttf',
+      weight: '500',
+      style: 'medium',
+    },
+    {
+      path: './fonts/CircularSpotifyTxT-Bold.ttf',
+      weight: '500',
+      style: 'bold',
+    },
+  ],
+});
 
 const palette = {
     primary: {
@@ -80,7 +107,7 @@ const palette = {
 export const darkTheme = createTheme({
     palette,
     typography: {
-        fontFamily: 'Circular Std, Helvetica, Arial, sans-serif',
+        fontFamily: spotify.style.fontFamily,
         fontWeightLight: 100,
         fontWeightRegular: 300,
         fontWeightMedium: 500,
@@ -112,6 +139,8 @@ export const darkTheme = createTheme({
             letterSpacing: '-0.00833em',
         },
         // other typography options
-  },
+    },
+    
+  
       // other theme options
 });

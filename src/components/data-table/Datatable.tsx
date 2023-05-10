@@ -73,7 +73,7 @@ export function Datatable() {
       <div style={{ borderColor: '#949494', borderBottom: '2px solid #949494' }}>
         <GridToolbarContainer style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div style={{display: 'flex', justifyContent: 'start', alignContent: 'center', alignItems: 'center',  marginTop: '0'}}>
-            <img style={{width: '190px', height:'90px'}} src="https://imgtr.ee/images/2023/04/27/JMcWb.png" alt="" />
+            <img style={{width: '190px', height:'90px'}} src="https://s12.gifyu.com/images/Riskthinking-color.png" alt="" />
           </div>
           <div style={{display: 'flex', gap: '5px'}}>
             <GridToolbarFilterButton style={{ color: 'white' }} />
