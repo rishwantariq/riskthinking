@@ -1,6 +1,9 @@
 import { Grid, Link, Paper, Typography, Box } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 const Footer = () => {
+    const theme = useTheme();
+
   return (
     <Paper style={{ marginTop: '2%', backgroundColor: "#222222", position: 'static', bottom: 0, width: '100%', padding: '20px 20px 0px 0px' }}>
          
@@ -22,12 +25,14 @@ const Footer = () => {
           <Link href="#">Terms of Service</Link>
         </Grid>
         <Grid item>
-          <Link target='_blank' href="riskthinking.ai">Data Provider</Link>
+          <Link target='_blank' href="https://riskthinking.ai">Data Provider</Link>
         </Grid>
        </Grid>
        <Box>
-        <div style={{display: 'flex', justifyContent: 'center', marginTop: '2%', paddingBottom: '50px'}}>
-            <img src={"https://s12.gifyu.com/images/vercel.png"} alt="vercel logo" style={{ width: '110px', height: '28px', opacity: '0.8' }} />
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingTop: '1%', paddingBottom: '20px' }}>
+          <div style={{margin: 'auto', paddingBottom: '10px'}}>
+            <img src={"https://s12.gifyu.com/images/vercel.png"} alt="vercel logo" style={{ width: '110px', height: '28px', opacity: '0.8' }} />      
+          </div>
         </div>
       </Box>   
     </Paper>

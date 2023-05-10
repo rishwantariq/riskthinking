@@ -28,9 +28,7 @@ export function riskFactorRating(data : RiskFactor[]) {
       factorSums[riskFactor] += item.riskFactors[riskFactor];
       factorYear[riskFactor] = item.year;
     });
-
   });
-
   
   let factorAve: Record<string, Factor> = {};
   

@@ -11,11 +11,38 @@ import Cards from '../interactive-items/Cards';
 import { riskFactorRating } from '../data-table/Datatable';
 import { SortData } from '../chart/TopRiskCategories';
 import TopRiskCategories from '../chart/TopRiskCategories';
-import Carousel from 'react-material-ui-carousel';
+import MiniChart from './MiniChart';
+import { Tornado } from '@mui/icons-material';
+
 
 if (typeof Highcharts === 'object') {
      Highcharts.setOptions(highchartsTheme);
 }
+
+export function aggregateData(data: RiskFactor[] | null) {
+    if (data && data?.length > 0) {
+      const groupedData = data?.reduce((acc: { [key: string]: { riskSum: number, count: number } }, item) => {
+        if (!acc[item.year]) {
+          acc[item.year] = {
+            riskSum: 0,
+            count: 0
+          };
+        }
+        acc[item.year].riskSum += item.riskRating;
+        acc[item.year].count++;
+        return acc;
+      }, {});
+
+      const aggregate = Object.keys(groupedData).map(year => ({
+        x: parseInt(year),
+        y: (groupedData[year].riskSum / groupedData[year].count) * 100
+      }));
+      return aggregate;
+    }
+    return [{x: 0, y: 0  }];
+}
+  
+
 const LineChart = () => {
     const [selectedAssetFilter, setSelectedAssetFilter] = useState('');
     const [selectedAssetLabel, setSelectedAssetLabel] = useState('none');
@@ -58,40 +85,17 @@ const LineChart = () => {
         }
     };    
     
-        useEffect(() => {   
+    useEffect(() => {   
         fetchPageData(paginationModel.page);            
-      }, [paginationModel.page, paginationModel.pageSize, selectedAssetFilter, selectedBusinessCategoryFilter]);
-      
-      useEffect(() => {         
-        const agg = aggregateData(data.Data);
-        setAggregatedData(agg);
-        const riskRating = riskFactorRating(data.Data);
-        setSortedData(riskRating);
-      }, [data]);
+    }, [paginationModel.page, paginationModel.pageSize, selectedAssetFilter, selectedBusinessCategoryFilter]);
     
-      function aggregateData(data: RiskFactor[] | null) {
-        if (data && data?.length > 0) {
-          const groupedData = data?.reduce((acc: { [key: string]: { riskSum: number, count: number } }, item) => {
-            if (!acc[item.year]) {
-              acc[item.year] = {
-                riskSum: 0,
-                count: 0
-              };
-            }
-            acc[item.year].riskSum += item.riskRating;
-            acc[item.year].count++;
-            return acc;
-          }, {});
-
-          const aggregate = Object.keys(groupedData).map(year => ({
-            x: parseInt(year),
-            y: (groupedData[year].riskSum / groupedData[year].count) * 100
-          }));
-          return aggregate;
-        }
-        return [{x: 0, y: 0  }];
-      }
-
+    useEffect(() => {         
+    const agg = aggregateData(data.Data);
+    setAggregatedData(agg);
+    const riskRating = riskFactorRating(data.Data);
+    setSortedData(riskRating);
+    }, [data]);
+    
     const options = useMemo(() => {
         return {
           chart: {
@@ -135,7 +139,7 @@ const LineChart = () => {
             turboThreshold: 2000 // Maximum number of data points to display at a time
           }
         };
-      }, [aggregatedData, chartType]);
+    }, [aggregatedData, chartType]);
 
     
     
@@ -168,16 +172,27 @@ const LineChart = () => {
     
     return (
     <div>
-            <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '6%' }}>
-                <div style={{ marginBottom: '6%' }}>
-                    <TopRiskCategories />   
-                </div>
-                <div style={{ marginBottom: '' }}>
-                    <Cards data={sortedData} subheading='Top Risk Factors' info='The top Risk Factors for the selected category.' />
-                </div>    
-        </div>  
+        <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '6%' }}>
+            <div style={{ marginBottom: '6%' }}>
+                <TopRiskCategories />   
+            </div>
+            <div style={{ marginBottom: '' }}>
+                <Cards data={sortedData} subheading='Top Risk Factors' info='The top Risk Factors for the selected category.' />
+            </div>    
+        </div> 
+        <div style={{ display: 'flex', margin: '2%' }}>
+            <div style={{ flex: 1, margin: '0 2%' }}>
+                <MiniChart data={data.Data} chartType={chartType} riskFactorName={sortedData[0]?.assetName} />
+            </div>
+            <div style={{ flex: 1, margin: '0 2%' }}>
+                <MiniChart data={data.Data} chartType={chartType} riskFactorName={sortedData[1]?.assetName} />
+            </div>
+            <div style={{ flex: 1, margin: '0 2%' }}>
+                <MiniChart data={data.Data} chartType={chartType} riskFactorName={sortedData[2]?.assetName} />
+            </div>
+        </div>
         <div style={{ background: '#222222', display: 'flex', borderTopLeftRadius: '20px', borderTopRightRadius: '20px', justifyContent: 'space-between', width: '100%', border: '1px solid #404040', flexWrap: 'wrap', alignItems: 'center' }}>
-            <img style={{ width: '250px', height: '120px', marginBottom: '2%' }} src="https://imgtr.ee/images/2023/04/27/JMcWb.png" alt="" />
+            <img style={{ width: '250px', height: '120px', marginBottom: '2%' }} src="https://s12.gifyu.com/images/Riskthinking-color.png" alt="" />
                 <div style={{ display: 'flex', flexDirection: 'row', height: 'auto', marginTop: 'auto', flexWrap: 'wrap' }}>
                 <div> 
                     <Typography fontWeight={'medium'} color={'white'} fontSize={'small'} ml={3} align='left' variant='h4'>Assets</Typography>
