@@ -29,7 +29,6 @@ function aggregateData(data: RiskFactor[] | null, riskFactorName: string) {
         },
         {}
       );
-      console.log(groupedData);
       const aggregate = Object.keys(groupedData).map((year) => ({
         x: parseInt(year),
         y: Number(Number((groupedData[year].riskSum / groupedData[year].count) * 100).toFixed(2)),

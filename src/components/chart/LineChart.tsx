@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import Highcharts, { setOptions } from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import { ResponseData, RiskFactor } from '@/app/api/riskdata/route';
-import { FormControl, Select, MenuItem, SelectChangeEvent, InputLabel, Typography, CircularProgress, Chip } from '@mui/material';
+import { FormControl, Select, MenuItem, SelectChangeEvent, InputLabel, Typography, CircularProgress, Chip, useMediaQuery } from '@mui/material';
 import ChevronDownIcon from '@mui/icons-material/ArrowDropDown';
 import { styled } from '@mui/material/styles';
 import { highchartsTheme } from '../theme';
@@ -12,7 +12,6 @@ import { riskFactorRating } from '../data-table/Datatable';
 import { SortData } from '../chart/TopRiskCategories';
 import TopRiskCategories from '../chart/TopRiskCategories';
 import MiniChart from './MiniChart';
-import { Tornado } from '@mui/icons-material';
 
 
 if (typeof Highcharts === 'object') {
@@ -64,6 +63,7 @@ const LineChart = () => {
     });
     const chartTypes = ['line', 'area', 'column', 'bar', 'pie', 'scatter'];
     const businessCategories = ['Energy', 'Manufacturing', 'Retail', 'Technology', 'Healthcare', 'Finance'];
+    const isSmallScreen = useMediaQuery("(max-width:600px)");
 
     const fetchPageData = async (page: number) => {
         try {
@@ -180,14 +180,14 @@ const LineChart = () => {
                 <Cards data={sortedData} subheading='Top Risk Factors' info='The top Risk Factors for the selected category.' />
             </div>    
         </div> 
-        <div style={{ display: 'flex', margin: '2%' }}>
-            <div style={{ flex: 1, margin: '0 2%' }}>
+            <div style={{ display: 'flex', marginBottom: '2%', width: '100%', justifyContent: 'space-between', ...(isSmallScreen && { flexWrap: 'wrap', marginBottom:'2%' }) }}>
+            <div style={{ flex: 1, margin: '0 2%', ...(isSmallScreen && {  marginBottom:'30px' }) }}>
                 <MiniChart data={data.Data} chartType={chartType} riskFactorName={sortedData[0]?.assetName} />
             </div>
-            <div style={{ flex: 1, margin: '0 2%' }}>
+            <div style={{ flex: 1, margin: '0 2%', ...(isSmallScreen && { marginBottom:'30px' }) }}>
                 <MiniChart data={data.Data} chartType={chartType} riskFactorName={sortedData[1]?.assetName} />
             </div>
-            <div style={{ flex: 1, margin: '0 2%' }}>
+            <div style={{ flex: 1, margin: '0 2%', ...(isSmallScreen && { marginBottom:'30px' })}}>
                 <MiniChart data={data.Data} chartType={chartType} riskFactorName={sortedData[2]?.assetName} />
             </div>
         </div>
