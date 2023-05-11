@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { MappedData } from './Map';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import FunctionsIcon from '@mui/icons-material/Functions';
-import { Box, Icon, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from "@react-google-maps/api";
 import { LocationOn } from '@mui/icons-material';
 
@@ -10,30 +10,11 @@ interface MapComponentProps {
   mappedData: MappedData[];
 }
 
-interface Item {
-  lat: number;
-  long: number;
-  name: string;
-  riskRating: number;
-}
-
-const colorStops = [
-  { max: 10, color: '#00ff00' }, // green
-  { max: 20, color: '#1aff1a' },
-  { max: 30, color: '#33ff33' },
-  { max: 40, color: '#66ff66' },
-  { max: 50, color: '#99ff99' },
-  { max: 60, color: '#cccccc' },
-  { max: 70, color: '#ff9999' },
-  { max: 80, color: '#ff6666' },
-  { max: 90, color: '#ff3333' },
-  { max: Infinity, color: '#ff0000' } //
-];
 
 const getIconUrl = (rating : number) => {
   let color;
   let scaledSize;
-  if (rating > 60) {
+  if (rating >= 60) {
     color = "red";
     scaledSize = new window.google.maps.Size(40, 40);
   } else if (rating > 40 && rating < 60) {
@@ -45,7 +26,6 @@ const getIconUrl = (rating : number) => {
   }
   return `http://maps.google.com/mapfiles/ms/icons/${color}-dot.png`;
 };
-
 
 
 const MapComponent = (mappedData : MapComponentProps) => {
@@ -60,12 +40,12 @@ const MapComponent = (mappedData : MapComponentProps) => {
   const handleMarkerLeave = () => {
     setSelectedMarker(null);
   };
-  const key = "AIzaSyD7OQTuKAyorXDfARICdwBlq6gce3y71Yw";
-  const environmentKey = `${process.env.GOOGLE_MAPS_API_KEY}`;
-  console.log(environmentKey);
+
+  const environmentKey = process.env.GOOGLE_MAPS_API_KEY;
+
   return (
     <div style={{ height: "600px", width: "100%" }}>
-      <LoadScript googleMapsApiKey= "AIzaSyD7OQTuKAyorXDfARICdwBlq6gce3y71Yw">
+      <LoadScript googleMapsApiKey="AIzaSyD7OQTuKAyorXDfARICdwBlq6gce3y71Yw" >
         <GoogleMap
           mapContainerStyle={{ height: "100%", width: "100%" }}
           center={mapCenter}
