@@ -16,7 +16,6 @@ import { useRef } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { useInView } from 'react-intersection-observer';
-import { useSpring, animated } from 'react-spring';
 import { PageWrapper } from '@/components/PageWrapper';
 
 export default function Page() {

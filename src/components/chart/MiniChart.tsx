@@ -24,7 +24,7 @@ function aggregateData(data: RiskFactor[] | null, riskFactorName: string) {
           const riskFactorValue = Object.keys(item.riskFactors).includes(riskFactorName) ? item.riskFactors[riskFactorName] : 0;
           acc[item.year].riskSum += riskFactorValue;
           acc[item.year].count++;
-  
+
           return acc;
         },
         {}

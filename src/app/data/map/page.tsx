@@ -10,7 +10,6 @@ import RoomIcon from '@mui/icons-material/Room';
 import { useInView } from 'react-intersection-observer';
 import MapChart from '@/components/map/Map';
 import MapsHero from '@/components/map/MapsHero';
-import { useSpring, animated } from 'react-spring';
 import { PageWrapper } from '@/components/PageWrapper';
 import { motion } from "framer-motion";
 
