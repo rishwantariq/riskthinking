@@ -8,7 +8,6 @@ import LegendToggleIcon from '@mui/icons-material/LegendToggle';
 import InsertChartIcon from '@mui/icons-material/InsertChart';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import { useInView } from 'react-intersection-observer';
-import { useSpring, animated } from 'react-spring';
 import LineChart from '@/components/chart/LineChart';
 import ChartsHero from '@/components/chart/ChartsHero';
 import { PageWrapper } from '@/components/PageWrapper';
