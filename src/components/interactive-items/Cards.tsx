@@ -8,7 +8,6 @@ import Typography from '@mui/material/Typography';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import { BorderLinearProgress } from '@/app/theme/theme';
 import Tooltip from '@mui/material/Tooltip';
-import { useSpring, animated } from 'react-spring';
 import InfoIcon from '@mui/icons-material/Info';
 
 type AssetData = {
@@ -39,11 +38,6 @@ export default function Cards({ data, subheading, info }: CardsProps) {
       }
     });
   
-  const spring = useSpring({
-    from: { opacity: 0 },
-    to: { opacity: 1},
-    config: { duration: 1000 },
-  });
   const rows = Math.ceil(filtered.length / 3); // Calculate number of rows based on data length
   const cardData = []; // Initialize array to store data for each card
 

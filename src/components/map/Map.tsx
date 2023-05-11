@@ -1,27 +1,26 @@
 'use client'
 import React, { useState, useEffect, useMemo } from 'react';
-import HighchartsReact from 'highcharts-react-official';
-import Highcharts from 'highcharts';
-import topology from '@/components/map/topology.json';
-import highchartsMap from 'highcharts/modules/map';
 import { ResponseData } from '@/app/api/riskdata/route';
 import { Chip, Typography, styled } from '@mui/material';
-import { FormControl, Select, MenuItem } from '@mui/material';
 import ChevronDownIcon from '@mui/icons-material/ArrowDropDown';
 import MY_APP_BASE_URL from '../../../config';
 import Cards from '@/components/interactive-items/Cards';
-import { highchartsTheme } from '../theme'
+import GoogleMaps from './GoogleMaps';
 
-
-if (typeof Highcharts === 'object') {
-  highchartsMap(Highcharts); // initialize the highchartsMap module
-  Highcharts.setOptions(highchartsTheme);
-}
 interface SortData {
   assetName: string;
   latitude: number;
   longitude: number;
   risk: number;
+}
+export interface MappedData {
+  lat: number;
+  long: number;
+  name: string;
+  riskRating: string;
+  year: number;
+  clusterPointsAmount: number;
+  isCluster: boolean;
 }
 
 const MapChart = () => {
@@ -31,15 +30,8 @@ const MapChart = () => {
   const [data, setData] = useState<ResponseData>({ Data: [], hasNext: false, totalPages: 0, pageSize: 0 });
   const [loading, setLoading] = useState(false);
   const [sortedDataFiltered, setSortedDataFiltered] = useState<SortData[]>([]);
-  const [mappedData, setMappedData] = useState([{
-    lat: 0,
-    long: 0,
-    name: "",
-    riskRating: "",
-    year: 2020,
-    clusterPointsAmount: 0,
-    isCluster: false
-  }]);
+  const [mappedData, setMappedData] = useState<MappedData[]>([]);
+
   const years = [
     '2030',
     '2040',
@@ -86,8 +78,7 @@ const MapChart = () => {
           year: groupedData[item].year,
         }));
 
-    
-        const mappedData = aggregatedData.map(item => ({
+        const mapped = aggregatedData.map(item => ({
           lat: item.lat,
           long: item.long,
           name: item.name,
@@ -96,15 +87,15 @@ const MapChart = () => {
           clusterPointsAmount: Number((item.riskRating * 100).toFixed(0)),
           isCluster: true
         }));
-        setMappedData(mappedData);
-        const sortedTopThree = mappedData.sort((a, b) => Number(b.riskRating) - Number(a.riskRating))
+        setMappedData(mapped);
+        
+        const sortedTopThree = mapped.sort((a, b) => Number(b.riskRating) - Number(a.riskRating))
         .splice(0, 3)
         .map(({ name, lat, long, riskRating }) => ({ assetName: name, latitude: lat, longitude: long, risk: Number(riskRating) }));
         setSortedDataFiltered(sortedTopThree);
       } 
   }
     
-
 
   useEffect(() => {
     fetchPageData();
@@ -113,138 +104,6 @@ const MapChart = () => {
   useEffect(() => {
     aggregatedData();
   }, [data]);
-
-  // Define the options
-  const options = useMemo(() => {
-    return {
-      chart: {
-      map: topology,
-      height: 600, // set the height to 600 pixels
-      events: {
-        load(this: Highcharts.Chart): void {
-          if (loading) {
-            this.showLoading();
-          } else {
-            this.hideLoading();
-          }
-        }
-      },
-    },
-    title: {
-      text: '',
-      align: 'center',
-      style: {
-      },
-      useHTML: true
-    },
-    subtitle: {
-      text: '',
-      align: 'center',
-      style: {
-      },
-      useHTML: true
-    },
-    mapNavigation: {
-      enabled: true,
-    },
-    tooltip: {
-      formatter: function (this: Highcharts.TooltipFormatterContextObject) {
-        const point = this.point as Highcharts.Point & { riskRating: number, lon: number, lat: number, name: String};
-
-        return `<div>
-                  <Typography variant="h6" style="margin-bottom: 5px;"><b>${point.name}</b></Typography></br>
-                  <Typography style="margin-bottom: 5px;">Lat: ${point.lat.toFixed(2)}</Typography>
-                  <Typography style="margin-bottom: 5px;">Lon: ${point.lon.toFixed(2)}</Typography></br>
-                  <Typography><b>${point.riskRating}%</b></Typography>
-                </div>`;
-      },
-    },
-    
-    colorAxis: {
-      min: 0,
-      max: 100,
-      tickPositions: [0, 25, 50, 75, 100],
-      labels: {
-        format: '{value}%',
-         style: {
-           color: 'white',
-           fontWeight: 'medium',
-           gridLineWidth: 0,
-        },
-      },
-      stops: [
-        [0, '#BDE7BD'],
-        [60, '#FF6961'],
-        [100, '#FF6961'],
-      ],
-      showInLegend: true // Add this option to show labels and values
-    },
-    plotOptions: {
-      series: {
-          cluster: {
-              enabled: true,
-              allowOverlap: false,
-              layoutAlgorithm: {
-                  type: 'grid',
-                  gridSize: 50
-              },
-              marker: {
-                  fillColor: 'black'
-              }
-          }
-      }
-    },
-    series: [
-      {
-        name: 'Map',
-        accessibility: {
-          exposeAsGroupOnly: true,
-        },
-        borderColor: '#A0A0A0',
-        nullColor: 'rgba(177, 244, 177, 0.5)',
-        showInLegend: true,
-      },
-      {
-        type: 'mappoint',
-        enableMouseTracking: true,
-        accessibility: {
-
-        },
-        colorKey: 'clusterPointsAmount',
-        name: 'Areas',
-        keys: ['name', 'lat', 'lon', 'riskRating'],
-        data: mappedData.map((area) => ({
-          name: area.name,
-          lat: Number(area.lat),
-          lon: Number(area.long),
-          riskRating: area.riskRating,
-          clusterPointsAmount: area.clusterPointsAmount,
-          isCluster: true,
-          color: area.riskRating
-        })),
-        marker: {
-            lineWidth: 1,
-            lineColor: '#fff',
-            symbol: 'mapmarker',
-          fillColor: {
-            radialGradient: { x1: 0, y1: 0, x2: 1, y2: 0 },
-            stops: [
-              [0, '#b7e1cd'],
-              [0.25, '#7fcdbb'],
-              [0.5, '#fec44f'],
-              [0.75, '#fc8d59'],
-              [1, '#d73027']
-            ]
-          },
-            radius: 8
-        },
-        dataLabels: {
-            verticalAlign: 'top'
-        }
-      },
-    ],
-  };
-  }, [mappedData]);
 
 
   const handleChange = (e: String) => {
@@ -268,13 +127,13 @@ const MapChart = () => {
         <div style={{ display: 'flex' , justifyContent: 'center', gap: '8%', marginBottom: '4%', flexWrap: 'wrap' }}>
           <Cards data={sortedDataFiltered} subheading='High Risk Assets' info='Data is aggregated for a given decade'/>
         </div>    
-      <div style={{ background: 'black', display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '100%', border: '1px solid #404040', borderRadius: '20px'}}>
-        <div style={{ width: '100%' }}>
+        <div style={{ background: 'black', display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '100%', border: '1px solid #404040', borderRadius: '20px'}}>
+          <div style={{ width: '100%'}}>
             <div>
               <div style={{ background: '#222222', display: 'flex', borderTopLeftRadius: '20px', borderTopRightRadius: '20px', justifyContent: 'space-between', width: '100%', border: '1px solid #404040', flexWrap: 'wrap' }}>
                 <img style={{width: '250px', height: '120px', marginBottom: '2%'}} src="https://s12.gifyu.com/images/Riskthinking-color.png" alt="" />
               <div style={{ display: 'flex', flexDirection: 'row', marginLeft: 'auto'}}>
-                  <div>
+                <div>
                   <Typography fontWeight={'bold'} color={'white'} fontSize={'small'} mt={3} ml={3} mb={1} align='left' variant='h4'>Select Year</Typography>
                   <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex', overflow: 'auto', gap: '8px', marginTop: '1%', marginBottom: '4%', paddingLeft: '4%' }}>
                     {years.map(year => (
@@ -289,22 +148,21 @@ const MapChart = () => {
                       ))}
                       <Chip
                       label="All Years"
-                        
                         onClick={() => handleChange('all')}
                         style={{ fontWeight: 'bold', marginRight: '2%', marginBottom: '1%', marginTop: '2%' }}
                         color={selectedDecadeLabel == 'all' ? 'secondary' : 'default'}
                         variant={selectedDecadeLabel == 'all'  ? 'filled' : 'outlined'}
                       />
-                    </div>
                   </div>
+                </div>
               </div>
             </div>
-            <HighchartsReact immutable={true} highcharts={Highcharts} options={options} constructorType={'mapChart'}  />
+            <GoogleMaps mappedData={mappedData} />
           </div>
         </div>
       </div>
     </div>
-    );
+  );
 };
   
 export default MapChart;
