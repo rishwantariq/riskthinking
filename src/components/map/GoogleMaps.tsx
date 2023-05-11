@@ -60,10 +60,12 @@ const MapComponent = (mappedData : MapComponentProps) => {
   const handleMarkerLeave = () => {
     setSelectedMarker(null);
   };
-     
+  const key = "AIzaSyD7OQTuKAyorXDfARICdwBlq6gce3y71Yw";
+  const environmentKey = `${process.env.GOOGLE_MAPS_API_KEY}`;
+  console.log(environmentKey);
   return (
     <div style={{ height: "600px", width: "100%" }}>
-      <LoadScript googleMapsApiKey={`${process.env.GOOGLE_MAPS_API_KEY}`}>
+      <LoadScript googleMapsApiKey= "AIzaSyD7OQTuKAyorXDfARICdwBlq6gce3y71Yw">
         <GoogleMap
           mapContainerStyle={{ height: "100%", width: "100%" }}
           center={mapCenter}
