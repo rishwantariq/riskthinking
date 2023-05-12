@@ -35,7 +35,7 @@ const ChartsHero = (targetRef: ChartsHeroProps) => {
         overflow: "hidden",
       }}
     >
-        <img style={{ width: '300px', height: '300px' }} src="https://imgtr.ee/images/2023/05/02/Ji2Vx.png" alt="" />
+        <img style={{ width: '300px', height: '300px' }} src="https://s12.gifyu.com/images/Data-Trends-bro-2.png" alt="" />
         <Box sx={{background: 'black'}}>
             <Typography
             variant="h1"

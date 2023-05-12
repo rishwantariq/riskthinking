@@ -57,13 +57,13 @@ export default function Page() {
                             </div>
                             {isSmallScreen ? null : (
                                 <img
-                                src="https://imgtr.ee/images/2023/05/04/apmEz.png"                               
+                                src="https://s11.gifyu.com/images/Performance-overview-bro.png"                               
                                 alt=""
                                 style={{
                                  position: "relative",
                                  width: "600px",
                                  height: "auto",
-                                 top: "-70px",
+                                 top: "-150px",
                                  display: "block",
                                  marginLeft: "auto",
                                  marginBottom: '-15%'
