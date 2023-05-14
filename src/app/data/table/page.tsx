@@ -7,18 +7,18 @@ import { PageWrapper } from '@/components/PageWrapper';
 
 export default function Page() {
   const tablRef = useRef<HTMLDivElement>(null);
-    return (
-      <>
-      <PageWrapper> 
-        <div style={{ background: 'black', height: 'fitcontent'}}>
-          <div style={{ marginBottom: '2%', background: 'black'}}>
-              <span></span>
-              </div>
-              <div style={{height: 'fit-content', margin: '0.5%'}} ref={tablRef}>
-                <Datatable />
-              </div>
+  return (
+    <>
+      <PageWrapper>
+        <div style={{ background: 'black', height: 'fitcontent' }}>
+          <div style={{ marginBottom: '2%', background: 'black' }}>
+            <span></span>
+          </div>
+          <div style={{ height: 'fit-content', margin: '0.5%' }} ref={tablRef}>
+            <Datatable showAll={true} />
+          </div>
         </div>
       </PageWrapper>
-        </>
-    );
+    </>
+  );
 }

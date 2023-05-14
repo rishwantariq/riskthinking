@@ -123,11 +123,11 @@ const MapChart = () => {
   });
 
   return (
-    <div style={{ background: 'black', width: '100%' }}> 
+    <div style={{ background: 'inherit', width: '100%' }}> 
         <div style={{ display: 'flex' , justifyContent: 'center', gap: '8%', marginBottom: '4%', flexWrap: 'wrap' }}>
           <Cards data={sortedDataFiltered} subheading='High Risk Assets' info='Data is aggregated for a given decade'/>
         </div>    
-        <div style={{ background: 'black', display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '100%', border: '1px solid #404040', borderRadius: '20px'}}>
+        <div style={{ background: 'inherit', display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '100%', border: '1px solid #404040', borderRadius: '20px'}}>
           <div style={{ width: '100%'}}>
             <div>
               <div style={{ background: '#222222', display: 'flex', borderTopLeftRadius: '20px', borderTopRightRadius: '20px', justifyContent: 'space-between', width: '100%', border: '1px solid #404040', flexWrap: 'wrap' }}>

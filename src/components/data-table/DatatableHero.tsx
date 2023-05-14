@@ -5,7 +5,7 @@ import ChevronRightIcon from '@mui/icons-material/ArrowDownwardRounded';
 interface DatatableHeroProps {
   targetRef: RefObject<HTMLDivElement>;
 }
-const DatatableHero = (targetRef : DatatableHeroProps) => {
+const DatatableHero = (targetRef: DatatableHeroProps) => {
   const handleClick = () => {
     window.scrollTo({
       top: window.innerHeight,
@@ -15,10 +15,10 @@ const DatatableHero = (targetRef : DatatableHeroProps) => {
   const handleTableClick = () => {
     if (targetRef.targetRef.current) {
       window.scrollTo({
-          top: targetRef.targetRef.current.offsetTop,
-          behavior: 'smooth',
-    });
-  }
+        top: targetRef.targetRef.current.offsetTop,
+        behavior: 'smooth',
+      });
+    }
   };
   return (
     <Box
@@ -35,48 +35,48 @@ const DatatableHero = (targetRef : DatatableHeroProps) => {
         padding: 0,
         overflow: "hidden",
       }}
-      >
-      <img style={{width: '300px', height: '300px'}} src="https://s12.gifyu.com/images/Dark-analytics-cuate-4.png" alt="" />
+    >
+      <img style={{ width: '300px', height: '300px' }} src="https://s12.gifyu.com/images/Dark-analytics-cuate-4.png" alt="" />
 
       <Box>
-          <Typography
-            variant="h1"
-            align="center"
-            fontSize={{ xs: "2rem", sm: "3rem", md: "6rem" }}
-            color="text.primary"
-            style={{ marginBottom: "20px" }}
-          >
-            RiskView
-          </Typography>
-          <Typography fontSize={{ xs: "0.7rem", sm: "0.9rem", md: "1rem" }} variant="h4" fontWeight={'light'} align="center" color="text.secondary">
-            Be climate-ready. Use our categorized data to make financial decisions.
-          </Typography>
-        </Box>
-        <Box flexDirection={{ xs: "column", sm: "row" }} sx={{gap: '20px'}} mt={8} display="flex" justifyContent="center">
-          <Button
-            variant="outlined"
-            color="secondary"
-            onClick={handleClick}
-            style={{
-              borderRadius: "50px",
-              padding: "14px 40px",
-              
+        <Typography
+          variant="h1"
+          align="center"
+          fontSize={{ xs: "2rem", sm: "3rem", md: "6rem" }}
+          color="text.primary"
+          style={{ marginBottom: "20px" }}
+        >
+          RiskView
+        </Typography>
+        <Typography fontSize={{ xs: "0.7rem", sm: "0.9rem", md: "1rem" }} variant="h4" fontWeight={'light'} align="center" color="text.secondary">
+          Be climate-ready. Use our categorized data to make financial decisions.
+        </Typography>
+      </Box>
+      <Box flexDirection={{ xs: "column", sm: "row" }} sx={{ gap: '20px' }} mt={8} display="flex" justifyContent="center">
+        <Button
+          variant="outlined"
+          color="secondary"
+          onClick={handleClick}
+          style={{
+            borderRadius: "50px",
+            padding: "14px 40px",
 
-            }}
-          >
-            Read Below
-          </Button>
-          <Button
-            variant="text"
-            color="primary"
-            onClick={handleTableClick}
-            endIcon={<ChevronRightIcon ></ChevronRightIcon>}
-            style={{
-              borderRadius: "50px",
-              padding: "14px 40px",
-            }}
-          >
-            Jump to Table
+
+          }}
+        >
+          Read Below
+        </Button>
+        <Button
+          variant="text"
+          color="primary"
+          onClick={handleTableClick}
+          endIcon={<ChevronRightIcon ></ChevronRightIcon>}
+          style={{
+            borderRadius: "50px",
+            padding: "14px 40px",
+          }}
+        >
+          Jump to Table
         </Button>
       </Box>
     </Box>

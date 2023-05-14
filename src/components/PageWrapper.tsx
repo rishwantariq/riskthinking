@@ -9,7 +9,7 @@ export const PageWrapper = ({
   children: React.ReactNode;
   className?: string;
 }) => (
-    <div>
+  <div>
     <AnimatePresence mode="wait">
       <motion.div
         initial={{ y: "100%" }}
@@ -21,7 +21,7 @@ export const PageWrapper = ({
           damping: 20,
           duration: 0.5,
         }}
-        onAnimationComplete={() =>  window.scrollTo({ top: 0, behavior: 'smooth' })}
+        onAnimationComplete={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         style={{ position: "relative" }}
       >
         {children}

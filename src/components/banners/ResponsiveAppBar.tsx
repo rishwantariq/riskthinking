@@ -18,12 +18,13 @@ type PageLinks = {
   [key: string]: string;
 };
 
-const pages = ['DataTable', 'Chart', 'Map'];
+const pages = ['DataTable', 'Chart', 'Map', 'Dashboard'];
 const settings = ['Profile'];
-const pageLinks : PageLinks = {
+const pageLinks: PageLinks = {
   'DataTable': '/data/table',
   'Chart': '/data/chart',
-  'Map': '/data/map'
+  'Map': '/data/map',
+  'Dashboard': '/data/dashboard'
 };
 
 function ResponsiveAppBar() {
@@ -46,9 +47,10 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="sticky" style={{ 
-      backgroundColor: 'rgba(0, 0, 0, 0.5)', 
-      backdropFilter: 'blur(30px)' }}>
+    <AppBar position="sticky" style={{
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      backdropFilter: 'blur(30px)'
+    }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <img src="https://imgtr.ee/images/2023/05/05/aNQPM.png" alt='logo' width={70} height={70} />
@@ -75,7 +77,7 @@ function ResponsiveAppBar() {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              sx={{ fill: 'white', color: 'white'}}
+              sx={{ fill: 'white', color: 'white' }}
             >
               <MenuIcon />
             </IconButton>
@@ -97,9 +99,9 @@ function ResponsiveAppBar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page : string) => (
+              {pages.map((page: string) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Link style={{color: 'primary'}} key={page} href={pageLinks[page]}>
+                  <Link style={{ color: 'primary' }} key={page} href={pageLinks[page]}>
                     <Typography fontWeight={'medium'} color={'text.primary'} textAlign="center">{page}</Typography>
                   </Link>
                 </MenuItem>
@@ -126,13 +128,13 @@ function ResponsiveAppBar() {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Link style={{color: 'primary'}} key={page} href={pageLinks[page]}>
-                  <Button
-                    key={page}
-                    onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: 'white', display: 'block' }}
-                  >
-                    <Typography fontWeight={'medium'} color={'text.primary'} textAlign="center">{page}</Typography>
+              <Link style={{ color: 'primary' }} key={page} href={pageLinks[page]}>
+                <Button
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                >
+                  <Typography fontWeight={'medium'} color={'text.primary'} textAlign="center">{page}</Typography>
                 </Button>
               </Link>
             ))}

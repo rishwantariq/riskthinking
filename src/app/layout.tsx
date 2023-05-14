@@ -23,15 +23,20 @@ export default function RootLayout({
   }) {
   return (
     <html lang="en">
-      <ThemeProvider theme={darkTheme}>
-        <CssBaseline />
-        <body style={{background: 'black'}}>
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
+      <body style={{ background: 'black', display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+        <div style={{ flex: 1 }}>
           <DynamicResponsiveAppBar />
           {children}
+        </div>
+        <div style={{ display: 'static'}}>
           <DynamicFooter />
+        </div>
+      </body>
+    </ThemeProvider>
+  </html>
+  
 
-        </body>
-      </ThemeProvider>
-    </html>
   );
 }

@@ -18,15 +18,15 @@ function ShortBanner({ gridData }: ShortBannerProps) {
       <Container maxWidth="lg">
         <Grid container spacing={4} alignItems="center">
           {gridData.map((item, index) => (
-          <Grid key={index} item xs={12} md={4} alignItems="center">
-            {item.icon}
-            <Typography fontWeight='bold' color={"text.primary"} variant="h3" mb={2}>
-              {item.title}
-            </Typography>
-            <Typography  fontWeight='regular' color={"text.secondary"} variant="h4">
-              {item.subtitle}
-            </Typography>
-          </Grid>
+            <Grid key={index} item xs={12} md={4} alignItems="center">
+              {item.icon}
+              <Typography fontWeight='bold' color={"text.primary"} variant="h3" mb={2}>
+                {item.title}
+              </Typography>
+              <Typography fontWeight='regular' color={"text.secondary"} variant="h4">
+                {item.subtitle}
+              </Typography>
+            </Grid>
           ))}
         </Grid>
       </Container>

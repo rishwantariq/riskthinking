@@ -12,7 +12,7 @@ type Factor = {
   [factor: string]: number;
 };
 
-export function riskFactorRating(data : RiskFactor[]) {
+export function riskFactorRating(data: RiskFactor[]) {
   let factorCounts: Factor = {};
   let factorSums: Factor = {};
   let factorYear: Factor = {};
@@ -29,24 +29,24 @@ export function riskFactorRating(data : RiskFactor[]) {
       factorYear[riskFactor] = item.year;
     });
   });
-  
+
   let factorAve: Record<string, Factor> = {};
-  
+
   Object.keys(factorCounts).forEach(riskFactor => {
     factorAve[riskFactor] = {
       avg: factorSums[riskFactor] / factorCounts[riskFactor],
       year: factorYear[riskFactor]
-    };    
+    };
   });
 
   const sortedData = Object.entries(factorAve)
     .sort(([, a], [, b]) => b.avg - a.avg)
-    .map(([riskFactorName, { avg, year }]) => ({ assetName: riskFactorName, latitude: 0, longitude: 0, risk: Number(Number(avg * 100).toFixed(0)), year: year })).splice(0,3);
-  
+    .map(([riskFactorName, { avg, year }]) => ({ assetName: riskFactorName, latitude: 0, longitude: 0, risk: Number(Number(avg * 100).toFixed(0)), year: year })).splice(0, 3);
+
   return sortedData;
 }
 
-export function Datatable() {
+export function Datatable(props: { showAll: boolean }) {
   const [data, setData] = useState<ResponseData>({ Data: [], hasNext: false, totalPages: 0, pageSize: 0 });
   const [totalPages, setTotalPages] = useState(0);
   const [isLoading, setLoading] = useState(false);
@@ -56,40 +56,40 @@ export function Datatable() {
     pageSize: 50,
   });
   const riskColumns = [
-  'tornado',
-  'sealevelrise',
-  'wildfire',
-  'earthquake', 
-  'drought',
-  'hurricane', 
-  'extremecold',
-  'extremeheat',
-  'flooding',
-  'volcano'
+    'tornado',
+    'sealevelrise',
+    'wildfire',
+    'earthquake',
+    'drought',
+    'hurricane',
+    'extremecold',
+    'extremeheat',
+    'flooding',
+    'volcano'
   ];
 
   function CustomToolbar() {
     return (
       <div style={{ borderColor: '#949494', borderBottom: '2px solid #949494' }}>
         <GridToolbarContainer style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <div style={{display: 'flex', justifyContent: 'start', alignContent: 'center', alignItems: 'center',  marginTop: '0'}}>
-            <img style={{width: '190px', height:'90px'}} src="https://s12.gifyu.com/images/Riskthinking-color.png" alt="" />
+          <div style={{ display: 'flex', justifyContent: 'start', alignContent: 'center', alignItems: 'center', marginTop: '0' }}>
+            <img style={{ width: '190px', height: '90px' }} src="https://s12.gifyu.com/images/Riskthinking-color.png" alt="" />
           </div>
-          <div style={{display: 'flex', gap: '5px'}}>
+          <div style={{ display: 'flex', gap: '5px' }}>
             <GridToolbarFilterButton style={{ color: 'white' }} />
-            <GridToolbarColumnsButton style={{ color: 'white' }}/>
-            <GridToolbarExport style={{marginRight: '10px', color: 'white'}} />
+            <GridToolbarColumnsButton style={{ color: 'white' }} />
+            <GridToolbarExport style={{ marginRight: '10px', color: 'white' }} />
           </div>
-          
+
         </GridToolbarContainer>
       </div>
     );
   }
-  
+
   const fetchPageData = async (page: number) => {
     try {
       setLoading(true);
-      const res = await fetch(`${MY_APP_BASE_URL}/api/riskdata?page=${paginationModel.page+1}&pagesize=${paginationModel.pageSize}`);
+      const res = await fetch(`${MY_APP_BASE_URL}/api/riskdata?page=${paginationModel.page + 1}&pagesize=${paginationModel.pageSize}`);
       const data: ResponseData = await res.json();
       setData(data);
       setTotalPages(Number(data.totalPages));
@@ -98,7 +98,7 @@ export function Datatable() {
       console.log(error);
     }
   };
-  
+
   useEffect(() => {
     fetchPageData(paginationModel.page);
   }, [paginationModel.page, paginationModel.pageSize]);
@@ -116,10 +116,10 @@ export function Datatable() {
       headerAlign: 'left',
       headerClassName: 'super-app-theme--header',
       valueGetter: (params: GridValueGetterParams) => params.value,
-        renderCell: (params: GridCellParams) => {
-        const Name : String = String(params.value);
-          return <Typography fontWeight={'medium'} color={'text'}>{Name}</Typography>
-        }
+      renderCell: (params: GridCellParams) => {
+        const Name: String = String(params.value);
+        return <Typography fontWeight={'medium'} color={'text'}>{Name}</Typography>
+      }
     },
     {
       field: 'lat',
@@ -130,10 +130,10 @@ export function Datatable() {
       sortable: false,
       headerAlign: 'left',
       valueGetter: (params: GridValueGetterParams) => params.value,
-        renderCell: (params: GridCellParams) => {
-        const lat : Number = Number(params.value);
-          return <Typography fontWeight={'regular'} color={'text.secondary'}>{lat.toString()}</Typography>
-        }
+      renderCell: (params: GridCellParams) => {
+        const lat: Number = Number(params.value);
+        return <Typography fontWeight={'regular'} color={'text.secondary'}>{lat.toString()}</Typography>
+      }
     },
     {
       field: 'long',
@@ -144,10 +144,10 @@ export function Datatable() {
       align: 'left',
       headerAlign: 'left',
       valueGetter: (params: GridValueGetterParams) => params.value,
-        renderCell: (params: GridCellParams) => {
-        const long : Number = Number(params.value);
-          return <Typography fontWeight={'regular'} color={'text.secondary'}>{long.toString()}</Typography>
-        }
+      renderCell: (params: GridCellParams) => {
+        const long: Number = Number(params.value);
+        return <Typography fontWeight={'regular'} color={'text.secondary'}>{long.toString()}</Typography>
+      }
     },
     {
       field: 'businessCategory',
@@ -156,10 +156,10 @@ export function Datatable() {
       align: 'left',
       headerAlign: 'left',
       valueGetter: (params: GridValueGetterParams) => params.value,
-        renderCell: (params: GridCellParams) => {
-        const Category : String = String(params.value);
-          return <Typography fontWeight={'medium'} color={'text.secondary'}>{Category}</Typography>
-        }
+      renderCell: (params: GridCellParams) => {
+        const Category: String = String(params.value);
+        return <Typography fontWeight={'medium'} color={'text.secondary'}>{Category}</Typography>
+      }
     },
     {
       field: 'year',
@@ -170,7 +170,7 @@ export function Datatable() {
       headerAlign: 'left',
       valueGetter: (params: GridValueGetterParams) => params.value,
       renderCell: (params: GridCellParams) => {
-      const year : String = String(params.value);
+        const year: String = String(params.value);
         return <Typography fontWeight={'medium'} color={'text.secondary'}>{year}</Typography>
       }
     },
@@ -183,16 +183,16 @@ export function Datatable() {
       headerAlign: 'left',
       renderCell: (params: GridCellParams) => {
         const value: number = params.value as number;
-        const formattedValue: string = `${(value*100).toFixed(0)}%`;
-        
+        const formattedValue: string = `${(value * 100).toFixed(0)}%`;
+
         return <div>
           <Typography fontWeight={'bold'} color={'text.secondary'} style={{ width: 50 }}>{formattedValue}
           </Typography>
-          <BorderLinearProgress  variant="determinate" value={Number((Number(params.value)*100).toFixed(0))} />
-          </div>
+          <BorderLinearProgress variant="determinate" value={Number((Number(params.value) * 100).toFixed(0))} />
+        </div>
       }
     },
-    
+
     ...riskColumns.map((factor) => ({
       field: factor,
       headerName: factor.includes('sealevelrise') ? 'Sea Level Rise' : factor.includes('extremeheat') ? 'Extreme Heat' : factor.includes('extremecold') ? 'Extreme Cold' : factor.charAt(0).toUpperCase() + factor.slice(1),
@@ -202,19 +202,19 @@ export function Datatable() {
       valueGetter: (params: GridValueGetterParams) => params.row.riskFactors[factor],
       renderCell: (params: GridCellParams) => {
         const value: number = params.value as number;
-        const formattedValue: string = `${(value*100).toFixed(0)}%`;
+        const formattedValue: string = `${(value * 100).toFixed(0)}%`;
         return <div>
           <Typography fontWeight={params.value ? 'bold' : 'medium'}
             fontSize={`${params.value ? '1rem' : '0.8rem'}`}
             color={params.value ? 'text.secondary' : '#FF6961'}
             align='center'
             style={{ width: 50 }}>
-            <span style={{display: `${params.value ? '' : 'flex'}`}}>
-            {params.value ? formattedValue : 'No Data'}
+            <span style={{ display: `${params.value ? '' : 'flex'}` }}>
+              {params.value ? formattedValue : 'No Data'}
             </span>
           </Typography>
-          <BorderLinearProgress sx={{display: `${params.value ? 'block' : 'none'}`}}  variant="determinate" value={Number((Number(params.value)*100).toFixed(0))} />
-          </div>
+          <BorderLinearProgress sx={{ display: `${params.value ? 'block' : 'none'}` }} variant="determinate" value={Number((Number(params.value) * 100).toFixed(0))} />
+        </div>
       }
     })) as GridColDef[]
   ];
@@ -222,10 +222,10 @@ export function Datatable() {
   const getRowId = (data: any) => data.number;
 
   return (
-    <div style={{ background: 'black', height: 'fit-content'}}>
-      <div style={{ background: 'black', display: 'flex', justifyContent: 'center', gap: '8%', marginBottom: '4%', flexWrap: 'wrap' }}>
+    <div style={{ background: 'inherit', height: 'fit-content' }}>
+      <div style={{ display: props.showAll ? 'flex' : 'none', background: 'inherit', justifyContent: 'center', gap: '8%', marginBottom: '4%', flexWrap: 'wrap' }}>
         <Cards data={sortedDataFiltered} subheading='High Risk Factors' info='Data is aggregated for the given page' />
-      </div>    
+      </div>
       <div style={{ background: '#222222', alignItems: 'center', height: '100%', width: '' }}>
         <StyledDataGrid
           getRowId={getRowId}
@@ -238,7 +238,7 @@ export function Datatable() {
           onPaginationModelChange={setPaginationModel}
           loading={isLoading}
           components={{ Toolbar: CustomToolbar }}
-          style={{ minWidth: '100%', minHeight: '60vh', maxHeight: '90vh', height: '100%', border: '1px solid #404040'}}
+          style={{ minWidth: '100%', minHeight: '60vh', maxHeight: '90vh', height: '100%', border: '1px solid #404040' }}
           getRowClassName={(params) =>
             params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
           }

@@ -16,13 +16,10 @@ const getIconUrl = (rating : number) => {
   let scaledSize;
   if (rating >= 60) {
     color = "red";
-    scaledSize = new window.google.maps.Size(40, 40);
   } else if (rating > 40 && rating < 60) {
     color = "orange";
-    scaledSize = new window.google.maps.Size(50, 50);
   } else {
     color = "green";
-    scaledSize = new window.google.maps.Size(60, 60);
   }
   return `http://maps.google.com/mapfiles/ms/icons/${color}-dot.png`;
 };
